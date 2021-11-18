@@ -1,0 +1,13 @@
+@charset "UTF-8";
+@import "de.variables.scss";
+@import "de.classes.scss";
+
+// main
+@media screen and (max-width: 600px) {
+  #main {
+    padding: 0px;
+  }
+  quote .quote--outer {
+    border-radius: 0px;
+  }
+}

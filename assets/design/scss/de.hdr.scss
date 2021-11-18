@@ -1,0 +1,142 @@
+@charset "UTF-8";
+@import "de.variables.scss";
+@import "de.classes.scss";
+
+#main-hdr {
+  width: 100%;
+  left: 0;
+  margin: 24px 0 0;
+  z-index: 100;
+  position: fixed;
+  visibility: visible;
+  opacity: 1;
+  margin-top: 24px;
+  transition: all 0.4s cubic-bezier(0.1, 0.82, 0.25, 1);
+
+  .friendrequest.hasRequest {
+    color: var(--colour-red);
+  }
+}
+
+#main-hdr.scrolled {
+  margin-top: -100px;
+  visibility: hidden;
+  opacity: 0;
+}
+
+#intern-hdr.scrolled,
+.intern-head-tools.scrolled {
+  visibility: hidden;
+  opacity: 0;
+}
+
+#main-hdr .middle-logo--outer .lo-sizing {
+  width: 64px;
+  height: 64px;
+  position: relative;
+}
+
+#main-hdr .middle-logo--outer .lo-sizing .logo {
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+  background: transparent
+    url(https://images.thinkquotes.de/global/new.logo.thq.png) center no-repeat;
+  background-size: cover;
+}
+
+#main-hdr .middle-logo--outer .lo-sizing .logo img {
+  display: block;
+  margin: 0 auto;
+  height: 100%;
+  border: 0;
+  outline: none;
+}
+
+#main-hdr .inr {
+  padding: 24px;
+  margin: 0 auto;
+  width: calc(100% - 48px);
+  max-width: $main-menu-width;
+}
+
+#main-hdr .inr .lt-content,
+#main-hdr .inr .rt-content {
+  position: relative;
+}
+
+#main-hdr .inr .lt-content {
+  float: left;
+  width: 50%;
+}
+
+#main-hdr .inr .rt-content {
+  float: right;
+  width: 50%;
+}
+
+#main-hdr .inr .lt-content .base-menu {
+  position: relative;
+}
+
+#main-hdr .inr .lt-content .base-menu .bm {
+  margin-right: 12px;
+  cursor: pointer;
+}
+
+#main-hdr .inr .lt-content .base-menu .bm {
+  transition: all 0.1s linear;
+  border: 1px solid transparent;
+  color: var(--colour-light);
+  line-height: 3em;
+  position: relative;
+  height: 48px;
+}
+
+#main-hdr .inr .lt-content .base-menu .bm.single {
+  width: 48px;
+  overflow: hidden;
+}
+
+#main-hdr .inr .lt-content .base-menu .bm.duo {
+  padding: 0 12px;
+}
+
+#main-hdr .inr .lt-content .base-menu .bm:hover {
+  border: 1px solid var(--colour-light);
+}
+
+#main-hdr .inr .lt-content .base-menu .bm.active {
+  background: var(--colour-light);
+  color: var(--colour-dark);
+}
+
+usermainmenu {
+  display: block;
+}
+
+usermainmenu .kek {
+  position: relative;
+  height: 48px;
+  width: 48px;
+  color: var(--colour-light);
+  cursor: pointer;
+}
+
+usermainmenu .kek .kek-inr {
+  height: 100%;
+  width: 100%;
+}
+
+usermainmenu .kek.icon .kek-inr p {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.48);
+}
+
+usermainmenu .kek.user {
+  background: var(--colour-red);
+  border-radius: 50%;
+}

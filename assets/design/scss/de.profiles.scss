@@ -1,0 +1,13 @@
+@charset "UTF-8";
+@import "de.variables.scss";
+
+.u-hdr {
+  background: var(--colour-orange-300);
+}
+
+.u-hdr .u-hdr-inr {
+  margin: 0 auto;
+  padding: 48px 32px;
+  width: 100%;
+  max-width: $main-main-width - 48px;
+}
