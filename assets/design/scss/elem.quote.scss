@@ -2,11 +2,15 @@
 @import "de.variables.scss";
 @import "de.classes.scss";
 
-.quote-grid > quote {
-  break-inside: avoid;
-  display: grid;
-  position: relative;
-  transition: all 0.1s linear;
+create-grid {
+  .grid {
+    & > quote {
+      break-inside: avoid;
+      display: grid;
+      position: relative;
+      transition: all 0.1s linear;
+    }
+  }
 }
 
 quote .q-inr {

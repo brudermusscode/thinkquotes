@@ -459,6 +459,78 @@
   }
 }
 
+// ---------------
+// intern: dev team
+// ---------------
+
+create-grid {
+  .grid {
+    .rank-card {
+      position: relative;
+      break-inside: avoid;
+      display: grid;
+      position: relative;
+      transition: all 0.1s linear;
+
+      @extend .rd12, .mshd-2;
+
+      .rc-inr {
+        padding: 48px;
+
+        .top-section {
+          width: 100%;
+
+          .icon {
+            @extend .lt;
+
+            span {
+              color: white;
+              font-weight: 700;
+            }
+          }
+
+          .image-outer {
+            height: 62px;
+            width: 62px;
+            top: -12px;
+            right: -12px;
+
+            @extend .rt, .posrel, .rd6, .ovhid, .mshd-1;
+
+            .actual {
+              height: 100%;
+              width: 100%;
+              background-position: center;
+              background-size: cover;
+            }
+          }
+        }
+
+        .bottom-section {
+          width: 100%;
+
+          .username {
+            color: white;
+            font-size: 1.4em;
+            font-weight: 300;
+          }
+
+          .rankname {
+            color: rgba(255, 255, 255, 0.86);
+            font-size: 0.8em;
+            letter-spacing: 0.1em;
+            font-weight: 700;
+          }
+        }
+      }
+
+      &.green {
+        background: #104e5b;
+      }
+    }
+  }
+}
+
 // intern: general
 @media screen and (max-width: 1000px) {
   .intern-head-tools {

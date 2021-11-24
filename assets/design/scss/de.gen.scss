@@ -317,6 +317,24 @@ response-overlay * {
   }
 }
 
+// general used grid
+create-grid {
+  display: block;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+
+  .grid {
+    --gap: 1em;
+    --columns: var(--masonry-coloumns-index);
+    width: 100%;
+    display: column;
+    columns: var(--columns);
+    gap: var(--gap);
+    position: relative;
+  }
+}
+
 quotes-outer {
   display: block;
   margin: 0;
