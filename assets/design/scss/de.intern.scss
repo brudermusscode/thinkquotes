@@ -462,72 +462,95 @@
 // ---------------
 // intern: dev team
 // ---------------
-
 create-grid {
   .grid {
-    .rank-card {
-      position: relative;
-      break-inside: avoid;
-      display: grid;
-      position: relative;
-      transition: all 0.1s linear;
+    --gap: 1em;
+    --columns: 3;
+  }
+}
 
-      @extend .rd12, .mshd-2;
+// #issue: rank card resizes when text too long
+.rank-card {
+  max-width: 100%;
 
-      .rc-inr {
-        padding: 48px;
+  @extend .rd12, .mshd-2;
 
-        .top-section {
-          width: 100%;
+  .rc-inr {
+    padding: 48px;
 
-          .icon {
-            @extend .lt;
+    .top-section {
+      width: 100%;
 
-            span {
-              color: white;
-              font-weight: 700;
-            }
-          }
+      .icon {
+        @extend .lt;
 
-          .image-outer {
-            height: 62px;
-            width: 62px;
-            top: -12px;
-            right: -12px;
-
-            @extend .rt, .posrel, .rd6, .ovhid, .mshd-1;
-
-            .actual {
-              height: 100%;
-              width: 100%;
-              background-position: center;
-              background-size: cover;
-            }
-          }
-        }
-
-        .bottom-section {
-          width: 100%;
-
-          .username {
-            color: white;
-            font-size: 1.4em;
-            font-weight: 300;
-          }
-
-          .rankname {
-            color: rgba(255, 255, 255, 0.86);
-            font-size: 0.8em;
-            letter-spacing: 0.1em;
-            font-weight: 700;
-          }
+        span {
+          color: rgba(255, 255, 255, 0.48);
+          font-weight: 700;
         }
       }
 
-      &.green {
-        background: #104e5b;
+      .image-outer {
+        height: 62px;
+        width: 62px;
+        top: -12px;
+        right: -12px;
+
+        @extend .rt, .posrel, .rd6, .ovhid, .mshd-1;
+
+        .actual {
+          height: 100%;
+          width: 100%;
+          background-position: center;
+          background-size: cover;
+        }
       }
     }
+
+    .bottom-section {
+      width: 100%;
+
+      .username {
+        color: white;
+        font-size: 1.4em;
+        font-weight: 300;
+      }
+
+      .rankname {
+        color: rgba(255, 255, 255, 0.86);
+        font-size: 0.8em;
+        letter-spacing: 0.1em;
+        font-weight: 700;
+      }
+    }
+  }
+
+  .social-media {
+    background: rgba(255, 255, 255, 0.12);
+    padding: 24px 32px;
+
+    @extend .posrel;
+
+    a {
+      background: transparent;
+      padding: 6px 12px;
+
+      @extend .tran-all, .posrel, .disbl, .rd6;
+
+      &:hover {
+        background: rgba(0, 0, 0, 0.12);
+      }
+    }
+
+    .a {
+      & > p {
+        color: white;
+      }
+    }
+  }
+
+  &.green {
+    background: #104e5b;
   }
 }
 
