@@ -19,13 +19,13 @@ include_once "./assets/templates/global/header.php";
         </div>
     </label>
 
-    <quotes-outer class="mb32" data-load="content:quotes" data-json='[{"page":"<?php echo $page; ?>","order":"upvotes","limit":"40","uid":"0"}]'>
+    <create-grid class="mb32" data-load="content:quotes" data-json='[{"page":"<?php echo $page; ?>","order":"upvotes","limit":"40","uid":"0"}]'>
 
         <div class="actual"></div>
 
         <?php include_once "./assets/dynamics/content/quotes-loading.php"; ?>
 
-    </quotes-outer>
+    </create-grid>
 
 </div>
 

@@ -110,7 +110,7 @@ if (isset($_POST["page"], $_POST["order"], $_POST["limit"], $_POST["uid"])) {
 
 ?>
 
-        <div data-element="quote:grid" class="inr quote-grid">
+        <div data-element="quote:grid" class="inr grid">
 
             <?php
 

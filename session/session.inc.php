@@ -295,4 +295,7 @@ if ($isLoggedIn) {
 }
 
 
+// global
+$sroot = $_SERVER['DOCUMENT_ROOT'];
+
 include_once 'functions.inc.php';
