@@ -21,13 +21,13 @@ if (isset($subpage) && $subpage === "favorites") {
         </div>
     </label>
 
-    <quotes-outer class="mb32" data-load="content:quotes" data-json='[{"page":"profiles:favorites","order":"upvotes","limit":"20","uid":"<?php echo $user->id; ?>"}]'>
+    <create-grid class="mb32" data-load="content:quotes" data-json='[{"page":"profiles:favorites","order":"upvotes","limit":"20","uid":"<?php echo $user->id; ?>"}]'>
 
         <div class="actual"></div>
 
         <?php include_once "../assets/dynamics/content/quotes-loading.php"; ?>
 
-    </quotes-outer>
+    </create-grid>
 
 <?php
 
