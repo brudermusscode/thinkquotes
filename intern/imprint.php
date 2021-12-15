@@ -43,7 +43,7 @@ include_once "../assets/templates/global/header.php";
                         <p class="posrel lt mr12" style="color:white;background:var(--colour-bluegrey);border-radius:50%;height:32px;width:32px;">
                             <span class="posabs alignmiddle material-icons-round md-24">web</span>
                         </p>
-                        <p class="lt mt6">Datenschutzerklärung: <a href="<?php echo $main["internurl"]; ?>/privacy"><?php echo $main["internurl"]; ?>/privacy</a></p>
+                        <p class="lt mt6">Datenschutzerklärung: <a href="<?php echo $url->intern; ?>/privacy"><?php echo $url->intern; ?>/privacy</a></p>
 
                         <div class="cl"></div>
                     </div>
@@ -56,7 +56,7 @@ include_once "../assets/templates/global/header.php";
                     <p class="trimt">Kontaktmöglichkeiten</p>
 
                     <div class="nice-render-outer">
-                        <div class="nice-render" style="background:url(<?php echo $main["imageurl"]; ?>/intern/400/101.png) top center / cover no-repeat;">
+                        <div class="nice-render" style="background:url(<?php echo $url->img; ?>/intern/400/101.png) top center / cover no-repeat;">
                         </div>
                     </div>
                 </div>

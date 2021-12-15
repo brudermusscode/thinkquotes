@@ -8,7 +8,7 @@ if (isset($subpage) && $subpage === "profile") {
         <div class="inr">
             <div>
                 <p class="ttup">
-                    <?php if ($isLoggedIn && $user->uid === $my['id']) {
+                    <?php if ($isLoggedIn && $user->uid === $my->id) {
                         echo "Your quotes";
                     } else {
                         echo "My quotes";
@@ -23,7 +23,7 @@ if (isset($subpage) && $subpage === "profile") {
 
         <div class="actual"></div>
 
-        <?php include_once "../assets/dynamics/content/quotes-loading.php"; ?>
+        <?php include_once $sroot . "/assets/dynamics/content/quotes-loading.php"; ?>
 
     </create-grid>
 

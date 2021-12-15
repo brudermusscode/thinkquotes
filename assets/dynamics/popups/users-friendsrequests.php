@@ -1,13 +1,14 @@
 <?php
 
-require_once "./../../../session/session.inc.php";
+// require mysql connection and session data
+require_once $_SERVER["DOCUMENT_ROOT"] . "/session/session.inc.php";
 
 if (isset($_POST) && $isLoggedIn) {
 
     $pdo->beginTransaction();
     // update friendrequests settings
     $update = $pdo->prepare("UPDATE users_settings SET check_friendrequests = 'true' WHERE uid = ?");
-    $update->execute([$sessionid]);
+    $update->execute([$my->id]);
     if ($update)
         $pdo->commit();
 
@@ -52,7 +53,7 @@ if (isset($_POST) && $isLoggedIn) {
 
                         if ($getFriendsRequests->rowCount() < 1) {
 
-                            include_once "./assets/dynamics/content/friends-requests-empty.php";
+                            include_once $sroot . "/assets/dynamics/content/friends-requests-empty.php";
                         } else {
 
                             $timeAgoObject = new convertToAgo;
@@ -117,9 +118,8 @@ if (isset($_POST) && $isLoggedIn) {
 
                         <?php
 
-                            } // foreach
-
-                        } // else if
+                            }
+                        }
 
                         ?>
 

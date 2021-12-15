@@ -7,9 +7,9 @@ if (!$is_page) {
 if ($isLoggedIn) {
 
     // check for friendrequests
-    $friends = new friends;
     $hasFriendsRequests = $friends->getFriendrequests($sessionid);
 
+    // get count of friendrequests
     $frcount = $hasFriendsRequests;
 }
 
@@ -47,7 +47,7 @@ if ($isLoggedIn) {
             <div data-structure="header:base-menu" class="base-menu disfl fldirrow">
                 <div class="bm single rd6 <?php if ($page === "index") {
                                                 echo "active";
-                                            } ?>" onclick="window.location.replace('<?php echo $main['url']; ?>');">
+                                            } ?>" onclick="window.location.replace('<?php echo $url->main; ?>');">
                     <p class="alignmiddle posabs">
                         <span class="material-icons-round md-24">space_dashboard</span>
                     </p>
@@ -55,7 +55,7 @@ if ($isLoggedIn) {
 
                 <div class="bm single rd6 <?php if ($page === "intern") {
                                                 echo "active";
-                                            } ?>" onclick="window.location.replace('<?php echo $main['internurl']; ?>');">
+                                            } ?>" onclick="window.location.replace('<?php echo $url->intern; ?>');">
                     <p class="alignmiddle posabs">
                         <span class="material-icons-round md-24">policy</span>
                     </p>
@@ -77,7 +77,7 @@ if ($isLoggedIn) {
                     <usermainmenu>
 
                         <div class="disfl fldirrow">
-                            <hellofresh <?php if ($my["permissions"] === "none") { ?>disabled="true" <?php } ?> data-action="popup:quotes,add" class="hellofresh green rd6 icon-only shadowed mr12">
+                            <hellofresh <?php if ($my->permissions == "none") { ?>disabled="true" <?php } ?> data-action="popup:quotes,add" class="hellofresh green rd6 icon-only shadowed mr12">
                                 <div class="c-ripple js-ripple">
                                     <span class="c-ripple__circle"></span>
                                 </div>
@@ -105,13 +105,13 @@ if ($isLoggedIn) {
 
                             <div data-react="check:friends,request" class="posrel" style="z-index:2;" travelhereboy>
 
-                                <hellofresh data-action="dropdown:open" class="<?php if ($my["check_friendrequests"] === "false") {
+                                <hellofresh data-action="dropdown:open" class="<?php if ($my->check_friendrequests == "false") {
                                                                                     echo "pulse";
                                                                                 } ?> hellofresh red dark clean rd6 big circled text-shadowed icon-only">
                                     <div class="c-ripple js-ripple">
                                         <span class="c-ripple__circle"></span>
                                     </div>
-                                    <p class="lt posabs alignmiddle"><?php echo substr($my["username"], 0, 1) ?></p>
+                                    <p class="lt posabs alignmiddle"><?php echo substr($my->username, 0, 1) ?></p>
 
                                     <div class="cl"></div>
                                 </hellofresh>
@@ -131,7 +131,7 @@ if ($isLoggedIn) {
                                                 <div data-react="remove:friendrequest,container">
                                                     <div style="border-bottom:1px solid rgba(0,0,0,.06);margin:4px 12px;height:1px;"></div>
 
-                                                    <li data-action="popup:users,friendrequests" class="friendrequest <?php if ($my["check_friendrequests"] === "false") echo "hasRequest"; ?> has-icon trimt">
+                                                    <li data-action="popup:users,friendrequests" class="friendrequest <?php if ($my->check_friendrequests === "false") echo "hasRequest"; ?> has-icon trimt">
                                                         <p class="align-mid-vert">
                                                             <span class="material-icons-round md-18">emoji_people</span>
                                                         </p>

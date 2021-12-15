@@ -41,17 +41,17 @@ include_once "../assets/templates/global/header.php";
 
             <?php
 
-            $getInternSectionsCards = $pdo->prepare("SELECT * FROM intern_main_cards WHERE sid = ?");
+            $getInternSectionsCards = $pdo->prepare("SELECT *, url AS iurl FROM intern_main_cards WHERE sid = ?");
             $getInternSectionsCards->execute([$section->id]);
 
             foreach ($getInternSectionsCards as $card) {
 
             ?>
 
-                <a href="<?php echo $main["internurl"]; ?>/<?php echo $card->url; ?>">
+                <a href="<?php echo $url->intern; ?>/<?php echo $card->iurl; ?>">
                     <div class="element">
-                        <div class="render" style="background:url(<?php echo $main["imageurl"]; ?>/<?php echo $card->image; ?>) top right / cover no-repeat;">
-                            <img onload="fadeInVisOpaBg($(this).parents().eq(1))" src="<?php echo $main["imageurl"]; ?>/<?php echo $card->image; ?>">
+                        <div class="render" style="background:url(<?php echo $url->img; ?>/<?php echo $card->image; ?>) top right / cover no-repeat;">
+                            <img onload="fadeInVisOpaBg($(this).parents().eq(1))" src="<?php echo $url->img; ?>/<?php echo $card->image; ?>">
                         </div>
 
                         <div class="ud-inr">

@@ -25,7 +25,7 @@ if (isset($subpage) && $subpage === "favorites") {
 
         <div class="actual"></div>
 
-        <?php include_once "../assets/dynamics/content/quotes-loading.php"; ?>
+        <?php include_once $sroot . "/assets/dynamics/content/quotes-loading.php"; ?>
 
     </create-grid>
 

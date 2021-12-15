@@ -1,6 +1,7 @@
 <?php
 
-require_once "./../../../session/session.inc.php";
+// require mysql connection and session data
+require_once $_SERVER["DOCUMENT_ROOT"] . "/session/session.inc.php";
 
 if (
     isset($_POST["qid"])
@@ -9,7 +10,7 @@ if (
 ) {
 
     $qid = $_POST["qid"];
-    $guid = $_SESSION['id'];
+    $guid = $my->id;
 
     // check quotes existence
     $getQuote = $pdo->prepare("
@@ -110,12 +111,12 @@ if (
 
                                 // get categories
                                 $getCategories = $pdo->prepare("
-                                        SELECT * 
-                                        FROM quotes_categories_used, quotes_categories 
-                                        WHERE quotes_categories_used.cid = quotes_categories.id
-                                        AND quotes_categories_used.qid = ?
-                                        ORDER BY quotes_categories_used.id
-                                    ");
+                                    SELECT * 
+                                    FROM quotes_categories_used, quotes_categories 
+                                    WHERE quotes_categories_used.cid = quotes_categories.id
+                                    AND quotes_categories_used.qid = ?
+                                    ORDER BY quotes_categories_used.id
+                                ");
                                 $getCategories->execute([$q->qid]);
 
                                 foreach ($getCategories->fetchAll() as $cat) {

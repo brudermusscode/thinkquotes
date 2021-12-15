@@ -49,7 +49,7 @@ include_once $sroot . "/assets/templates/global/header.php";
                                             <span class="material-icons-round md-32"><?php echo $member->icon; ?></span>
                                         </div>
                                         <div class="image-outer">
-                                            <div class="actual" style="background-image:url(<?php echo $main["imageurl"]; ?>/<?php echo $member->image; ?>);">
+                                            <div class="actual" style="background-image:url(<?php echo $url->img; ?>/<?php echo $member->image; ?>);">
                                                 <img src="">
                                             </div>
                                         </div>

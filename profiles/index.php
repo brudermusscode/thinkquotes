@@ -4,13 +4,12 @@ $is_page = true;
 $page = "profiles";
 
 // mysql database
-require_once "../session/session.inc.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/session/session.inc.php";
 
 // logic
 include_once "logic.php";
 
 // friends
-$friends = new friends;
 $fr = $friends->getFriends($user->uid);
 $frofr = $friends->getFriendsOfFriends($user->uid);
 

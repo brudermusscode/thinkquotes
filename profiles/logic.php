@@ -1,8 +1,8 @@
 <?php
 
-$itsMe = FALSE;
+$itsMe = false;
 
-if (isset($_GET["page"], $_GET["userid"])) {
+if (isset($_GET["page"], $_GET["userid"], $is_page)) {
 
     // define valid subpages
     $validPages = [
@@ -10,8 +10,8 @@ if (isset($_GET["page"], $_GET["userid"])) {
         "favorites"
     ];
 
-    $subpage = only($_GET["page"], "let");
-    $u = only($_GET["userid"], "num");
+    $subpage = $collection->only($_GET["page"], "let");
+    $u = $collection->only($_GET["userid"], "num");
 
     // check user exists
     $getUser = $pdo->prepare("
@@ -27,7 +27,7 @@ if (isset($_GET["page"], $_GET["userid"])) {
         // check if user is me
         if ($isLoggedIn) {
             if ($u === $_SESSION['id']) {
-                $itsMe = TRUE;
+                $itsMe = true;
             }
         }
         // fetch user information

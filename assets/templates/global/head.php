@@ -13,7 +13,7 @@ if (!$is_page) {
 
     <meta charset="UTF-8" />
 
-    <title><?php echo $main['name']; ?> - Your Daily Dose of Mindfulness</title>
+    <title><?php echo $main->name; ?> - Your Daily Dose of Mindfulness</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name='description' content="Your Daily Dose of Mindfulness" />
@@ -21,40 +21,40 @@ if (!$is_page) {
     <meta property="og:image" content="bee01.png" />
     <meta property="og:title" content="" />
     <meta property="og:url" content="http://<?php echo $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI']; ?>" />
-    <meta property="og:site_name" content="<?php echo $main['name']; ?>" />
+    <meta property="og:site_name" content="<?php echo $main->name; ?>" />
     <meta property="og:type" content="website" />
 
-    <link rel="shortcut icon" href="<?php echo $main["imageurl"]; ?>/global/new.logo.thq.png" type="image/x-icon">
+    <link rel="shortcut icon" href="<?php echo $url->img; ?>/global/new.logo.thq.png" type="image/x-icon">
 
     <!-- STYLESHEETS -->
     <link rel="stylesheet" href="https://storage.googleapis.com/non-spec-apps/mio-icons/latest/round.css">
-    <link rel="stylesheet" href="<?php echo $main["cssurl"]; ?>/de.normalize.css" />
-    <link rel="stylesheet" href="<?php echo $main["cssurl"]; ?>/de.gen.css" />
-    <link rel="stylesheet" href="<?php echo $main["cssurl"]; ?>/elem.quote.css" />
-    <link rel="stylesheet" href="<?php echo $main["cssurl"]; ?>/de.animations.css" />
-    <link rel="stylesheet" href="<?php echo $main["cssurl"]; ?>/de.elements.css" />
-    <link rel="stylesheet" href="<?php echo $main["cssurl"]; ?>/de.hdr.css" />
-    <link rel="stylesheet" href="<?php echo $main["cssurl"]; ?>/de.classes.css" />
-    <link rel="stylesheet" href="<?php echo $main["cssurl"]; ?>/de.responsiveness.css" />
+    <link rel="stylesheet" href="<?php echo $url->css; ?>/de.normalize.css" />
+    <link rel="stylesheet" href="<?php echo $url->css; ?>/de.gen.css" />
+    <link rel="stylesheet" href="<?php echo $url->css; ?>/elem.quote.css" />
+    <link rel="stylesheet" href="<?php echo $url->css; ?>/de.animations.css" />
+    <link rel="stylesheet" href="<?php echo $url->css; ?>/de.elements.css" />
+    <link rel="stylesheet" href="<?php echo $url->css; ?>/de.hdr.css" />
+    <link rel="stylesheet" href="<?php echo $url->css; ?>/de.classes.css" />
+    <link rel="stylesheet" href="<?php echo $url->css; ?>/de.responsiveness.css" />
     <?php if ($page === "maintenance") { ?>
-        <link rel="stylesheet" href="<?php echo $main["cssurl"]; ?>/de.maintenance.css" />
+        <link rel="stylesheet" href="<?php echo $url->css; ?>/de.maintenance.css" />
     <?php } else if ($page === "profiles") { ?>
-        <link rel="stylesheet" href="<?php echo $main["cssurl"]; ?>/de.profiles.css" />
+        <link rel="stylesheet" href="<?php echo $url->css; ?>/de.profiles.css" />
     <?php } else if ($page === "intern") { ?>
-        <link rel="stylesheet" href="<?php echo $main["cssurl"]; ?>/de.intern.css" />
+        <link rel="stylesheet" href="<?php echo $url->css; ?>/de.intern.css" />
     <?php } ?>
 
     <!-- SCRIPTS -->
-    <script src="<?php echo $main["scripturl"]; ?>/thirdparty/de.jquery.3.js"></script>
-    <script src="<?php echo $main["scripturl"]; ?>/thirdparty/de.cookie.min.js"></script>
-    <script src="<?php echo $main["scripturl"]; ?>/thirdparty/de.masonry.js"></script>
-    <script src="<?php echo $main["scripturl"]; ?>/thirdparty/de.public.suffix.list.js"></script>
-    <script src="<?php echo $main["scripturl"]; ?>/de.core.min.js"></script>
-    <script src="<?php echo $main["scripturl"]; ?>/de.useful.min.js"></script>
-    <script src="<?php echo $main["scripturl"]; ?>/users/users.functions.min.js"></script>
-    <script src="<?php echo $main["scripturl"]; ?>/users/users.get.min.js"></script>
-    <script src="<?php echo $main["scripturl"]; ?>/quotes/quotes.get.min.js"></script>
-    <script src="<?php echo $main["scripturl"]; ?>/quotes/quotes.functions.min.js"></script>
+    <script src="<?php echo $url->js; ?>/thirdparty/de.jquery.3.js"></script>
+    <script src="<?php echo $url->js; ?>/thirdparty/de.cookie.min.js"></script>
+    <script src="<?php echo $url->js; ?>/thirdparty/de.masonry.js"></script>
+    <script src="<?php echo $url->js; ?>/thirdparty/de.public.suffix.list.js"></script>
+    <script src="<?php echo $url->js; ?>/de.core.min.js"></script>
+    <script src="<?php echo $url->js; ?>/de.useful.min.js"></script>
+    <script src="<?php echo $url->js; ?>/users/users.functions.min.js"></script>
+    <script src="<?php echo $url->js; ?>/users/users.get.min.js"></script>
+    <script src="<?php echo $url->js; ?>/quotes/quotes.get.min.js"></script>
+    <script src="<?php echo $url->js; ?>/quotes/quotes.functions.min.js"></script>
 
     <style>
         .spin-cubic-endless {
@@ -162,7 +162,7 @@ if (!$is_page) {
 
         <?php if (!isset($_COOKIE["leckercoronabier"])) { ?>
             <div class="cookiezi-banner mshd-3">
-                <p class="lt isDark inr trimt">We use cookies! Read more about it <a href="<?php echo $main["internurl"]; ?>/privacy#m6">here</a>...</p>
+                <p class="lt isDark inr trimt">We use cookies! Read more about it <a href="<?php echo $url->intern; ?>/privacy#m6">here</a>...</p>
                 <div class="align-mid-vert posabs cb-close" data-action="cookie:cookies,accept">
                     <span class="material-icons-round md-24">close</span>
                 </div>
