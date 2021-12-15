@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://images.thinkquotes.de/global/new.logo.thq.png" alt="The Logo!"/>
+  <img src="https://images.thinkquotes.de/global/new.logo.thq.png" alt="The Logo!" width="100px" />
 </p>
 
 # ThinkQuotes
