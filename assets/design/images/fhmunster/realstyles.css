@@ -1,0 +1,461 @@
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons+Round");
+@import url("https://images.thinkquotes.de/fhmunster/classes.css");
+
+:root {
+  --image-url: "https://images.thinkquotes.de";
+  --colour-orange: #c17809;
+  --colour-orange-100: #ffa10b;
+  --colour-orange-200: #ffb43c;
+  --colour-orange-300: #ffcb77;
+  --colour-orange-400: #ffe5bb;
+  --colour-lila: #751e9d;
+  --colour-pink: #e74de2;
+  --colour-red: #ea8399;
+  --colour-darkred: #a53e54;
+  --colour-pink: #e74de2;
+  --colour-dark: #1c313a;
+  --colour-light: #ffe9d8;
+  --colour-grey: #8a96a0;
+  --colour-green: #419e15;
+  --masonry-spacer-index: 1rem;
+  --masonry-coloumns-index: 3;
+  --main-width: 1280px;
+}
+
+.material-icons-round {
+  display: block;
+  line-height: 0.8;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+a,
+a:hover,
+a:active,
+a:focus {
+  text-decoration: none;
+  border: 0;
+  outline: 0;
+}
+
+* {
+  font-family: "Roboto", sans-serif;
+  font-size: 100%;
+  letter-spacing: -0.01em !important;
+  font-weight: 300;
+}
+.html,
+body {
+  background-color: #1c313a !important;
+  overflow-x: hidden;
+}
+.mshd-1 {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+.mshd-2 {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+.mshd-3 {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
+.mshd-4 {
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+.mshd-5 {
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+}
+
+header {
+  display: none !important;
+}
+
+.wrap,
+.container-fluid,
+section#content,
+.col-xs-1,
+.col-sm-1,
+.col-md-1,
+.col-lg-1,
+.col-xs-2,
+.col-sm-2,
+.col-md-2,
+.col-lg-2,
+.col-xs-3,
+.col-sm-3,
+.col-md-3,
+.col-lg-3,
+.col-xs-4,
+.col-sm-4,
+.col-md-4,
+.col-lg-4,
+.col-xs-5,
+.col-sm-5,
+.col-md-5,
+.col-lg-5,
+.col-xs-6,
+.col-sm-6,
+.col-md-6,
+.col-lg-6,
+.col-xs-7,
+.col-sm-7,
+.col-md-7,
+.col-lg-7,
+.col-xs-8,
+.col-sm-8,
+.col-md-8,
+.col-lg-8,
+.col-xs-9,
+.col-sm-9,
+.col-md-9,
+.col-lg-9,
+.col-xs-10,
+.col-sm-10,
+.col-md-10,
+.col-lg-10,
+.col-xs-11,
+.col-sm-11,
+.col-md-11,
+.col-lg-11,
+.col-xs-12,
+.col-sm-12,
+.col-md-12,
+.col-lg-12 {
+  padding: 0;
+}
+
+.arrow {
+  border: 0 !important;
+  outline: none;
+}
+
+.anus {
+  color: white;
+}
+
+#content #myfhContent {
+  width: 96vw;
+  margin: 0 auto;
+}
+
+#content #myfhContent .my-button {
+  display: block;
+  position: relative;
+  margin: 0;
+  border: 0;
+  padding: 0;
+  outline: none;
+  transition: all 0.1s linear;
+  overflow: hidden;
+  font-weight: 600 !important;
+  line-height: 3.8em;
+  padding: 0 0px;
+  font-size: 0.92em !important;
+  border-radius: 4px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.3);
+  transition: all 0.1s linear !important;
+}
+#content #myfhContent .my-button:hover {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  color: white !important;
+}
+#content #myfhContent .my-button:hover,
+#content #myfhContent .my-button:focus {
+  outline: 0;
+  text-decoration: none;
+}
+#content #myfhContent .my-button.gruen {
+  background-color: #ff6090;
+  color: white;
+}
+#content:before {
+  display: none;
+  height: 0px !important;
+  visibility: hidden;
+  top: -200% !important;
+}
+#content:after {
+  display: none;
+  height: 0px !important;
+  width: 100%;
+  background-size: auto 100%;
+  position: absolute;
+  left: -100000000px !important;
+  bottom: 0;
+}
+
+.head {
+  border-radius: 6px 6px 0 0;
+  padding: 24px 32px !important;
+  border: 0 !important;
+  color: white !important;
+  font-size: 1.2em !important;
+}
+
+.myfh-box {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  border: 0 !important;
+  border-radius: 6px;
+  background: white;
+}
+
+.head.gruen {
+  background-color: #880e4f !important;
+}
+
+.head.gelb {
+  background-color: #ff9800 !important;
+}
+
+#content #myfhContent #myfh-box-container .myfh-box .data-container {
+  padding: 0;
+}
+
+#content #myfhContent .my-table tr td,
+#content #myfhContent .my-table tr th {
+  border: 0 !important;
+  overflow: hidden;
+}
+
+#content #myfhContent .my-table tr td,
+#content #myfhContent .my-table tr {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+section#content #studium table tr td,
+section#content #fh-exam-anmeldung table tr td,
+section#content #my_messages table tr td {
+  vertical-align: top;
+  padding: 18px 32px;
+  border: 0 !important;
+  position: relative !important;
+}
+
+section#content table tr td {
+  color: #37474f !important;
+}
+
+section#content a {
+  display: block;
+  color: #b53d00 !important;
+  text-decoration: none;
+  padding-bottom: 4px !important;
+}
+#content #myfhContent #myfh-box-container .myfh-box#my_messages .seeAll {
+  font-family: Brown-Pro-Regular !important;
+  float: right;
+  font-size: 0px !important;
+}
+#content #myfhContent #myfh-box-container .myfh-box#my_messages .seeAll span {
+  height: 24px;
+  width: 24px;
+  color: black;
+  display: block;
+  font-size: 1em !important;
+  color: black !important;
+}
+.message .subject {
+  color: #b53d00 !important;
+  text-decoration: none;
+  padding: 0 0 8px !important;
+}
+.message .subject .date {
+  padding: 8px 0 0 !important;
+}
+.message .subject .date,
+.message .textcutt {
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.38) !important;
+  font-size: 0.8em !important;
+}
+
+footer .wrap .top {
+  border: 0;
+  outline: none;
+  display: none;
+}
+
+footer .wrap .mid {
+  background-color: #102027;
+  color: white;
+  padding: 56px;
+  padding-top: 0;
+}
+
+header .top {
+  padding: 0;
+}
+
+.myfh-box .head {
+  display: none !important;
+}
+#my_messages.myfh-box {
+  padding-top: 12px;
+}
+#my_messages.myfh-box .my-table {
+  width: 100%;
+}
+
+#my_messages.myfh-box tr {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+#my_messages.myfh-box .message {
+  width: calc(100%);
+  padding: 12px 42px 12px 120px;
+  position: relative;
+  cursor: pointer;
+}
+
+#my_messages.myfh-box .message .acon-u,
+#my_messages.myfh-box .message .acon {
+  top: 50%;
+  left: 48px;
+  transform: translateY(-50%);
+  position: absolute;
+  color: var(--colour-dark);
+}
+
+#my_messages.myfh-box .message .acon {
+  display: block;
+}
+
+#my_messages.myfh-box .message .acon-u {
+  display: none;
+  color: var(--colour-red);
+}
+
+#my_messages.myfh-box .message.unread .acon,
+#my_messages.myfh-box .message.unreaded .acon,
+#my_messages.myfh-box .message.active .acon {
+  display: none;
+}
+#my_messages.myfh-box .message.unread .acon-u,
+#my_messages.myfh-box .message.unreaded .acon-u,
+#my_messages.myfh-box .message.active .acon-u {
+  display: block;
+}
+#my_messages.myfh-box .message .sender {
+}
+#my_messages.myfh-box .message .subject {
+}
+#my_messages.myfh-box .message .textcutt {
+}
+#my_messages.myfh-box .seeAll {
+  width: 100%;
+  display: block;
+  text-align: center;
+  background: #90a4ae;
+  line-height: 3em;
+  border-radius: 0 0 6px 6px;
+  color: white;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.12);
+  transition: all 0.1s linear;
+}
+#my_messages.myfh-box .seeAll:hover {
+  background: #adbcc4;
+}
+
+.label,
+.label.label-long,
+.input,
+.select,
+input,
+select,
+textarea {
+  background: transparent !important;
+  border: 0 !important;
+  outline: none !important;
+  font-family: "Roboto", sans-serif !important;
+  font-size: 1em !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  line-height: 3em !important;
+  width: 100%;
+  transition: all 0.1s linear;
+}
+
+textarea {
+  min-height: 100px !important;
+  resize: vertical;
+}
+
+input,
+select,
+.input,
+.select {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.24) !important;
+}
+
+input:focus,
+select:focus,
+.input:focus,
+.select:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  border-bottom: 1px solid #a00037 !important;
+}
+
+#feedback.myfh-box {
+  padding: 24px 32px;
+}
+#feedback.myfh-box #feedback_container {
+  width: 100%;
+}
+
+#my_messages.fullMessenger {
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  background: white;
+}
+
+hr {
+  display: none !important;
+}
+
+.messagelist_container {
+  padding: 0px;
+  width: 100%;
+  border: 0 !important;
+  background: white;
+  margin: 0 !important;
+  border-radius: 6px;
+}
+.messagelist_container .message {
+  padding: 12px 24px !important;
+  margin: 0 !important;
+}
+
+#my_messages .message_container {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+#my_messages h1 {
+  color: var(--colour-dark) !important;
+  font-size: 1em !important;
+  margin: 0 !important;
+  padding: 12px 32px !important;
+}
+
+#my_messages h1 .icon-envelop {
+  display: none;
+}
+
+#my_messages .message_container #operation_container {
+  display: none !important;
+}
+#my_messages .message_container #message_header,
+#my_messages .message_container #message_text {
+  padding: 12px 32px !important;
+}
+
+.fullMessenger {
+}
+
+footer {
+  display: none !important;
+}
