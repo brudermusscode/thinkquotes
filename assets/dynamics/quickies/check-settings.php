@@ -1,10 +1,12 @@
 <?php
 
-require_once "./../../../session/session.inc.php";
+// require mysql connection and session data
+require_once $_SERVER["DOCUMENT_ROOT"] . "/session/session.inc.php";
 
+// begin mysql transaction
 $pdo->beginTransaction();
 
-if (isset($_POST["action"]) && $_POST["action"] !== "" && $isLoggedIn) {
+if (isset($_POST["action"]) && $_POST["action"] !== "" && $logged) {
 
     $action = $_POST['action'];
 
@@ -27,7 +29,7 @@ if (isset($_POST["action"]) && $_POST["action"] !== "" && $isLoggedIn) {
         }
 
         $update = $pdo->prepare($sql);
-        $update->execute([$sessionid]);
+        $update->execute([$my->id]);
 
         if ($update) {
 

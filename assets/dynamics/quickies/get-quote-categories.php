@@ -2,10 +2,10 @@
 
 require_once "./../../../session/session.inc.php";
 
-if (isset($_POST["qid"]) && $_POST["qid"] !== "" && $isLoggedIn) {
+if (isset($_POST["qid"]) && $_POST["qid"] !== "" && $logged) {
 
     $qid = $_POST["qid"];
-    $guid = $_SESSION['id'];
+    $guid = $my->id;
 
     // check quotes existence
     $getQuote = $pdo->prepare("SELECT * FROM quotes WHERE id = ? and uid = ?");

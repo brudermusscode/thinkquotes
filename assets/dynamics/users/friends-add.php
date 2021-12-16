@@ -1,6 +1,7 @@
 <?php
 
-require_once "./../../../session/session.inc.php";
+// require mysql connection and session data
+require_once $_SERVER["DOCUMENT_ROOT"] . "/session/session.inc.php";
 
 $pdo->beginTransaction();
 
@@ -8,11 +9,11 @@ if (
     isset($_POST["uid"], $_POST["action"])
     && $_POST["uid"] !== ""
     && $_POST["action"] !== ""
-    && $isLoggedIn
+    && $logged
 ) {
 
     $errorCount = 0;
-    $uid = only($_POST["uid"], "num");
+    $uid = $collection->only($_POST["uid"], "num");
     $myuid = $_SESSION["id"];
     $action = $_POST["action"];
 

@@ -1,7 +1,7 @@
 <?php
 
-require_once "./../../../session/session.inc.php";
-
+// require mysql connection and session data
+require_once $_SERVER["DOCUMENT_ROOT"] . "/session/session.inc.php";
 
 // 69: NO PERMISSIONS
 // 88: NO SIDE PERMISSIONS (adding authors, sources, categories)

@@ -1,8 +1,9 @@
 <?php
 
-require_once "../../../../session/session.inc.php";
+// require mysql connection and session data
+require_once $_SERVER["DOCUMENT_ROOT"] . "/session/session.inc.php";
 
-if (isset($_POST) && $isLoggedIn) {
+if (isset($_POST) && $logged) {
 
 ?>
 

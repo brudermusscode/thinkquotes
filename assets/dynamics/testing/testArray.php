@@ -1,11 +1,6 @@
 <?php
 
-    // mysql database
-    require_once "./../../../../session/mysql.php";
-    require_once "./../../../../session/session.php";
+// require mysql connection and session data
+require_once $_SERVER["DOCUMENT_ROOT"] . "/session/session.inc.php";
 
-    
-    print_r($_POST);
-
-
-?>
+print_r($_POST);

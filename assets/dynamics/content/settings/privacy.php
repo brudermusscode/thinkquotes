@@ -1,8 +1,9 @@
 <?php
 
-require_once "../../../../session/session.inc.php";
+// require mysql connection and session data
+require_once $_SERVER["DOCUMENT_ROOT"] . "/session/session.inc.php";
 
-if (isset($_POST) && $isLoggedIn) {
+if (isset($_POST) && $logged) {
 
 ?>
 
@@ -24,21 +25,21 @@ if (isset($_POST) && $isLoggedIn) {
                     <div class="mt12">
                         <radio-model class="disfl fldirrow std green">
 
-                            <div class="rd12 single dark <?php if ($my['send_friendrequests'] === 'all') echo 'isActive'; ?>" data-value="all">
+                            <div class="rd12 single dark <?php if ($my->send_friendrequests === 'all') echo 'isActive'; ?>" data-value="all">
                                 <p class="tac">All</p>
                             </div>
 
-                            <div class="rd12 single dark <?php if ($my['send_friendrequests'] === 'friendsoffriends') echo 'isActive'; ?>" data-value="friendsoffriends">
+                            <div class="rd12 single dark <?php if ($my->send_friendrequests === 'friendsoffriends') echo 'isActive'; ?>" data-value="friendsoffriends">
                                 <p class="tac">Friends of friends</p>
                             </div>
 
-                            <div class="rd12 single dark <?php if ($my['send_friendrequests'] === 'nobody') echo 'isActive'; ?>" data-value="nobody">
+                            <div class="rd12 single dark <?php if ($my->send_friendrequests === 'nobody') echo 'isActive'; ?>" data-value="nobody">
                                 <p class="tac">Nobody</p>
                             </div>
 
                             <div class="cl"></div>
 
-                            <input type="hidden" name="send_friendrequests" data-react="element:radio" value="<?php echo $my['send_friendrequests']; ?>">
+                            <input type="hidden" name="send_friendrequests" data-react="element:radio" value="<?php echo $my->send_friendrequests; ?>">
                         </radio-model>
                     </div>
                 </div>
@@ -80,25 +81,25 @@ if (isset($_POST) && $isLoggedIn) {
 
                         <radio-model class="disfl fldirrow std green">
 
-                            <div class="rd12 single dark <?php if ($my['show_profile'] === 'all') echo 'isActive'; ?>" data-value="all">
+                            <div class="rd12 single dark <?php if ($my->show_profile === 'all') echo 'isActive'; ?>" data-value="all">
                                 <p class="tac">All</p>
                             </div>
 
-                            <div class="rd12 single dark <?php if ($my['show_profile'] === 'friends') echo 'isActive'; ?>" data-value="friends">
+                            <div class="rd12 single dark <?php if ($my->show_profile === 'friends') echo 'isActive'; ?>" data-value="friends">
                                 <p class="tac">Friends</p>
                             </div>
 
-                            <div class="rd12 single dark <?php if ($my['show_profile'] === 'friendsoffriends') echo 'isActive'; ?>" data-value="friendsoffriends">
+                            <div class="rd12 single dark <?php if ($my->show_profile === 'friendsoffriends') echo 'isActive'; ?>" data-value="friendsoffriends">
                                 <p class="tac">Friends of friends</p>
                             </div>
 
-                            <div class="rd12 single dark <?php if ($my['show_profile'] === 'nobody') echo 'isActive'; ?>" data-value="nobody">
+                            <div class="rd12 single dark <?php if ($my->show_profile === 'nobody') echo 'isActive'; ?>" data-value="nobody">
                                 <p class="tac">Nobody</p>
                             </div>
 
                             <div class="cl"></div>
 
-                            <input type="hidden" name="show_profile" data-react="element:radio" value="<?php echo $my['show_profile']; ?>">
+                            <input type="hidden" name="show_profile" data-react="element:radio" value="<?php echo $my->show_profile; ?>">
                         </radio-model>
                     </div>
                 </div>
@@ -119,25 +120,25 @@ if (isset($_POST) && $isLoggedIn) {
 
                         <radio-model class="disfl fldirrow std green">
 
-                            <div class="rd12 single dark <?php if ($my['show_profile_favorites'] === 'all') echo 'isActive'; ?>" data-value="all">
+                            <div class="rd12 single dark <?php if ($my->show_profile_favorites === 'all') echo 'isActive'; ?>" data-value="all">
                                 <p class="tac">All</p>
                             </div>
 
-                            <div class="rd12 single dark <?php if ($my['show_profile_favorites'] === 'friends') echo 'isActive'; ?>" data-value="friends">
+                            <div class="rd12 single dark <?php if ($my->show_profile_favorites === 'friends') echo 'isActive'; ?>" data-value="friends">
                                 <p class="tac">Friends</p>
                             </div>
 
-                            <div class="rd12 single dark <?php if ($my['show_profile_favorites'] === 'friendsoffriends') echo 'isActive'; ?>" data-value="friendsoffriends">
+                            <div class="rd12 single dark <?php if ($my->show_profile_favorites === 'friendsoffriends') echo 'isActive'; ?>" data-value="friendsoffriends">
                                 <p class="tac">Friends of friends</p>
                             </div>
 
-                            <div class="rd12 single dark <?php if ($my['show_profile_favorites'] === 'nobody') echo 'isActive'; ?>" data-value="nobody">
+                            <div class="rd12 single dark <?php if ($my->show_profile_favorites === 'nobody') echo 'isActive'; ?>" data-value="nobody">
                                 <p class="tac">Nobody</p>
                             </div>
 
                             <div class="cl"></div>
 
-                            <input type="hidden" name="show_profile_favorites" data-react="element:radio" value="<?php echo $my['show_profile_favorites']; ?>">
+                            <input type="hidden" name="show_profile_favorites" data-react="element:radio" value="<?php echo $my->show_profile_favorites; ?>">
                         </radio-model>
                     </div>
                 </div>

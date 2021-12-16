@@ -1,11 +1,12 @@
 <?php
 
-require_once "./../../../session/session.inc.php";
+// require mysql connection and session data
+require_once $_SERVER["DOCUMENT_ROOT"] . "/session/session.inc.php";
 
-if (isset($_POST["qid"]) && $_POST["qid"] !== "" && $isLoggedIn) {
+if (isset($_POST["qid"]) && $_POST["qid"] !== "" && $logged) {
 
     $qid = $_POST["qid"];
-    $uid = $_SESSION["id"];
+    $uid = $my->id;
 
     // check quote existence and owner
     $getQuote = $pdo->prepare("SELECT * FROM quotes WHERE id = ? and uid = ?");

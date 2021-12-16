@@ -1,6 +1,7 @@
 <?php
 
-require_once "./../../../session/session.inc.php";
+// require mysql connection and session data
+require_once $_SERVER["DOCUMENT_ROOT"] . "/session/session.inc.php";
 
 $pdo->beginTransaction();
 
@@ -8,11 +9,11 @@ if (
     isset($_POST["frid"], $_POST["usid"], $_POST["action"])
     && $_POST["frid"] !== ""
     && $_POST["action"] !== ""
-    && $isLoggedIn
+    && $logged
 ) {
 
-    $frid = only($_POST["frid"], "num");
-    $usid = only($_POST["usid"], "num");
+    $frid = $collection->only($_POST["frid"], "num");
+    $usid = $collection->only($_POST["usid"], "num");
     $action = $_POST["action"];
     $errorCount = 0;
 

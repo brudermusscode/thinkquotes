@@ -1,6 +1,7 @@
 <?php
 
-require_once "./../../../session/session.inc.php";
+// require mysql connection and session data
+require_once $_SERVER["DOCUMENT_ROOT"] . "/session/session.inc.php";
 
 $pdo->beginTransaction();
 
@@ -18,9 +19,9 @@ if (isset($_POST) && $isLoggedIn) {
         'nobody'
     ];
 
-    $showProfile = $my["show_profile"];
-    $showProfileFavorites = $my["show_profile_favorites"];
-    $sendFriendrequests = $my["send_friendrequests"];
+    $showProfile = $my->show_profile;
+    $showProfileFavorites = $my->show_profile_favorites;
+    $sendFriendrequests = $my->send_friendrequests;
 
     // handle show_profile
     if (isset($_POST["show_profile"]) && in_array($_POST["show_profile"], $validValues)) {
@@ -39,7 +40,7 @@ if (isset($_POST) && $isLoggedIn) {
 
     // update users settings
     $update = $pdo->prepare("UPDATE users_settings SET show_profile = ?, show_profile_favorites = ?, send_friendrequests = ? WHERE uid = ?");
-    $update->execute([$showProfile, $showProfileFavorites, $sendFriendrequests, $sessionid]);
+    $update->execute([$showProfile, $showProfileFavorites, $sendFriendrequests, $my->id]);
 
     if ($update) {
 

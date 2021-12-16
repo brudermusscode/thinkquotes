@@ -1,6 +1,7 @@
 <?php
 
-require_once "./../../../session/session.inc.php";
+// require mysql connection and session data
+require_once $_SERVER["DOCUMENT_ROOT"] . "/session/session.inc.php";
 
 $pdo->beginTransaction();
 
@@ -11,7 +12,7 @@ if (
     && $_POST["password"] !== ""
     && $_POST["password2"] !== ""
     && $_POST["captcha"] !== ""
-    && !$isLoggedIn
+    && !$logged
 ) {
 
 
