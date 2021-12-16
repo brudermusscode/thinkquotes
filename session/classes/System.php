@@ -51,7 +51,7 @@ class Thinkquotes
         return false;
     }
 
-    public static function sendMail($address, $subject, $body, $header)
+    public static function trySendMail($address, $subject, $body, $header)
     {
         try {
 

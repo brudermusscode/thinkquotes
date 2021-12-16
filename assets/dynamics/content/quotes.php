@@ -22,8 +22,10 @@ if (isset($_POST["page"], $_POST["order"], $_POST["limit"], $_POST["uid"])) {
 
         // check user is me
         $itsMe = FALSE;
-        if ($isLoggedIn) {
-            if ($uid === $_SESSION["id"]) {
+
+        // if user is logged in, set it's me to true
+        if (LOGGED) {
+            if ($uid === UID) {
                 $itsMe = TRUE;
             }
         }
@@ -124,9 +126,9 @@ if (isset($_POST["page"], $_POST["order"], $_POST["limit"], $_POST["uid"])) {
             foreach ($getQuotes->fetchAll() as $q) {
 
                 // check if is favorite
-                if ($isLoggedIn) {
+                if (LOGGED) {
                     $getFaved = $pdo->prepare("SELECT * FROM quotes_favorites WHERE qid = ? AND uid = ? AND deleted = '0'");
-                    $getFaved->execute([$q->qid, $_SESSION['id']]);
+                    $getFaved->execute([$q->qid, UID]);
 
                     $isFavorite = FALSE;
                     if ($getFaved->rowCount() > 0) {
@@ -134,7 +136,7 @@ if (isset($_POST["page"], $_POST["order"], $_POST["limit"], $_POST["uid"])) {
                     }
 
                     $myQuote = false;
-                    if ($q->uid === $_SESSION['id']) {
+                    if ($q->uid === UID) {
                         $myQuote = true;
                     }
                 }
@@ -186,7 +188,7 @@ if (isset($_POST["page"], $_POST["order"], $_POST["limit"], $_POST["uid"])) {
                             }
                         </style>
 
-                        <?php if ($isLoggedIn) { ?>
+                        <?php if (LOGGED) { ?>
                             <div data-element="dropdown" class="posrel" travelhereboy data-react="function:quotes,edit,hide">
                                 <div class="q-top-tools">
                                     <div class="sizing" data-action="dropdown:open">
@@ -251,7 +253,7 @@ if (isset($_POST["page"], $_POST["order"], $_POST["limit"], $_POST["uid"])) {
                             </div>
                         </div>
 
-                        <?php if ($isLoggedIn) { ?>
+                        <?php if (LOGGED) { ?>
                             <div class="tools">
 
                                 <div class="disfl fldirrow" style="padding:12px 32px;">

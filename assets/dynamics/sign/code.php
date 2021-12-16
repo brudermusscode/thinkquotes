@@ -15,7 +15,8 @@ if (
     is_numeric($_REQUEST["code1"]) &&
     is_numeric($_REQUEST["code2"]) &&
     is_numeric($_REQUEST["code3"]) &&
-    is_numeric($_REQUEST["code4"])
+    is_numeric($_REQUEST["code4"]) &&
+    !LOGGED
 ) {
 
     // variablize
@@ -37,6 +38,7 @@ if (
         AND users.id = users_settings.uid
         AND users_authentications.uid = ?
         AND users_authentications.authCode = ?
+        AND users_authentications.used = '0' 
         LIMIT 3
     ");
     $stmt->execute([$uid, $code]);
@@ -60,10 +62,24 @@ if (
         // create session with user information
         if ($sign->createSession($stmt, $serial)) {
 
-            $return->status = true;
-            $return->message = "You've been logged in my friend!";
+            // start mysql transaction
+            $pdo->beginTransaction();
 
-            exit(json_encode($return));
+            // set code to used
+            $upd = $pdo->prepare("UPDATE users_authentications SET used = 1 WHERE uid = ?");
+            $upd = $system->execute($upd, [$uid], $pdo, true);
+
+            if ($upd->status) {
+
+                $return->status = true;
+                $return->message = "You've been logged in my friend!";
+
+                exit(json_encode($return));
+            } else {
+
+                $return->message = "Mistakes are, what makes us human. But the system encountered a problem";
+                exit(json_encode($return));
+            }
         } else {
             $return->message = "Couldn't create a session";
             exit(json_encode($return));

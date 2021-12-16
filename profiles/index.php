@@ -14,8 +14,8 @@ $fr = $friends->getFriends($user->uid);
 $frofr = $friends->getFriendsOfFriends($user->uid);
 
 // Head section
-include_once "../assets/templates/global/head.php";
-include_once "../assets/templates/global/header.php";
+include_once SROOT . "/assets/templates/global/head.php";
+include_once SROOT . "../assets/templates/global/header.php";
 
 ?>
 
@@ -27,32 +27,32 @@ include_once "../assets/templates/global/header.php";
             <!-- vielleicht lieblingszitat? -->
             <div class="posrel dno" style="border-radius:50%;height:92px;width:92px;overflow:hidden;background:var(--colour-red);">
                 <div class="alignmiddle posabs">
-                    <p style="color:white;font-weight:700;font-size:2em;"><?php echo substr($user->uname, 0, 1) ?></p>
+                    <p style="color:white;font-weight:700;font-size:2em;"><?php echo substr($user->username, 0, 1) ?></p>
                 </div>
             </div>
 
             <div style="line-height:1;">
                 <p class="trimt" style="font-family: 'Indie Flower', cursive;text-shadow:0 1px 1px rgba(0,0,0,.38);font-size:3em;font-weight:300;color:var(--colour-light);">
-                    <?php echo $user->uname ?>
+                    <?php echo $user->username ?>
                 </p>
             </div>
 
         </div>
 
 
-        <?php if ($isLoggedIn) { ?>
+        <?php if (LOGGED) { ?>
             <div class="posabs" style="right:32px;">
 
                 <?php
 
-                if (!($user->uid === $sessionid)) {
+                if (!($user->uid === UID)) {
 
                     // check if friendrequest exists
                     $getFriendRequest = $pdo->prepare("SELECT * FROM users_friends_requests WHERE (sent = ? AND got = ?) OR (sent = ? AND got = ?)");
-                    $getFriendRequest->execute([$sessionid, $user->uid, $user->uid, $sessionid]);
+                    $getFriendRequest->execute([UID, $user->uid, $user->uid, UID]);
 
                     // show remove friend button
-                    if (in_array($sessionid, $fr)) {
+                    if (in_array(UID, $fr)) {
 
                 ?>
 
@@ -97,7 +97,7 @@ include_once "../assets/templates/global/header.php";
                                 $canSend = true;
                                 break;
                             case "friendsoffriends":
-                                if (!in_array($sessionid, $frofr)) {
+                                if (!in_array(UID, $frofr)) {
                                     $canSend = false;
                                 } else {
                                     $canSend = true;
@@ -183,6 +183,6 @@ include_once "../assets/templates/global/header.php";
 <?php
 
 // foot section
-include_once "../assets/templates/global/footer.php";
+include_once SROOT . "/assets/templates/global/footer.php";
 
 ?>

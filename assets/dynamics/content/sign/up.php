@@ -21,7 +21,7 @@
             </div>
         </div>
 
-        <div class="signup">
+        <content-card class="signup">
 
             <div class="inr">
 
@@ -41,7 +41,31 @@
                 </div>
             </div>
 
-        </div>
+        </content-card>
+
+        <content-card class="signup">
+            <div class="inr">
+
+                <div class="title">
+                    <p>Use your code</p>
+                </div>
+
+                <div class="input code">
+
+                    <form class="sign--form" data-form="sign:in,code" method="POST" action>
+                        <div class="disfl fldirrow">
+                            <input type="text" name="code1" autocomplete="off" tabindex="1" maxlength="1" />
+                            <input type="text" name="code2" autocomplete="off" tabindex="2" maxlength="1" />
+                            <input type="text" name="code3" autocomplete="off" tabindex="3" maxlength="1" />
+                            <input type="text" name="code4" autocomplete="off" tabindex="4" maxlength="1" />
+                        </div>
+
+                        <input type="hidden" name="uid" value />
+                    </form>
+
+                </div>
+            </div>
+        </content-card>
     </div>
 
 </div>
@@ -74,8 +98,10 @@
             setTimeout(function() {
 
                 // focus email input
-                // ! TODO: doesnt work, why so ever. Fix it later
-                $signupInput.focus();
+                setTimeout(function() {
+
+                    $signupInput.focus();
+                }, 10);
 
                 // clear the interval
                 clearInterval(breathInterval);
@@ -84,8 +110,8 @@
                 $breathContainer.removeClass("visible");
 
                 // show sign up container
-                $signupContainer.find(".signup").addClass("visible");
-            }, 23000);
+                $signupContainer.find("content-card").first().addClass("visible");
+            }, 24000);
         }, 1200);
     });
 </script>

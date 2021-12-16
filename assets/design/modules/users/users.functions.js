@@ -1,128 +1,168 @@
 $(function(){
 
-    let $t, url, formData;
+    let $t, url, formData, $contentCard, $nextSibling, which;
 
-    // signin
-    $(document).on('keypress', "[data-etat='login:username'], [data-etat='login:password']", function(event) {
+    $(document)
 
-        var keycode = (event.keyCode ? event.keyCode : event.which);
+    // login
+    .on("submit", '[data-form="sign:in"], [data-form="sign:in,code"]', function() {
 
-        if(keycode == '13'){
-            $('[data-action="function:login"]').click();
-        }
+        // get correct url for each case of sign up...
+        if ($(this).data("form") == "sign:in") {
 
-
-    }).on("click", "[data-action='function:login']", function(){
-
-        var parentDiv = $(this).parents(1);
-        var username = $.trim(parentDiv.find("input[name='username']").val());
-        var password = $.trim(parentDiv.find("input[name='password']").val());
-        var error;
-        var errorModuleOutputRandom = randomStringArray(randomErrorTexts);
-        let url = dynamicHost + "/dyn/sign/in";
-
-        if(username < 1){
-            error = 1;
-        } else if(password < 1) {
-            error = 2;
+            url = dynamicHost + "/dyn/sign/in";
+            which = "in";
         } else {
-            error = 3;
+
+            // and passing a authentication code
+            url = dynamicHost + "/dyn/sign/code";
+            which = "code";
         }
 
-        switch(error){
-            case 1:
-                error = "Please fill out username's field!";
-                break;
-            case 2:
-                error = "Please fill out password's field!";
-                break;
-            case 3:
-                error = "Verifying...";
-
-
-                $.ajax({
-
-                    url: url,
-                    method: "POST",
-                    data: {
-                        username: username, password: password
-                    },
-                    dataType: "text",
-                    success: function(loginData) {
-                        
-                        var ld = parseInt(loginData);
-                        
-                        switch(ld){
-                            case 1:
-                                error = "This user seems not te be existing!";
-                                break;
-                            case 2:
-                                error = "Your username or password seems to be wrong!";
-                                break;
-                            case 3:
-                                expandErrorModule('done_all', 'Verified');
-                                
-                                setTimeout(function(){
-                                    location.reload();
-                                }, 2000);
-                                
-                                break;
-                            default:
-                                error = errorModuleOutputRandom;
-                        }
-
-                        showErrorModule(error);
-
-                    },
-                    error: function(loginData){
-                        showErrorModule("Some randomness happened, you may want to try again!");
-                    }
-
-                });
-
-
-                break;
-            default:
-                error = errorModuleOutputRandom;
-        }
-
-        showErrorModule(error);
-
-    })
-    
-    // signup
-    .on("submit", "[data-form='sign:up']", function(e) {
-
-        $t = $(this);
-        url = dynamicHost + "/dyn/sign/up";
+        // get formdata
         formData = new FormData(this);
 
+        // choose current content-card
+        $contentCard = $(this).closest("content-card");
+
+        // with that content-card chosen, choose the next sibling
+        $nextSibling = $contentCard.next();
+
         $.ajax({
-            
+
             url: url,
             data: formData,
-            method: $t.attr("method"),
+            method: $(this).attr("method"),
             dataType: "JSON",
-            processData: false,
             contentType: false,
+            processData: false,
             success: function(data) {
 
-                console.log(data);
+                if (data.status) {
 
-                if(data.status) {
+                    if(which == "in") {
 
-                } else {
+                        // toggle class visible for both content card, so 
+                        // passing code will be made possible
+                        $contentCard.toggleClass("visible");
+                        $nextSibling.toggleClass("visible");
 
+                        // find uid input and set it
+                        $nextSibling.find("input[name='uid']").val(data.uid);
+
+                        // why so ever, but focus on the first code input
+                        // after timeout of 100 ms
+                        setTimeout(function() {
+                            $nextSibling.find("input[name='code1']").focus();
+                        }, 100);
+                    } else {
+
+
+                        $(document).find("close-overlay").click();
+
+                        setTimeout(function() {
+                            window.location.reload();
+                        }, 750);
+                    }
                 }
 
+                // show responsive error module with error text only
+                // if the message of the response is not NULL
+                if(data.message !== null) {
+                    
+                    showErrorModule(data.message);
+                }
+            },
+            error: function(data) {
+                console.error(data);
+            }
+        });
+
+    })
+
+    // signup
+    .on("submit", '[data-form="sign:up"]', function() {
+
+        url = dynamicHost + "/dyn/sign/up";
+
+        // get formdata
+        formData = new FormData(this);
+
+        // choose current content-card
+        $contentCard = $(this).closest("content-card");
+
+        // with that content-card chosen, choose the next sibling
+        $nextSibling = $contentCard.next();
+
+        $.ajax({
+
+            url: url,
+            data: formData,
+            method: $(this).attr("method"),
+            dataType: "JSON",
+            contentType: false,
+            processData: false,
+            success: function(data) {
+
+                if (data.status) {
+
+                    // toggle class visible for both content card, so 
+                    // passing code will be made possible
+                    $contentCard.toggleClass("visible");
+                    $nextSibling.toggleClass("visible");
+
+                    // find uid input and set it
+                    $nextSibling.find("input[name='uid']").val(data.uid);
+
+                    // why so ever, but focus on the first code input
+                    // after timeout of 100 ms
+                    setTimeout(function() {
+                        $nextSibling.find("input[name='code1']").focus();
+                    }, 100);
+                }
+
+                // show responsive error module with error text
                 showErrorModule(data.message);
             },
             error: function(data) {
                 console.error(data);
             }
-
         });
 
+    })
+
+
+    // go to next input if maxlength is reached
+    .on("input", "input", function() {
+
+        if (this.hasAttribute("maxlength")) {
+
+            $t = $(this);
+            value = this.value;
+            $nextSibling = $t.next();
+            $previousSibling = $t.prev();
+            $lastSibling = $t.parent().find("input").last();
+            let maxLength = this.getAttribute("maxlength");
+
+            // if the maxlength of the input is reached, ...
+            if (value.length >= maxLength) {
+
+                // ... focus the enxt sibling
+                $nextSibling.focus();
+
+                // if we reached the last element of the code input
+                // chain, submit the form and check, if the code is valid
+                if ($lastSibling.attr("maxlength") == $lastSibling.val().length) {
+                    $t.closest("form").submit();
+                }
+
+                // if input is empty, change to previous sibling
+            } else if (value.length == 0) {
+                $previousSibling.focus();
+            }
+        }
+
+        return false;
     })
 
     // signout

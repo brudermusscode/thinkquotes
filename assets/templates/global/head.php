@@ -86,6 +86,63 @@ if (!$is_page) {
 
 <body>
 
+    <style>
+        #adminDump {
+            position: fixed;
+            z-index: 10000000;
+            left: -370px;
+            top: 0;
+            height: 100vh;
+            overflow: hidden;
+            width: 400px;
+            background: var(--colour-red);
+            transition: all .2s ease-out;
+        }
+
+        #adminDump:hover {
+            left: 0px;
+            overflow: hidden auto;
+        }
+
+        #adminDump .dump {
+            background: white;
+            border-radius: 12px;
+            padding: 8px 24px 24px;
+            margin: 12px;
+            line-height: 1.2;
+            letter-spacing: -.01em;
+            font-size: .8em;
+            font-weight: 700;
+            color: #333;
+            overflow: hidden;
+        }
+
+        #adminDump .dump .title {
+            font-weight: 700;
+            font-size: 1.2em;
+            padding: 12px 0;
+        }
+    </style>
+
+    <div id="adminDump" class="mshd-3">
+        <div class="dump mshd-1">
+            <div class="title">SESSION</div>
+            <pre><?php var_dump((object) $_SESSION); ?></pre>
+        </div>
+        <div class="dump mshd-1">
+            <div class="title">REQUEST</div>
+            <pre><?php var_dump((object) $_REQUEST); ?></pre>
+        </div>
+        <div class="dump mshd-1">
+            <div class="title">COOKIE</div>
+            <pre><?php var_dump((object) $_COOKIE); ?></pre>
+        </div>
+        <div class="dump mshd-1">
+            <div class="title">SERVER</div>
+            <pre><?php var_dump((object) $_SERVER); ?></pre>
+        </div>
+    </div>
+
     <app>
 
         <!-- ERROR RESPONSER -->

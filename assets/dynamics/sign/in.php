@@ -5,7 +5,8 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/session/session.inc.php";
 
 if (
     isset($_REQUEST["mail"]) &&
-    !empty($_REQUEST["mail"])
+    !empty($_REQUEST["mail"]) &&
+    !LOGGED
 ) {
 
     // variablize
@@ -36,9 +37,23 @@ if (
 
             if ($stmt->status) {
 
+                // prepare mail body
+                $mailbody = file_get_contents($url->main . '/assets/templates/mail/signup.html');
+                $mailbody = str_replace('%code%', $code, $mailbody);
+
+                // send mail
+                $sendMail = $system->trySendMail($inputmail, "Your authentication code!", $mailbody, $sendMail->header);
+
+                if ($sendMail) {
+
+                    $return->message = NULL;
+                } else {
+
+                    $return->message = "It couldn't sent a code, please try again";
+                }
+
                 $return->status = true;
                 $return->uid = $uid;
-                $return->message = "Success! A code has been sent to your mail";
 
                 exit(json_encode($return));
             } else {

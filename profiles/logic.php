@@ -25,8 +25,8 @@ if (isset($_GET["page"], $_GET["userid"], $is_page)) {
     if ($getUser->rowCount() > 0 && in_array($subpage, $validPages)) {
 
         // check if user is me
-        if ($isLoggedIn) {
-            if ($u === $_SESSION['id']) {
+        if (LOGGED) {
+            if ($u == UID) {
                 $itsMe = true;
             }
         }

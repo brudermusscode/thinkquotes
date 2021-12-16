@@ -9,7 +9,7 @@ if (isset($subpage) && $subpage === "favorites") {
             <p class="ttup">
                 <?php
 
-                if ($isLoggedIn && $user->uid === $_SESSION['id']) {
+                if ($isLoggedIn && $user->uid === UID) {
                     echo "Quotes you love";
                 } else {
                     echo "Favorite quotes";
@@ -25,7 +25,7 @@ if (isset($subpage) && $subpage === "favorites") {
 
         <div class="actual"></div>
 
-        <?php include_once $sroot . "/assets/dynamics/content/quotes-loading.php"; ?>
+        <?php include_once SROOT . "/assets/dynamics/content/quotes-loading.php"; ?>
 
     </create-grid>
 

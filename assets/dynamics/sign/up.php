@@ -19,7 +19,7 @@ if (
     if ($sign->validateMail($mail)) {
 
         // get remoteaddr and httpx
-        $httpx = $login->get_client_ip();
+        $httpx = $sign->getRemoteAddress();
         $remoteaddr = $_SERVER['REMOTE_ADDR'];
 
         // start mysql transaction
@@ -55,10 +55,11 @@ if (
                     $mailbody = str_replace('%code%', $authCode, $mailbody);
 
                     // send mail
-                    $sendMail = $system->sendMail($mail, "Welcome to ThinkQuotes!", $mailbody, $sendMail->header);
+                    $sendMail = $system->trySendMail($mail, "Welcome to ThinkQuotes!", $mailbody, $sendMail->header);
 
                     // set return status to true, we did it boys
                     $return->status = true;
+                    $return->uid = $id;
 
                     // check if a mail with a code has been sent
                     if ($sendMail) {

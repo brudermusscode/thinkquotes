@@ -4,10 +4,10 @@ if (!$is_page) {
     header("location: /");
 }
 
-if ($isLoggedIn) {
+if (LOGGED) {
 
     // check for friendrequests
-    $hasFriendsRequests = $friends->getFriendrequests($sessionid);
+    $hasFriendsRequests = $friends->getFriendrequests(UID);
 
     // get count of friendrequests
     $frcount = $hasFriendsRequests;
@@ -72,12 +72,12 @@ if ($isLoggedIn) {
 
             <div class="disfl fldirrow rt">
 
-                <?php if ($isLoggedIn) { ?>
+                <?php if (LOGGED) { ?>
 
                     <usermainmenu>
 
                         <div class="disfl fldirrow">
-                            <hellofresh <?php if ($my->permissions == "none") { ?>disabled="true" <?php } ?> data-action="popup:quotes,add" class="hellofresh green rd6 icon-only shadowed mr12">
+                            <hellofresh <?php if ($my->post_permissions == "none") { ?>disabled="true" <?php } ?> data-action="popup:quotes,add" class="hellofresh green rd6 icon-only shadowed mr12">
                                 <div class="c-ripple js-ripple">
                                     <span class="c-ripple__circle"></span>
                                 </div>
@@ -120,7 +120,7 @@ if ($isLoggedIn) {
                                     <div class="dd-inr">
                                         <ul>
 
-                                            <li class="has-icon trimt" onclick="window.location.replace('/u/profile/<?php echo $_SESSION['id']; ?>');">
+                                            <li class="has-icon trimt" onclick="window.location.replace('/u/profile/<?php echo UID; ?>');">
                                                 <p class="align-mid-vert">
                                                     <span class="material-icons-round md-18">insert_emoticon</span>
                                                 </p>
@@ -142,7 +142,7 @@ if ($isLoggedIn) {
                                                 </div>
                                             <?php } ?>
 
-                                            <li class="has-icon trimt" onclick="window.location.replace('/u/favorites/<?php echo $_SESSION['id']; ?>');">
+                                            <li class="has-icon trimt" onclick="window.location.replace('/u/favorites/<?php echo UID; ?>');">
                                                 <p class="align-mid-vert">
                                                     <span class="material-icons-round md-18">favorite</span>
                                                 </p>

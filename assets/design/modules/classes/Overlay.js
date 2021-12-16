@@ -46,12 +46,17 @@ class Overlay {
 
             // add some additional css for nice enlargen effect
             $overlay.addClass("visible").css({
-                top:0,
-                left:0,
-                height: "100%",
-                width: "100%",
-                background: "var(--colour-red)"
+                height: "100%"
             });
+
+            setTimeout(function() {
+                $overlay.css({
+                    top:0,
+                    left:0,
+                    width: "100%",
+                    background: "var(--colour-red)"
+                });
+            }, 100);
         }, 10);
 
         // return the overlay as array
