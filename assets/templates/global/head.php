@@ -44,13 +44,15 @@ if (!$is_page) {
         <link rel="stylesheet" href="<?php echo $url->css; ?>/de.intern.css" />
     <?php } ?>
 
+    <link rel="stylesheet" href="<?php echo $url->css; ?>/sign.css" />
+
     <!-- SCRIPTS -->
     <script src="<?php echo $url->js; ?>/thirdparty/de.jquery.3.js"></script>
     <script src="<?php echo $url->js; ?>/thirdparty/de.cookie.min.js"></script>
     <script src="<?php echo $url->js; ?>/thirdparty/de.masonry.js"></script>
     <script src="<?php echo $url->js; ?>/thirdparty/de.public.suffix.list.js"></script>
+    <script src="<?php echo $url->js; ?>/classes/Overlay.js"></script>
     <script src="<?php echo $url->js; ?>/de.core.min.js"></script>
-    <script src="<?php echo $url->js; ?>/de.useful.min.js"></script>
     <script src="<?php echo $url->js; ?>/users/users.functions.min.js"></script>
     <script src="<?php echo $url->js; ?>/users/users.get.min.js"></script>
     <script src="<?php echo $url->js; ?>/quotes/quotes.get.min.js"></script>

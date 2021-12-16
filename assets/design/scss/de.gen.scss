@@ -16,9 +16,9 @@
 :root {
   --image-url: "https://images.thinkquotes.de";
 
-  --colour-lila: #751e9d;
+  --colour-lila: #91819e;
   --colour-pink: #e74de2;
-  --colour-red: rgb(234, 131, 153);
+  --colour-red: #ffaaab;
   --colour-darkred: #a53e54;
   --colour-pink: #e74de2;
   --colour-dark: #1c313a;
@@ -86,7 +86,7 @@
   -webkit-touch-callout: none;
 }
 html {
-  background-color: var(--colour-orange-100);
+  background-color: var(--colour-lila);
   font-size: 100%;
 }
 body {
@@ -136,59 +136,47 @@ a:focus {
   outline: 0;
 }
 
-textarea {
-  line-height: 1em;
-}
-input {
-  line-height: 3em;
-}
-textarea,
-input {
-  background: transparent;
-  color: var(--colour-light);
-  border: 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.32);
-  outline: none;
-  transition: all 0.1s linear;
-}
-textarea:focus,
-input:focus {
-  border-bottom: 1px solid rgba(234, 131, 153, 1);
-}
-textarea::placeholder,
-input::placeholder {
-  color: rgba(255, 255, 255, 0.24);
-  font-family: "Roboto", sans-serif !important;
-  transition: all 0.1s linear;
-}
-textarea:focus::placeholder,
-input:focus::placeholder {
-  color: rgba(255, 255, 255, 0.42);
-}
-
-::placeholder {
-  font-family: "Roboto", sans-serif;
-  font-size: 1em;
-  color: rgba(255, 255, 255, 0.32);
-}
-
 /* ELEMENTS */
-response-overlay {
+content-card {
   display: block;
-  height: 100%;
-  width: 100%;
-  background: rgba(114, 155, 175, 0.98);
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1000001;
-  opacity: 0;
-  visibility: hidden;
-  overflow: auto;
-  transition: all 0.1s linear;
 }
 
-response-overlay * {
+page-overlay {
+  display: block;
+  height: 0%;
+  width: 0%;
+  border-radius: 24px;
+  z-index: 1000001;
+  overflow: hidden;
+  transition: all 0.75s cubic-bezier(0.1, 0.82, 0.25, 1);
+
+  @extend .posabs;
+
+  &.visible {
+    border-radius: 0px;
+    height: 100%;
+    width: 100%;
+    overflow: visible;
+  }
+
+  close-overlay {
+    display: block;
+    position: fixed;
+    right: 32px;
+    top: 32px;
+    color: white;
+    opacity: 0.6;
+    cursor: pointer;
+
+    @extend .tran-all-cubic;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+page-overlay * {
   display: block;
 }
 
@@ -241,6 +229,7 @@ response-overlay * {
     padding: 12px 24px;
     opacity: 1;
     visibility: visible;
+
     @extend .tran-all-cubic;
 
     &.hidden {

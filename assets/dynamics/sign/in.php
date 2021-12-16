@@ -3,82 +3,57 @@
 // require mysql connection and session data
 require_once $_SERVER["DOCUMENT_ROOT"] . "/session/session.inc.php";
 
-$pdo->beginTransaction();
-
 if (
-    isset($_POST["username"], $_POST["password"])
-    && $_POST["username"] !== ""
-    && $_POST["password"] !== ""
-    && !$isLoggedIn
+    isset($_REQUEST["mail"]) &&
+    !empty($_REQUEST["mail"])
 ) {
 
-    // serialize input
-    $username = $_POST["username"];
-    $password = md5($_POST["password"]);
+    // variablize
+    $inputmail = $_REQUEST["mail"];
 
-    // check username or email exists
-    $login_request = $pdo->prepare("
-        SELECT * FROM users, users_settings 
-        WHERE users.id = users_settings.uid 
-        AND (users.uname = ? OR users.mail = ?)
-    ");
-    $login_request->execute([$username, $username]);
+    // validate e-mail address
+    if ($sign->validateMail($inputmail)) {
 
-    if ($login_request->rowCount() > 0) {
+        // check if there's an account with that email
+        $stmt = $pdo->prepare("SELECT * FROM users WHERE mail = ?");
+        $stmt->execute([$inputmail]);
 
-        $log = $login_request->fetch();
-        $logPassword = $log->password;
+        if ($stmt->rowCount() > 0) {
 
+            // fetch users information for id
+            $stmt = $stmt->fetch();
+            $uid = $stmt->id;
 
-        // check password correct
-        if ($password === $logPassword) {
+            // create a code
+            $code = $sign->createCode(4);
 
-            $id = $log->id;
-            $username = $log->uname;
-            $admin = $log->admin;
-            $post_permissions = $log->post_permissions;
-            $token = $login->createString(64);
-            $serial = $login->createString(64);
-            $remoteaddr = $_SERVER['REMOTE_ADDR'];
-            $httpxfor = $login->get_client_ip();
+            // start ,ysql transaction
+            $pdo->beginTransaction();
 
-            // check for existing session
-            $getOldSession = $pdo->prepare("SELECT * FROM system_sessions WHERE uid = ?");
-            $getOldSession->execute([$id]);
-            $hasSession = FALSE;
-            if ($getOldSession->rowCount() > 0) {
-                $hasSession = TRUE;
-            }
+            // send code to that mail address
+            $stmt = $pdo->prepare("INSERT INTO users_authentications (uid, authCode) VALUES (?, ?)");
+            $stmt = $system->execute($stmt, [$uid, $code], $pdo, true);
 
-            // delete old records
-            if ($hasSession) {
+            if ($stmt->status) {
 
-                $create_session = $pdo->prepare("UPDATE system_sessions SET uid = ?, token = ?, serial = ?, remoteaddr = ?, httpx = ? WHERE uid = ?");
-                $create_session->execute([$id, $token, $serial, $remoteaddr, $httpxfor, $id]);
+                $return->status = true;
+                $return->uid = $uid;
+                $return->message = "Success! A code has been sent to your mail";
+
+                exit(json_encode($return));
             } else {
-
-                $create_session = $pdo->prepare("INSERT INTO system_sessions (uid,token,serial,remoteaddr,httpx) VALUES (?,?,?,?,?)");
-                $create_session->execute([$id, $token, $serial, $remoteaddr, $httpxfor]);
-            }
-
-            $login->createCookie($id, $username, $token, $serial);
-            $login->createSession($id, $username, $token, $serial, $admin, $post_permissions);
-
-            if ($create_session) {
-
-                $pdo->commit();
-                exit('3');
-            } else {
-
-                $pdo->rollback();
-                exit('0');
+                $return->message = "Mistakes must be done. That's what makes us human";
+                exit(json_encode($return));
             }
         } else {
-            exit('2');
-        } // wrong password
+            $return->message = "Are you sure you are signed up?";
+            exit(json_encode($return));
+        }
     } else {
-        exit('1');
-    } // user doesn't exist 
+        $return->message = "That's not a mail";
+        exit(json_encode($return));
+    }
 } else {
-    exit('0');
+    $return->message = "Fill out all forms";
+    exit(json_encode($return));
 }

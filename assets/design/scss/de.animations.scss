@@ -1,19 +1,28 @@
 /* GEN ANIMATIONS */
 .pulsating {
-  animation: pulsating 1.4s cubic-bezier(0.1, 0.01, 0.11, 0.98) infinite;
+  animation: pulsating 12s cubic-bezier(0.1, 0.01, 0.11, 0.98) infinite;
 }
 
 @keyframes pulsating {
   0% {
+    opacity: 0;
     height: 100%;
+  }
+
+  50% {
+    opacity: 1;
+    height: calc(100% + 160px);
+    width: calc(100% + 160px);
+    top: -80px;
+    left: -80px;
   }
 
   100% {
     opacity: 0;
-    height: calc(100% + 24px);
-    width: calc(100% + 24px);
-    top: -12px;
-    left: -12px;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
   }
 }
 
@@ -279,4 +288,25 @@
   -ms-animation: slideUp 0.4s cubic-bezier(0.1, 0.82, 0.25, 1);
   -o-animation: slideUp 0.4s cubic-bezier(0.1, 0.82, 0.25, 1);
   -moz-animation: slideUp 0.4s cubic-bezier(0.1, 0.82, 0.25, 1);
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    visibility: hidden;
+    margin-bottom: 72px;
+  }
+  to {
+    opacity: 1;
+    visibility: visible;
+    margin-bottom: 0;
+  }
+}
+
+.slideDown {
+  animation: slideDown 0.4s cubic-bezier(0.1, 0.82, 0.25, 1);
+  -webkit-animation: slideDown 0.4s cubic-bezier(0.1, 0.82, 0.25, 1);
+  -ms-animation: slideDown 0.4s cubic-bezier(0.1, 0.82, 0.25, 1);
+  -o-animation: slideDown 0.4s cubic-bezier(0.1, 0.82, 0.25, 1);
+  -moz-animation: slideDown 0.4s cubic-bezier(0.1, 0.82, 0.25, 1);
 }

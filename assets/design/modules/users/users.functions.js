@@ -1,5 +1,7 @@
 $(function(){
 
+    let $t, url, formData;
+
     // signin
     $(document).on('keypress', "[data-etat='login:username'], [data-etat='login:password']", function(event) {
 
@@ -89,119 +91,37 @@ $(function(){
     })
     
     // signup
-    .on("keypress", "[data-etat='signup:username'], [data-etat='signup:mail'], [data-etat='signup:password'], [data-etat='signup:password2']", function(event) {
+    .on("submit", "[data-form='sign:up']", function(e) {
 
-        var keycode = (event.keyCode ? event.keyCode : event.which);
+        $t = $(this);
+        url = dynamicHost + "/dyn/sign/up";
+        formData = new FormData(this);
 
-        if(keycode == '13'){
-            $('[data-action="function:signup"]').click();
-        }
+        $.ajax({
+            
+            url: url,
+            data: formData,
+            method: $t.attr("method"),
+            dataType: "JSON",
+            processData: false,
+            contentType: false,
+            success: function(data) {
 
+                console.log(data);
 
-    }).on("click", "[data-action='function:signup']", function(){
+                if(data.status) {
 
-        var parentDiv = $(this).parents(1);
-        var username = parentDiv.find("[data-etat='signup:username']").val();
-        var mail = parentDiv.find("[data-etat='signup:mail']").val();
-        var password = parentDiv.find("[data-etat='signup:password']").val();
-        var password2 = parentDiv.find("[data-etat='signup:password2']").val();
-        var error;
-        var errorModuleOutputRandom = randomStringArray(randomErrorTexts);
-        let url = dynamicHost + "/dyn/sign/up";
+                } else {
 
-        if(username < 1){
-            error = 1;
-        } else if(mail < 1) {
-            error = 2;
-        } else if(password < 1 || password2 < 1) {
-            error = 3;
-        } else {
-            error = 4;
-        }
+                }
 
-        switch(error){
-            case 1:
-                error = "Please fill out Username's field!";
-                break;
-            case 2:
-                error = "Please fill out E-Mail's field!";
-                break;
-            case 3:
-                error = "Please fill out Passwords's field!";
-                break;
-            case 4:
-                error = "Verifying...";
+                showErrorModule(data.message);
+            },
+            error: function(data) {
+                console.error(data);
+            }
 
-
-                // send to login script
-                $.ajax({
-
-                    url: url,
-                    method: "POST",
-                    data: {
-                        username: username, mail: mail, password: password, password2: password2, captcha: grecaptcha.getResponse()
-                    },
-                    dataType: "text",
-                    success: function(loginData) {
-                        
-                        var ld = parseInt(loginData);
-
-                        switch(ld) {
-
-                            case 1:
-                                error = "Invalid characters are used in your username: Only a-z, A-Z, 0-9, 一-龯 (Japanese Kanji)";
-                                break;
-                            case 2:
-                                error = "Your username must be inbetween 2 and a maximum of 16 characters!";
-                                break;
-                            case 3:
-                                error = "Passwords aren't matching!";
-                                break;
-                            case 4:
-                                error = "Password must be inbetween 8 and a maximum of 32 chars!";
-                                break;
-                            case 5:
-                                error = "Wrong Captcha!";
-                                break;
-                            case 6:
-                                error = "Your E-Mail seems not be an E-Mail!";
-                                break;
-                            case 7:
-                                error = "This Username is taken already, sorry!";
-                                break;
-                            case 8:
-                                error = "This E-Mail Addressis signed up already!";
-                                break;
-                            case 9:
-                                expandErrorModule('task_alt', 'Signed up');
-                                
-                                setTimeout(function(){
-                                    location.reload();
-                                }, 2000);
-                                
-                                break;
-                            default:
-                                error = errorModuleOutputRandom;
-
-                        }
-                        
-                        grecaptcha.reset();
-                        showErrorModule(error);
-
-                    },
-                    error: function(loginData){
-                        showErrorModule("Oh! Something went wrong! Try again!");
-                    }
-
-                });
-
-
-                break;
-            default:
-                error = errorModuleOutputRandom;
-        }
-
-        showErrorModule(error);
+        });
 
     })
 

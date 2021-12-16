@@ -1,125 +1,98 @@
 <?php
 
-// require mysql connection and session data
-require_once $_SERVER["DOCUMENT_ROOT"] . "/session/session.inc.php";
+// include session file
+include_once $_SERVER["DOCUMENT_ROOT"] . "/session/session.inc.php";
 
-$pdo->beginTransaction();
+// set application header to JSON
+header('Content-type: application/json');
 
+// start validation process
 if (
-    isset($_POST["username"], $_POST["mail"], $_POST["password"], $_POST["password2"], $_POST["captcha"])
-    && $_POST["username"] !== ""
-    && $_POST["mail"] !== ""
-    && $_POST["password"] !== ""
-    && $_POST["password2"] !== ""
-    && $_POST["captcha"] !== ""
-    && !$logged
+    isset($_POST["mail"]) &&
+    !empty($_POST["mail"] && !$logged)
 ) {
 
+    // variablize
+    $mail = $_REQUEST["mail"];
 
-    $username = $_POST["username"];
-    $mail = $_POST["mail"];
-    $password = md5($_POST["password"]);
-    $password2 = md5($_POST["password2"]);
-    $captcha = $_POST["captcha"];
-    $remoteaddress = $_SERVER["REMOTE_ADDR"];
+    // validate mail address
+    if ($sign->validateMail($mail)) {
 
-    if (preg_match('/^[a-zA-Z0-9一-龯]+$/i', $username)) {
+        // get remoteaddr and httpx
+        $httpx = $login->get_client_ip();
+        $remoteaddr = $_SERVER['REMOTE_ADDR'];
 
-        if (strlen($username) <= 64 && strlen($username) > 1) {
+        // start mysql transaction
+        $pdo->beginTransaction();
 
-            if ($password === $password2) {
+        // insert new user
+        $stmt = $pdo->prepare("INSERT INTO users (mail, remoteaddr, httpx) VALUES (?, ?, ?)");
+        $stmt = $system->execute($stmt, [$mail, $remoteaddr, $httpx], $pdo, false);
 
-                if (strlen($_POST["password"]) >= 8 && strlen($_POST["password"]) <= 32) {
+        if ($stmt->status) {
 
-                    $captchaResponse = json_decode(file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=" . $conf["recaptcha_privatekey"] . "&response=" . $captcha . "&remoteip=" . $remoteaddress));
+            // get last inserted id for setting up
+            // relation between user and settings
+            $id = $stmt->lastInsertId;
 
-                    if ($captchaResponse->success) {
+            // insert users settings
+            $stmt = $pdo->prepare("INSERT INTO users_settings (uid) VALUES (?)");
+            $stmt = $system->execute($stmt, [$id], $pdo, false);
 
-                        if (filter_var($mail, FILTER_VALIDATE_EMAIL)) {
+            if ($stmt->status) {
 
-                            // check on username
-                            $getAllUsernames = $pdo->prepare("SELECT * FROM users WHERE uname = ?");
-                            $getAllUsernames->execute([$username]);
-                            $getAllUsernames->fetch();
+                // create authentication code
+                $authCode = $sign->createCode(4);
 
-                            // check on mail
-                            $getAllMail = $pdo->prepare("SELECT * FROM users WHERE mail = ?");
-                            $getAllMail->execute([$mail]);
-                            $getAllMail->fetch();
+                // insert authentication
+                $stmt = $pdo->prepare("INSERT INTO users_authentications (uid, authCode) VALUES (?, ?)");
+                $stmt = $system->execute($stmt, [$id, $authCode], $pdo, true);
 
-                            if ($getAllUsernames->rowCount() < 1) {
-                                if ($getAllMail->rowCount() < 1) {
+                if ($stmt->status) {
 
-                                    $remoteaddr = $_SERVER['REMOTE_ADDR'];
-                                    $httpxfor = $login->get_client_ip();
-                                    $key = $login->createString(64);
+                    // prepare mail body
+                    $mailbody = file_get_contents($url->main . '/assets/templates/mail/signup.html');
+                    $mailbody = str_replace('%code%', $authCode, $mailbody);
 
-                                    // insert into users
-                                    $insert_users = $pdo->prepare("INSERT INTO users (uname, mail, password, verified_key, su_remoteaddr, su_httpx) 
-                                            VALUES (?,?,?,?,?,?)");
-                                    $insert_users->execute([$username, $mail, $password, $key, $remoteaddr, $httpxfor]);
+                    // send mail
+                    $sendMail = $system->sendMail($mail, "Welcome to ThinkQuotes!", $mailbody, $sendMail->header);
 
-                                    // get new user id
-                                    $newid = $pdo->lastInsertId();
-                                    $token = $login->createString(64);
-                                    $serial = $login->createString(64);
+                    // set return status to true, we did it boys
+                    $return->status = true;
 
-                                    // insert into users_settings
-                                    $insert_users_settings = $pdo->prepare("INSERT INTO users_settings (uid) VALUES (?)");
-                                    $insert_users_settings->execute([$newid]);
+                    // check if a mail with a code has been sent
+                    if ($sendMail) {
 
-                                    // insert into users_tokens
-                                    $insert_users_tokens = $pdo->prepare("INSERT INTO users_tokens (uid, token) VALUES(?,?)");
-                                    $insert_users_tokens->execute([$newid, $token]);
-
-
-                                    /*************************/
-                                    /****** send mail ********/
-                                    /*************************/
-
-
-                                    $create_session = $pdo->prepare("INSERT INTO system_sessions (uid,token,serial,remoteaddr,httpx) VALUES (?,?,?,?,?)");
-                                    $create_session->execute([$newid, $token, $serial, $remoteaddr, $httpxfor]);
-
-
-                                    // check insertions
-                                    if ($insert_users && $insert_users_settings && $insert_users_tokens && $create_session) {
-
-                                        $pdo->commit();
-
-                                        $login->createCookie($newid, $username, $token, $serial);
-                                        $login->createSession($newid, $username, $token, $serial, "0", "quote");
-
-                                        exit('9');
-                                    } else {
-
-                                        $pdo->rollback();
-                                        exit('0');
-                                    }
-                                } else {
-                                    exit('8');
-                                } // Mail already registered
-                            } else {
-                                exit('7');
-                            } // Username is taken
-                        } else {
-                            exit('6');
-                        } // Wrong email format
+                        $return->message = "A mail with an authentication code has been sent to <strong>" . $mail . "</strong>";
                     } else {
-                        exit('5');
-                    } // Wrong captcha
+
+                        $return->message = "We couldn't send an email out of curious reasons. Please login with your new account and use the the code which will be send there";
+                    }
+
+                    // exit with JSON encoded $return
+                    exit(json_encode($return));
                 } else {
-                    exit('4');
-                } // Password too long or short
+                    exit(json_encode($return));
+                }
             } else {
-                exit('3');
-            } // Passwords are not matching
+                exit(json_encode($return));
+            }
         } else {
-            exit('2');
-        } // username too long or too short
+            switch ($stmt->code) {
+                case "23000":
+                    $return->message = "Your mail address is in use already. If this is your account, sign in";
+                    break;
+                default:
+                    break;
+            }
+
+            exit(json_encode($return));
+        }
     } else {
-        exit('1');
-    } // invalid symbols: username
+        $return->message = "Your mail address is invalid";
+        exit(json_encode($return));
+    }
 } else {
-    exit('0a');
+    $return->message = "Please fill out all fields";
+    exit(json_encode($return));
 }

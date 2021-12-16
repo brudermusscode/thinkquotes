@@ -45,6 +45,13 @@ $(document).ready(function($, window, document, undefined) {
 
 $(function(){
 
+    // prevent default and submitting forms statically
+    $(document).on("submit", "form", function(e) {
+
+        e.preventDefault();
+        return false;
+    });
+
     $(document).scroll(function(){
 
         // hide header elements on scroll top
@@ -123,8 +130,9 @@ $(function(){
     });
     
     // close popups
-    $(document).on('click', '[data-action="popup:close"]', function(e) { 
-        closeOverlay();
+    $(document).on('click', 'close-overlay', function(e) { 
+        
+        closeOverlay = Overlay.close(overlay.overlay.parent());
     });
 
     // close dropdown

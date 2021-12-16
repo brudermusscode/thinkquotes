@@ -1,84 +1,59 @@
 $(function () {
 
-    // sign >> in
-    $(document).on('click', '[data-action="popup:login"]', function (e) {
+    let url, body = $("body");
 
-        let url = dynamicHost + "/dyn/popups/signin";
+    $(document)
+
+    // sign in
+    .on("click", "[data-action='popup:login']", function (e) {
+
+        // add new overlay
+        overlay = Overlay.add(body, $(this), false);
+
+        // set url for xhr
+        url = dynamicHost + "/dyn/content/sign/in";
 
         $.ajax({
-            type: "POST",
             url: url,
+            type: "POST",
             dataType: 'HTML',
-            beforeSend: function () {
+            success: function (data) {
 
-                addOverlay();
-                togglebody();
+                setTimeout(function() {
 
+                    overlay.overlay.append(data);
+                }, 700);
             },
-            success: function (response) {
-
-                var ro = $('body').find('response-overlay');
-
-                addLoaderFloat(ro);
-
-                var errorModuleOutput = randomStringArray(randomErrorTexts);
-                var failArray = [1, 0];
-
-                if ($.inArray(parseInt(response), failArray) !== -1) {
-
-                    showErrorModule(errorModuleOutput);
-
-                } else {
-
-                    ro.empty();
-                    ro.append(response);
-                    fitPopupModule();
-
-                }
-
-            },
-            error: function (response) {
-                showErrorModule("Some random error happened, try again!");
+            error: function (data) {
+                console.error(data);
             }
         });
-
     })
 
-    // sign >> up
+    // sign up
     .on("click", "[data-action='popup:signup']", function (e) {
 
-        let url = dynamicHost + "/dyn/popups/signup";
+        // add new overlay
+        overlay = Overlay.add(body, $(this), false);
+
+        // set url for xhr
+        url = dynamicHost + "/dyn/content/sign/up";
 
         $.ajax({
-            type: "POST",
             url: url,
+            type: "POST",
             dataType: 'HTML',
-            success: function (response) {
+            success: function (data) {
 
-                var errorModuleOutput = randomStringArray(randomErrorTexts);
-                var failArray = [1, 0];
+                setTimeout(function() {
 
-                if ($.inArray(parseInt(response), failArray) !== -1) {
-
-                    showErrorModule(errorModuleOutput);
-
-                } else {
-
-                    addOverlay();
-                    var ro = $('body').find('response-overlay');
-                    togglebody();
-                    ro.empty();
-                    ro.append(response);
-                    fitPopupModule();
-
-                }
-
+                    overlay.overlay.append(data);
+                }, 700);
             },
-            error: function (response) {
-                showErrorModule("Some random error happened, try again!");
+            error: function (data) {
+                console.error(data);
             }
         });
-
     })
 
     // sign >> out

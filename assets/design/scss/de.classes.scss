@@ -232,32 +232,43 @@ $md-icon-size-classes: 0;
   }
 }
 
-/* DISPLAY PROPERTIES */
+// display properties
 .disib {
   display: inline-block;
 }
+
 .disbl {
   display: block;
 }
+
 .disi {
   display: inline;
 }
+
 .disn {
   display: none;
 }
+
 .disfl {
   display: flex;
 }
 
-/* FLEX STYLES */
+// flexbox
 .fldirrow {
   flex-direction: row;
 }
+
 .fldircol {
   flex-direction: column;
 }
 
-/* ABSOLUTE POSITIONS */
+.flcenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// positioning
 .t0 {
   top: 0;
 }

@@ -67,7 +67,6 @@ class Collection
         return $v;
     }
 
-
     // preg_replace && preg:match
     function only($strg, $which)
     {

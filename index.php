@@ -1,4 +1,5 @@
 <?php
+
 $is_page = true;
 $page = "index";
 
@@ -10,6 +11,7 @@ include_once "./assets/templates/global/head.php";
 include_once "./assets/templates/global/header.php";
 
 ?>
+
 <div id="main" class="wpx--main">
 
     <label class="posrel mb24">
@@ -28,8 +30,6 @@ include_once "./assets/templates/global/header.php";
     </create-grid>
 
 </div>
-
-
 
 <?php
 
