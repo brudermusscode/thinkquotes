@@ -3,6 +3,10 @@
 /* import stuff */
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons+Round");
+@font-face {
+  font-family: frente;
+  src: url("/assets/design/fonts/frente-h1.regular.otf") format("opentype");
+}
 @import "de.variables.scss";
 @import "de.classes.scss";
 @import "de.animations.scss";
@@ -17,6 +21,9 @@
   --image-url: "https://images.thinkquotes.de";
 
   --colour-lila: #91819e;
+  --colour-lila-100: #7b6d86;
+  --colour-lila-200: #6d6077;
+  --colour-lila-300: #5a4e63;
   --colour-pink: #e74de2;
   --colour-red: #ffaaab;
   --colour-darkred: #a53e54;

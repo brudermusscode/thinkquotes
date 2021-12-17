@@ -3,11 +3,6 @@
 @import "de.classes.scss";
 @import "de.animations.scss";
 
-@font-face {
-  font-family: frente;
-  src: url("/assets/design/fonts/frente-h1.regular.otf") format("opentype");
-}
-
 .signup-logo {
   line-height: 1;
   z-index: 2;

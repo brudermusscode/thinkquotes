@@ -1,4 +1,5 @@
 @charset "UTF-8";
+@import "de.gen.scss";
 @import "de.variables.scss";
 @import "de.classes.scss";
 
@@ -13,8 +14,7 @@
 }
 
 #intern-hdr {
-  @extend .tran-all-cubic;
-  background: var(--colour-orange-200);
+  background: var(--colour-lila-200);
   top: 0;
   left: 0;
   position: fixed;
@@ -24,11 +24,12 @@
   opacity: 1;
   margin-top: 0;
 
+  @extend .tran-all-cubic;
+
   p {
     color: var(--colour-light);
     font-size: 2em;
     font-weight: 400;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.24);
   }
 }
 
@@ -129,13 +130,14 @@
 
   .section-label {
     margin: 0px 32px 24px;
+    font-family: "frente", sans-serif;
 
     p {
       max-width: 1230px;
       color: var(--colour-light);
-      font-size: 2em;
+      font-size: 3em;
       font-weight: 400;
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.24);
+      text-shadow: 0 2px 2px rgba(0, 0, 0, 0.24);
     }
   }
 
@@ -528,6 +530,7 @@ create-grid {
   .social-media {
     background: rgba(255, 255, 255, 0.12);
     padding: 24px 32px;
+    border-radius: 0 0 12px 12px;
 
     @extend .posrel;
 

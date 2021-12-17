@@ -9,7 +9,8 @@ header('Content-type: application/json');
 // start validation process
 if (
     isset($_POST["mail"]) &&
-    !empty($_POST["mail"] && !$logged)
+    !empty($_POST["mail"]) &&
+    !LOGGED
 ) {
 
     // variablize

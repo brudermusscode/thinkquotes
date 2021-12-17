@@ -2,6 +2,43 @@
 @import "de.variables.scss";
 @import "de.classes.scss";
 
+// adminDump
+#adminDump {
+  position: fixed;
+  z-index: 10000000;
+  left: -370px;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  width: 400px;
+  background: var(--colour-red);
+  transition: all 0.2s ease-out;
+
+  &:hover {
+    left: 0px;
+    overflow: hidden auto;
+  }
+
+  .dump {
+    background: white;
+    border-radius: 12px;
+    padding: 8px 24px 24px;
+    margin: 12px;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    font-size: 0.8em;
+    font-weight: 700;
+    color: #333;
+    overflow: hidden;
+
+    .title {
+      font-weight: 700;
+      font-size: 1.2em;
+      padding: 12px 0;
+    }
+  }
+}
+
 // popups
 popup-module {
   position: absolute;

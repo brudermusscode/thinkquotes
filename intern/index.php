@@ -15,11 +15,11 @@ include_once "../assets/templates/global/header.php";
 
 <div id="main" class="wpx--main">
 
-    <div class="pb32" style="margin:20px auto 0;width: calc(100% - 48px);max-width: 1230px;color: var(--colour-light);font-size: 2em;font-weight: 400;text-shadow: 0 1px 2px rgba(0, 0, 0, 0.24);">
-        <p class="tac">How to help you?</p>
-    </div>
-
     <div class="intern--outer">
+
+        <div class="pb32 section-label">
+            <p class="tac mt32 mb12" style="font-size:4em;">How to help you?</p>
+        </div>
 
         <?php
 

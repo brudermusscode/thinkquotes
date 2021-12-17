@@ -59,23 +59,6 @@ if (!$is_page) {
     <script src="<?php echo $url->js; ?>/quotes/quotes.functions.min.js"></script>
 
     <style>
-        .spin-cubic-endless {
-            animation: spin 3s infinite;
-            animation-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-    </style>
-
-    <style>
         @import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
     </style>
 
@@ -86,62 +69,27 @@ if (!$is_page) {
 
 <body>
 
-    <style>
-        #adminDump {
-            position: fixed;
-            z-index: 10000000;
-            left: -370px;
-            top: 0;
-            height: 100vh;
-            overflow: hidden;
-            width: 400px;
-            background: var(--colour-red);
-            transition: all .2s ease-out;
-        }
 
-        #adminDump:hover {
-            left: 0px;
-            overflow: hidden auto;
-        }
-
-        #adminDump .dump {
-            background: white;
-            border-radius: 12px;
-            padding: 8px 24px 24px;
-            margin: 12px;
-            line-height: 1.2;
-            letter-spacing: -.01em;
-            font-size: .8em;
-            font-weight: 700;
-            color: #333;
-            overflow: hidden;
-        }
-
-        #adminDump .dump .title {
-            font-weight: 700;
-            font-size: 1.2em;
-            padding: 12px 0;
-        }
-    </style>
-
-    <div id="adminDump" class="mshd-3">
-        <div class="dump mshd-1">
-            <div class="title">SESSION</div>
-            <pre><?php var_dump((object) $_SESSION); ?></pre>
+    <?php if (LOGGED && ADMIN) { ?>
+        <div id="adminDump" class="mshd-3">
+            <div class="dump mshd-1">
+                <div class="title">SESSION</div>
+                <pre><?php var_dump((object) $_SESSION); ?></pre>
+            </div>
+            <div class="dump mshd-1">
+                <div class="title">REQUEST</div>
+                <pre><?php var_dump((object) $_REQUEST); ?></pre>
+            </div>
+            <div class="dump mshd-1">
+                <div class="title">COOKIE</div>
+                <pre><?php var_dump((object) $_COOKIE); ?></pre>
+            </div>
+            <div class="dump mshd-1">
+                <div class="title">SERVER</div>
+                <pre><?php var_dump((object) $_SERVER); ?></pre>
+            </div>
         </div>
-        <div class="dump mshd-1">
-            <div class="title">REQUEST</div>
-            <pre><?php var_dump((object) $_REQUEST); ?></pre>
-        </div>
-        <div class="dump mshd-1">
-            <div class="title">COOKIE</div>
-            <pre><?php var_dump((object) $_COOKIE); ?></pre>
-        </div>
-        <div class="dump mshd-1">
-            <div class="title">SERVER</div>
-            <pre><?php var_dump((object) $_SERVER); ?></pre>
-        </div>
-    </div>
+    <?php } ?>
 
     <app>
 

@@ -9,14 +9,14 @@ $pageTitle = "Team of Development";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/session/session.inc.php";
 
 // Head section
-include_once $sroot . "/assets/templates/global/head.php";
-include_once $sroot . "/assets/templates/global/header.php";
+include_once SROOT . "/assets/templates/global/head.php";
+include_once SROOT . "/assets/templates/global/header.php";
 
 ?>
 
 <div id="main" class="wpx--main intern fullpage">
 
-    <?php include_once "../assets/templates/intern/header.tools.php"; ?>
+    <?php include_once SROOT . "./assets/templates/intern/header.tools.php"; ?>
 
     <div class="intern--outer updates">
 
@@ -62,7 +62,7 @@ include_once $sroot . "/assets/templates/global/header.php";
                                             <p><?php echo $member->rank_name; ?></p>
                                         </div>
                                         <div class="username">
-                                            <p class="ttup"><?php echo $member->uname; ?></p>
+                                            <p class="ttup"><?php echo $member->username; ?></p>
                                         </div>
                                     </div>
 
@@ -123,4 +123,4 @@ include_once $sroot . "/assets/templates/global/header.php";
 </div>
 
 
-<?php include_once $sroot . "/assets/templates/global/footer.php"; ?>
+<?php include_once SROOT . "/assets/templates/global/footer.php"; ?>

@@ -20,7 +20,7 @@ if (
 ) {
 
     // variablize
-    $serial = NULL;
+    $serialArray = NULL;
     $uid = $_REQUEST["uid"];
     $code1 = $_REQUEST["code1"];
     $code2 = $_REQUEST["code2"];
@@ -32,21 +32,25 @@ if (
 
     // check if there's an account with that email
     $stmt = $pdo->prepare("
-        SELECT *, users.id AS uid, users_authentications.id AS authId 
-        FROM users, users_authentications, users_settings
+        SELECT 
+        *, 
+        users.id AS id
+        FROM 
+        users, 
+        users_authentications, 
+        users_settings
         WHERE users.id = users_authentications.uid 
         AND users.id = users_settings.uid
         AND users_authentications.uid = ?
         AND users_authentications.authCode = ?
-        AND users_authentications.used = '0' 
-        LIMIT 3
+        AND users_authentications.used = '0'
     ");
     $stmt->execute([$uid, $code]);
 
     if ($stmt->rowCount() > 0) {
 
         // create serial & token for session
-        $serial = (object) [
+        $serialArray = (object) [
 
             "token" => $sign->createString(34),
             "serial" => $sign->createString(34),
@@ -60,7 +64,7 @@ if (
         $stmt = $stmt->fetch();
 
         // create session with user information
-        if ($sign->createSession($stmt, $serial)) {
+        if ($sign->createSession($stmt, $serialArray, false)) {
 
             // start mysql transaction
             $pdo->beginTransaction();
@@ -72,6 +76,8 @@ if (
             if ($upd->status) {
 
                 $return->status = true;
+                $return->SESSION = $_SESSION;
+                $return->STMT = $stmt;
                 $return->message = "You've been logged in my friend!";
 
                 exit(json_encode($return));

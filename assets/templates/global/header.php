@@ -13,6 +13,10 @@ if (LOGGED) {
     $frcount = $hasFriendsRequests;
 }
 
+//var_dump($_SESSION);
+//unset($_SESSION);
+//session_destroy();
+
 ?>
 
 <header id="main-hdr" class="posrel">
@@ -37,8 +41,8 @@ if (LOGGED) {
 
         <div class="middle-logo--outer posabs alignmiddle">
             <div class="lo-sizing">
-                <div class="logo mshd-1">
-                    <img src="https://images.thinkquotes.de/global/new.logo.thq.png" style="visibility:hidden;opacity:0;">
+                <div class="logo" style="background: transparent url(<?php echo $url->img; ?>/global/newlogo.2.png) center no-repeat;background-size: cover;">
+                    <img src="<?php echo $url->img; ?>/global/newlogo.2.png" style="visibility:hidden;opacity:0;">
                 </div>
             </div>
         </div>
@@ -208,5 +212,5 @@ if (LOGGED) {
 <?php } ?>
 
 <?php if ($page === "intern") { ?>
-    <header id="intern-hdr" class="mshd-1"></header>
+    <header id="intern-hdr"></header>
 <?php } ?>

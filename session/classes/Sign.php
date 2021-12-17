@@ -7,24 +7,24 @@ $sign = new Sign($pdo, $_SESSION, $_COOKIE);
 class Sign extends Thinkquotes
 {
 
-    public function __construct(object $pdo, array $__session, array $__cookie)
+    public function __construct(object $pdo, array $fromSession, array $fromCookies)
     {
         $this->pdo = $pdo;
-        $this->__session = (object) $__session;
-        $this->__cookie = (object) $__cookie;
+        $this->fromSession = (object) $fromSession;
+        $this->fromCookies = (object) $fromCookies;
     }
 
     // check login state for user
     public function isAuthed()
     {
 
-        if (isset($this->__cookie->TOK) && isset($this->__cookie->SER) && !empty($this->__session)) {
+        if (isset($this->fromCookies->TOK) && isset($this->fromCookies->SER) && !empty($this->fromSession)) {
 
-            $cookieToken = $this->__cookie->TOK;
-            $cookieSerial = $this->__cookie->SER;
-            $sessionToken = $this->__session->token;
-            $sessionSerial = $this->__session->serial;
-            $sessionId = $this->__session->id;
+            $cookieToken = $this->fromCookies->TOK;
+            $cookieSerial = $this->fromCookies->SER;
+            $sessionToken = $this->fromSession->token;
+            $sessionSerial = $this->fromSession->serial;
+            $sessionId = $this->fromSession->id;
 
             // check if cookies and serial are same
             if (
@@ -41,11 +41,13 @@ class Sign extends Thinkquotes
                     // everything's fine, user is logged in
                     return true;
                 } else {
+
                     $this->logout();
+                    return false;
                 }
             } else {
-                $this->logout();
 
+                $this->logout();
                 return false;
             }
         } else {
@@ -84,7 +86,7 @@ class Sign extends Thinkquotes
     public function createSession(object $fetch, object $serial, bool $reset = false)
     {
 
-        if (isset($serial->token, $serial->serial) && !$reset) {
+        if (isset($serial->token, $serial->serial, $serial->uid) && !$reset) {
 
             // insert user session
             $stmt = $this->pdo->prepare("INSERT INTO users_sessions (uid, token, serial) VALUES (?, ?, ?)");
@@ -99,6 +101,7 @@ class Sign extends Thinkquotes
                 // loop through fetch object and pass all keys + values
                 // to $SESSION
                 foreach ($fetch as $f => $k) {
+
                     $_SESSION[$f] = $k;
                 }
 
@@ -121,10 +124,11 @@ class Sign extends Thinkquotes
             // loop through fetch object and pass all keys + values
             // to $SESSION
             foreach ($fetch as $f => $k) {
+
                 $_SESSION[$f] = $k;
             }
 
-            return ($_SESSION);
+            return $_SESSION;
         }
 
         return false;
@@ -137,22 +141,22 @@ class Sign extends Thinkquotes
         if ($this->isAuthed()) {
 
             // get user data and compare
-            $getUserData = $this->pdo->prepare("
-                SELECT *, users_settings.id AS sid 
+            $stmt = $this->pdo->prepare("
+                SELECT *, users.id AS id 
                 FROM users, users_settings 
                 WHERE users.id = users_settings.uid 
                 AND users.id = ?
             ");
 
-            if ($getUserData->execute([$this->__session->id])) {
+            if ($stmt->execute([$this->fromSession->id])) {
 
                 $serial = (object) [
-                    "serial" => $this->__cookie->SER,
-                    "token" => $this->__cookie->TOK
+                    "serial" => $this->fromCookies->SER,
+                    "token" => $this->fromCookies->TOK
                 ];
 
                 // fetch actual user information
-                $u = $getUserData->fetch();
+                $u = $stmt->fetch();
 
                 // return new createSession
                 return $this->createSession($u, $serial, true);
@@ -166,15 +170,9 @@ class Sign extends Thinkquotes
     public function logout()
     {
 
-        // unset all $SESSION keys
-        unset($_SESSION);
-
-        // unset token and serial cookies
         setcookie('TOK', '', time() - 1, "/");
         setcookie('SER', '', time() - 1, "/");
 
-        // destroy the current session
-        session_unset();
         session_destroy();
     }
 

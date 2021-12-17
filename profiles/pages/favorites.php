@@ -9,7 +9,7 @@ if (isset($subpage) && $subpage === "favorites") {
             <p class="ttup">
                 <?php
 
-                if ($isLoggedIn && $user->uid === UID) {
+                if (LOGGED && $user->uid === UID) {
                     echo "Quotes you love";
                 } else {
                     echo "Favorite quotes";
