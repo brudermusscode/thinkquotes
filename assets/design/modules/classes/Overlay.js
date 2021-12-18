@@ -37,7 +37,7 @@ class Overlay {
                 if(!card) {
 
                     // append closing area to the overlay
-                    $overlay.append('<close-overlay><i class="material-icons-round md-32">close</i></close-overlay');
+                    $overlay.append('<close-overlay><i class="ri-close-circle-line" style="font-size:3em;"></i></close-overlay');
                 }
             }, 700);
 
@@ -56,7 +56,7 @@ class Overlay {
                     width: "100%",
                     background: "var(--colour-red)"
                 });
-            }, 100);
+            }, 0);
         }, 10);
 
         // return the overlay as array

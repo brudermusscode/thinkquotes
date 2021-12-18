@@ -14,10 +14,12 @@ include_once "./assets/templates/global/header.php";
 
 <div id="main" class="wpx--main">
 
-    <label class="posrel mb24">
-        <div class="inr">
+    <label for="quotes" class="posrel mb24">
+        <div class="label-inr">
             <p class="ttup">All time favorites</p>
-            <p class="ttup mr18"><span class="material-icons-round md-24">expand_more</span></p>
+            <p class="ttup mr18">
+                <i class="ri-arrow-down-s-line std"></i>
+            </p>
         </div>
     </label>
 

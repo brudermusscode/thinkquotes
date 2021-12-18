@@ -27,7 +27,7 @@ if (!$is_page) {
     <link rel="shortcut icon" href="<?php echo $url->img; ?>/global/new.logo.thq.png" type="image/x-icon">
 
     <!-- STYLESHEETS -->
-    <link rel="stylesheet" href="https://storage.googleapis.com/non-spec-apps/mio-icons/latest/round.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo $url->css; ?>/de.normalize.css" />
     <link rel="stylesheet" href="<?php echo $url->css; ?>/de.gen.css" />
     <link rel="stylesheet" href="<?php echo $url->css; ?>/elem.quote.css" />
@@ -36,12 +36,16 @@ if (!$is_page) {
     <link rel="stylesheet" href="<?php echo $url->css; ?>/de.hdr.css" />
     <link rel="stylesheet" href="<?php echo $url->css; ?>/de.classes.css" />
     <link rel="stylesheet" href="<?php echo $url->css; ?>/de.responsiveness.css" />
+
     <?php if ($page === "maintenance") { ?>
         <link rel="stylesheet" href="<?php echo $url->css; ?>/de.maintenance.css" />
+
     <?php } else if ($page === "profiles") { ?>
         <link rel="stylesheet" href="<?php echo $url->css; ?>/de.profiles.css" />
+
     <?php } else if ($page === "intern") { ?>
         <link rel="stylesheet" href="<?php echo $url->css; ?>/de.intern.css" />
+
     <?php } ?>
 
     <link rel="stylesheet" href="<?php echo $url->css; ?>/sign.css" />
@@ -57,13 +61,6 @@ if (!$is_page) {
     <script src="<?php echo $url->js; ?>/users/users.get.min.js"></script>
     <script src="<?php echo $url->js; ?>/quotes/quotes.get.min.js"></script>
     <script src="<?php echo $url->js; ?>/quotes/quotes.functions.min.js"></script>
-
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
-    </style>
-
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5364145398992926" crossorigin="anonymous"></script>
-
 
 </head>
 
@@ -100,54 +97,6 @@ if (!$is_page) {
             </div>
         </div>
 
-
-        <style>
-            .cookiezi-banner {
-                bottom: 24px;
-                left: 32px;
-                background: var(--colour-dark);
-                border-radius: 6px;
-                position: fixed;
-                z-index: 1000;
-                display: block;
-                transition: all 0.6s cubic-bezier(0.1, 0.82, 0.25, 1);
-            }
-
-            .cookiezi-banner .inr {
-                padding: 0 84px 0 24px;
-                line-height: 4em;
-            }
-
-            .cookiezi-banner .cb-close {
-                right: 24px;
-                cursor: pointer;
-                color: var(--colour-light);
-                opacity: .8;
-                transition: all .1s linear;
-            }
-
-            .cookiezi-banner .cb-close:hover {
-                opacity: .6;
-            }
-
-            .cookiezi-banner .cb-close:active {
-                opacity: .4;
-            }
-
-            .cookiezi-banner a {
-                color: var(--colour-red);
-                transition: all .1s linear;
-            }
-
-            .cookiezi-banner a:hover {
-                opacity: .8;
-            }
-
-            .cookiezi-banner a:active {
-                opacity: .4;
-            }
-        </style>
-
         <script>
             $(function() {
 
@@ -168,12 +117,14 @@ if (!$is_page) {
         </script>
 
         <?php if (!isset($_COOKIE["leckercoronabier"])) { ?>
+
             <div class="cookiezi-banner mshd-3">
                 <p class="lt isDark inr trimt">We use cookies! Read more about it <a href="<?php echo $url->intern; ?>/privacy#m6">here</a>...</p>
                 <div class="align-mid-vert posabs cb-close" data-action="cookie:cookies,accept">
                     <span class="material-icons-round md-24">close</span>
                 </div>
             </div>
+
         <?php } ?>
 
 

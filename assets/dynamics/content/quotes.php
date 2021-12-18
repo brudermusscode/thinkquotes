@@ -189,46 +189,58 @@ if (isset($_POST["page"], $_POST["order"], $_POST["limit"], $_POST["uid"])) {
                         </style>
 
                         <?php if (LOGGED) { ?>
+
                             <div data-element="dropdown" class="posrel" travelhereboy data-react="function:quotes,edit,hide">
                                 <div class="q-top-tools">
+
                                     <div class="sizing" data-action="dropdown:open">
-                                        <p><span class="material-icons-round md-24">more_horiz</span></p>
+                                        <p>
+                                            <i class="ri-arrow-down-s-line std"></i>
+                                        </p>
                                     </div>
 
                                     <dropdown data-dropdown="header,usermenu" data-react="dropdown:open" class="mshd-2">
                                         <div class="dd-inr">
                                             <ul>
+
                                                 <?php if ($myQuote) { ?>
+
                                                     <li class="has-icon trimt" data-action="popup:quotes,edit">
-                                                        <p class="align-mid-vert">
-                                                            <span class="material-icons-round md-18">edit</span>
+                                                        <p>
+                                                            <i class="ri-edit-circle-fill small"></i>
                                                         </p>
-                                                        Edit
+                                                        <p>Edit</p>
                                                     </li>
+
                                                     <li class="has-icon trimt" data-action="popup:quotes,delete">
-                                                        <p class="align-mid-vert">
-                                                            <span class="material-icons-round md-18">delete</span>
+                                                        <p>
+                                                            <i class="ri-delete-bin-4-fill small"></i>
                                                         </p>
-                                                        Delete
+                                                        <p>Archive</p>
                                                     </li>
+
                                                 <?php } else { ?>
+
                                                     <li class="has-icon trimt" data-action="popup:quotes,report">
-                                                        <p class="align-mid-vert">
-                                                            <span class="material-icons-round md-18">flag</span>
+                                                        <p>
+                                                            <i class="ri-flag-2-fill small"></i>
                                                         </p>
-                                                        Report
+                                                        <p>Report</p>
                                                     </li>
+
                                                 <?php } ?>
+
                                             </ul>
                                         </div>
                                     </dropdown>
                                 </div>
                             </div>
+
                         <?php } ?>
 
                         <div class="q-inr">
-
                             <div data-react="function:quotes,edit,hide">
+
                                 <div class="author fw7 mb4">
                                     <p><?php echo $q->author_name; ?></p>
                                 </div>
@@ -250,49 +262,27 @@ if (isset($_POST["page"], $_POST["order"], $_POST["limit"], $_POST["uid"])) {
                                     <div class="cl"></div>
 
                                 </div>
+
                             </div>
                         </div>
 
                         <?php if (LOGGED) { ?>
-                            <div class="tools">
 
+                            <div class="tools">
                                 <div class="disfl fldirrow" style="padding:12px 32px;">
 
-
                                     <div style="margin-right:auto;" class="disfl fldirrow">
-
-                                        <style>
-                                            quote .tools .to-profile {
-                                                line-height: 1.4;
-                                                border-radius: 4px;
-                                                padding: 0 8px;
-                                                color: var(--colour-dark);
-                                                transition: all .1s linear;
-                                            }
-
-                                            quote .tools .to-profile:hover {
-                                                background: rgba(230, 129, 152, 0.12);
-                                            }
-
-                                            quote .tools .to-profile:active {
-                                                background: rgba(230, 129, 152, 0.28);
-                                            }
-                                        </style>
-
                                         <a href="/u/profile/<?php echo $q->uid; ?>">
                                             <div class="to-profile">
-                                                <p><?php echo $q->uname; ?></p>
+                                                <p><?php echo $q->username; ?></p>
                                             </div>
                                         </a>
-
                                     </div>
 
-
                                     <div style="margin-left:auto;" class="disfl flexdirrow">
-
                                         <div class="duo">
                                             <div data-action="function:quotes,favorite" class="lt uno love <?php if ($isFavorite) { ?>active<?php } ?>">
-                                                <span class="material-icons-round md-24">favorite</span>
+                                                <i class="ri-heart-3-fill small"></i>
                                             </div>
                                             <div class="lt duo-text">
                                                 <p data-react="functions:quotes,favorite,count"><?php echo $getAllFaves->rowCount(); ?></p>
@@ -301,9 +291,10 @@ if (isset($_POST["page"], $_POST["order"], $_POST["limit"], $_POST["uid"])) {
                                             <div class="cl"></div>
                                         </div>
                                     </div>
-                                </div>
 
+                                </div>
                             </div>
+
                         <?php } ?>
 
                     </div>

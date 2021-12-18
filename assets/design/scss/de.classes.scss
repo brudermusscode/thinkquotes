@@ -1,16 +1,6 @@
 @charset "UTF-8";
 @import "de.variables.scss";
 
-// material icons sizes
-$md-icon-size-classes: 0;
-@while $md-icon-size-classes <= 200 {
-  .material-icons-round.md-#{$md-icon-size-classes} {
-    font-size: #{$md-icon-size-classes}px;
-  }
-
-  $md-icon-size-classes: $md-icon-size-classes + 2;
-}
-
 /* sort by time */
 .animate-height {
   height: 0px;
@@ -29,34 +19,28 @@ $md-icon-size-classes: 0;
   height: 77px;
   width: 100%;
 }
-.page-overlay {
-  z-index: 100000;
-  visibility: hidden;
-  opacity: 0;
-  height: 100%;
-  width: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background: rgba(38, 49, 55, 0.74);
-  transition: visibility 0s linear, opacity 0.2s ease-out;
-}
+
 .vsbltyhdn {
   visibility: hidden !important;
 }
+
 .grayline {
   border-bottom: 1px solid #e1e1e1;
   height: 1px;
 }
+
 .wrap {
   word-wrap: break-word;
 }
+
 .ovhid {
   overflow: hidden;
 }
+
 .veralmid {
   vertical-align: middle;
 }
+
 .trimt {
   text-overflow: ellipsis; /* IE, Safari (WebKit) */
   overflow: hidden; /* don't show excess chars */
@@ -147,19 +131,23 @@ $md-icon-size-classes: 0;
 
 /* SHADOWS */
 .mshd-1 {
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+    rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
 }
 .mshd-2 {
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
+    rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
 }
 .mshd-3 {
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
+    rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
 }
 .mshd-4 {
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px,
+    rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
 }
 .mshd-5 {
-  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
 }
 /* SHADOWS > LEFT */
 .mshd-l-4 {
@@ -262,10 +250,14 @@ $md-icon-size-classes: 0;
   flex-direction: column;
 }
 
-.flcenter {
-  display: flex;
+.flCenter {
   align-items: center;
   justify-content: center;
+}
+
+.flRowWrap {
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 // positioning
@@ -418,22 +410,11 @@ $border-radius-classes: 0;
 
 /* TRANSITIONS */
 .tran-all {
-  transition: all 0.1s linear;
+  transition: all 0.08s linear;
 }
-.tran-all-05 {
-  transition: all 0.5s linear;
-}
-.tran-all-015s {
-  transition: all 0.15s linear;
-}
+
 .tran-all-cubic {
   transition: all 0.4s cubic-bezier(0.1, 0.82, 0.25, 1);
-}
-.tran-all-cubic-imp {
-  transition: all 0.6s cubic-bezier(0.1, 0.82, 0.25, 1) !important;
-}
-.tran-all-cubic-1s {
-  transition: all 1s cubic-bezier(0.1, 0.82, 0.25, 1);
 }
 
 .text-shadow {

@@ -8,7 +8,7 @@
   z-index: 2;
   margin: 42px auto 0;
 
-  @extend .flcenter, .posrel;
+  @extend .disfl, .flCenter, .posrel;
 
   .logo-outer {
     font-size: 6em;
@@ -47,7 +47,7 @@
     text-align: center;
   }
 
-  @extend .flcenter, .alignmiddle, .posabs;
+  @extend .disfl, .flCenter, .alignmiddle, .posabs;
 
   .cover-image {
     height: 32em;

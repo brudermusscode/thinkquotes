@@ -2,133 +2,37 @@
  
  $(function(){
  
+    let url, overlay, formData, body = $("body");
 
     // quotes > add
 	$(document).on('click', '[data-action="popup:quotes,add"]', function(e) {
 
         categoryArray = [];
-        let url = dynamicHost + "/dyn/popups/quotes-add";
+        url = dynamicHost + "/dyn/steps/quotes/author";
+
+        // add new overlay
+        overlay = Overlay.add(body, $(this), false);
 
         $.ajax({
-            type: "POST",
             url: url,
+            type: "POST",
             dataType: 'HTML',
-            beforeSend: function(){
+            success: function(data){
 
-                addOverlay();
-                togglebody();
-                
-            },
-            success: function(response){
-                
-                var ro = $('body').find('response-overlay');
-                var form = $('[data-form="quotes,add"]');
-                
-                if(parseInt(response) === 1){
-                    
-                    showErrorModule("You need to have atleast one quote with 20 upvotes!");
-                    closeOverlay();
-                    
-                } else {
-                    
-                    ro.empty();
-                    ro.append(response);
-                    fitPopupModule();
-                    
+                if(data !== 0) {
+
+                    // append the data which came from the xhr request
+                    // to the overlay
+                    overlay.overlay.append(data);
                 }
 
             },
-            error: function(response){
-                showErrorModule("A wild error appeared! Fight it!");
+            error: function(data){
+                console.error(data);
             }
         });
     
 	})
-    
-    // quotes > add > search on type
-    .on("keyup focus", '[data-ontype="function:type,search"]', function(){
-        
-        var $t = $(this);
-        var $react = $t.parent().find('[data-react="function:type,search"]');
-        var val = $t.val();
-        var what = $t.data("json")[0].what;
-        let url = dynamicHost + "/dyn/search/on-type";
-
-        if($.trim(val) != "") {
-        
-            $.ajax({
-
-                method: "POST",
-                url: url,
-                dataType: "TEXT",
-                data: { value: val, what: what },
-                success: function(data) {
-
-                    if(data !== "1") {
-                    
-                        $react.children().empty();
-                        $react.children().append(data);
-
-                        var reactHeight = $react.find('.search-type--sizing').outerHeight();
-
-                        $react.addClass('active').css({ "height":reactHeight + "px" });
-                        
-                    } else {
-                        closeSearchType();
-                    }
-
-
-                },
-                error: function(data) {
-                    showErrorModule("Something mysterious happened, you may want to try again...");
-                }
-
-
-            });
-            
-        } else {
-            closeSearchType();
-        }
-        
-        
-    })
-    
-    .on("click", '[data-react="function:type,search"] .search-type--sizing div', function(event){
-
-        console.log('clicked');
-
-        let $t = $(this);
-        let value = $t.data("value");
-        let $input = $t.closest('[traveluntilheremyboy]').find('[data-ontype="function:type,search"]');
-        let e = $.Event("keypress");
-        let error;
-
-        e.which = 13;
-        e.keyCode = 13;
-
-        if($.inArray(value, categoryArray) !== -1) {
-                
-            error = "You've added this category already!";
-            showErrorModule(error);
-            
-        } else if(value === "") {
-                  
-            error = "Category can't be empty!";
-            showErrorModule(error);
-                  
-        } else {
-        
-            $input.val(value);
-            
-            setTimeout(function() {
-                $input.trigger(e);
-            }, 1);
-    
-            closeSearchType();
-            
-        }
-        
-    })
     
     // >> quotes > report
 	.on('click', '[data-action="popup:quotes,report"]', function(e) {

@@ -45,6 +45,8 @@ $(document).ready(function($, window, document, undefined) {
 
 $(function(){
 
+    let body = $("body");
+
     // prevent default and submitting forms statically
     $(document).on("submit", "form", function(e) {
 
@@ -132,7 +134,7 @@ $(function(){
     // close popups
     $(document).on('click', 'close-overlay', function(e) { 
         
-        closeOverlay = Overlay.close(overlay.overlay.parent());
+        closeOverlay = Overlay.close(body);
     });
 
     // close dropdown

@@ -63,7 +63,7 @@ $(function(){
                         $(document).find("close-overlay").click();
 
                         setTimeout(function() {
-                            //window.location.reload();
+                            window.location.reload();
                         }, 750);
                     }
                 }

@@ -52,16 +52,22 @@ if (LOGGED) {
                 <div class="bm single rd6 <?php if ($page === "index") {
                                                 echo "active";
                                             } ?>" onclick="window.location.replace('<?php echo $url->main; ?>');">
-                    <p class="alignmiddle posabs">
-                        <span class="material-icons-round md-24">space_dashboard</span>
+                    <p>
+                        <i class="ri-layout-masonry-fill std"></i>
                     </p>
                 </div>
 
                 <div class="bm single rd6 <?php if ($page === "intern") {
                                                 echo "active";
                                             } ?>" onclick="window.location.replace('<?php echo $url->intern; ?>');">
-                    <p class="alignmiddle posabs">
-                        <span class="material-icons-round md-24">policy</span>
+                    <p>
+                        <i class="ri-shield-user-fill std"></i>
+                    </p>
+                </div>
+
+                <div class="bm single rd6" onclick="window.open('https://www.github.com/brudermusscode/thinkquotes');">
+                    <p>
+                        <i class="ri-github-fill std"></i>
                     </p>
                 </div>
 
@@ -79,43 +85,31 @@ if (LOGGED) {
                 <?php if (LOGGED) { ?>
 
                     <usermainmenu>
-
                         <div class="disfl fldirrow">
-                            <hellofresh <?php if ($my->post_permissions == "none") { ?>disabled="true" <?php } ?> data-action="popup:quotes,add" class="hellofresh green rd6 icon-only shadowed mr12">
+
+                            <hellofresh <?php if ($my->post_permissions == "none") { ?>disabled="true" <?php } ?> data-action="popup:quotes,add" class="hellofresh hover-shadow green rd6 icon-only mr12">
                                 <div class="c-ripple js-ripple">
                                     <span class="c-ripple__circle"></span>
                                 </div>
-                                <p class="lt posabs alignmiddle"><span class="material-icons-round md-24">add</span></p>
+                                <p class="lt posabs alignmiddle">
+                                    <i class="ri-quill-pen-fill std"></i>
+                                </p>
 
                                 <div class="cl"></div>
                             </hellofresh>
-
-                            <!--<div class="kek icon mr12">
-                                <div class="kek-inr">
-                                    <p><span class="material-icons-round md-24">settings</span></p>
-                                </div>
-                            </div>-->
-
-                            <div class="posrel mr12">
-                                <hellofresh data-action="get:content,notifications" class="hellofresh dark clean rd6 big text-shadowed icon-only">
-                                    <div class="c-ripple js-ripple posrel" style="z-index:1;">
-                                        <span class="c-ripple__circle"></span>
-                                    </div>
-                                    <p class="lt posabs alignmiddle"><span class="material-icons-round md-24">notifications</span></p>
-
-                                    <div class="cl"></div>
-                                </hellofresh>
-                            </div>
 
                             <div data-react="check:friends,request" class="posrel" style="z-index:2;" travelhereboy>
 
                                 <hellofresh data-action="dropdown:open" class="<?php if ($my->check_friendrequests == "false") {
                                                                                     echo "pulse";
-                                                                                } ?> hellofresh red dark clean rd6 big circled text-shadowed icon-only">
+                                                                                } ?> hellofresh hover-shadow dark rd6 icon-only mr12">
                                     <div class="c-ripple js-ripple">
                                         <span class="c-ripple__circle"></span>
                                     </div>
-                                    <p class="lt posabs alignmiddle"><?php echo substr($my->username, 0, 1) ?></p>
+
+                                    <p class="lt posabs alignmiddle">
+                                        <i class="ri-menu-5-fill std"></i>
+                                    </p>
 
                                     <div class="cl"></div>
                                 </hellofresh>
@@ -125,10 +119,10 @@ if (LOGGED) {
                                         <ul>
 
                                             <li class="has-icon trimt" onclick="window.location.replace('/u/profile/<?php echo UID; ?>');">
-                                                <p class="align-mid-vert">
-                                                    <span class="material-icons-round md-18">insert_emoticon</span>
+                                                <p>
+                                                    <i class="ri-user-smile-fill small"></i>
                                                 </p>
-                                                Profile
+                                                <p>Profile</p>
                                             </li>
 
                                             <?php if ($hasFriendsRequests) { ?>
@@ -145,27 +139,27 @@ if (LOGGED) {
                                                     <div style="border-bottom:1px solid rgba(0,0,0,.06);margin:4px 12px;height:1px;"></div>
                                                 </div>
                                             <?php } ?>
-
                                             <li class="has-icon trimt" onclick="window.location.replace('/u/favorites/<?php echo UID; ?>');">
-                                                <p class="align-mid-vert">
-                                                    <span class="material-icons-round md-18">favorite</span>
+                                                <p>
+                                                    <i class="ri-heart-3-fill small"></i>
                                                 </p>
-                                                Favorite quotes
+                                                <p>Favorite quotes</p>
                                             </li>
+
                                             <li class="has-icon trimt" data-action="popup:users,settings">
-                                                <p class="align-mid-vert">
-                                                    <span class="material-icons-round md-18">settings</span>
+                                                <p>
+                                                    <i class="ri-settings-6-fill small"></i>
                                                 </p>
-                                                Settings
+                                                <p>Settings</p>
                                             </li>
 
                                             <div style="border-bottom:1px solid rgba(0,0,0,.06);margin:4px 12px;height:1px;"></div>
 
-                                            <li class="has-icon trimt" data-action='popup:signout' style="color:var(--colour-red);">
-                                                <p class="align-mid-vert">
-                                                    <span class="material-icons-round md-18">logout</span>
+                                            <li class="has-icon trimt tac" data-action='popup:signout' style="color:var(--colour-red);">
+                                                <p>
+                                                    <i class="ri-logout-circle-r-fill small"></i>
                                                 </p>
-                                                Logout
+                                                <p>Leave</p>
                                             </li>
                                         </ul>
                                     </div>
@@ -173,23 +167,22 @@ if (LOGGED) {
                             </div>
 
                         </div>
-
                     </usermainmenu>
 
                 <?php } else { ?>
 
-                    <hellofresh data-action="popup:login" class="hellofresh fw7 rd6 big mr12 clean text-shadowed" style="color:var(--colour-light);">
+                    <hellofresh data-action="popup:login" class="hellofresh rd6 big mr12 hover-shadow" style="color:var(--colour-light);">
                         <div class="c-ripple js-ripple">
                             <span class="c-ripple__circle"></span>
                         </div>
                         Log in
                     </hellofresh>
 
-                    <hellofresh data-action="popup:signup" class="rd6 big shadowed orange">
+                    <hellofresh data-action="popup:signup" class="rd6 big red hover-shadow">
                         <div class="c-ripple js-ripple">
                             <span class="c-ripple__circle"></span>
                         </div>
-                        Sign up
+                        Join
                     </hellofresh>
 
                 <?php } ?>
