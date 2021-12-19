@@ -15,8 +15,10 @@ if (
     if ($my->post_permissions !== "none") {
 
         // variablize
-        // TODO: do some validation
         $qid = htmlspecialchars($_REQUEST["qid"]);
+
+        // start transaction
+        $pdo->beginTransaction();
 
         // insert quote
         $stmt = $pdo->prepare("UPDATE quotes SET isDraft = '0' WHERE id = ? AND uid = ?");
@@ -29,6 +31,7 @@ if (
             $qid = $stmt->lastInsertId;
 
             $return->status = true;
+            $return->message = NULL;
             exit(json_encode($return));
         }
     } else {

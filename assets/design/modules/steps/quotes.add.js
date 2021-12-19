@@ -374,17 +374,12 @@ $(() => {
             url: url,
             data: formData,
             method: this.method,
-            dataType: "JSON",
+            dataType: "HTML",
             contentType: false,
             processData: false,
             success: (data) => {
                 
-                if (data.status) {
-
-                    // add the category id to the draftObject
-                    draftObject.cid = data.cid;
-
-                    console.log(draftObject);
+                if (data) {
 
                     // make popup module hide
                     toggleActive([
@@ -395,13 +390,13 @@ $(() => {
                     setTimeout(() => {
 
                         $popupModule.empty()
-                            .prepend(data.message);
+                            .prepend(data);
 
                         setTimeout(() => {
 
                             // change steps description text
                             $steps.find(".description p[here]")
-                                .html("Choose a category, that describes the quote's content");
+                                .html("That's how your quote will look like");
                             $steps.find("hellofresh")
                                 .attr("data-action", "quotes:add,all,submit")
                                 .html('<i class="ri-check-line std"></i>');
@@ -430,10 +425,13 @@ $(() => {
         url = dynamicHost + "/dyn/steps/quotes/_submit";
 
         // select form
-        const form = document.querySelector('[data-form="quotes:add,all"]');
+        let form = document.querySelector('[data-form="quotes:add,all"]');
+
+        // submit all to function and store result in variable
+        submitAllResult = submitAll(form, url);
 
         // submit all
-        if (submitAll(form, url)) {
+        if (submitAllResult) {
 
             // add new overlay
             overlay = Overlay.add(body, $(this), false, "1001", "var(--colour-lila-200)");
@@ -450,11 +448,15 @@ $(() => {
                     closeOverlay(body);
                 }, 1800);
             }, 600);
+        } else {
+            showErrorModule("A wild error appeared, fight it!");
         }
     });
 
     // submit everything
-    const submitAll = (form, url) => {
+    let submitAll = (form, url) => {
+
+        let ajax = true;
 
         // construct formdata
         formData = new FormData(form);
@@ -467,7 +469,7 @@ $(() => {
             }
         }
 
-        $.ajax({
+        ajax = $.ajax({
 
             url: url,
             data: formData,
@@ -477,19 +479,20 @@ $(() => {
             processData: false,
             success: (data) => {
 
-                console.log(data);
-
-                if (data.status) {
-                    return true;
+                if (!data.status) {
+                    return false;
                 }
-
-                return false;
             },
             error: (data) => {
                 console.error(data);
             }
-        });
+        })
+        // .responseJSON
+        ;
 
+
+
+        return ajax;
     }
 
     // create function to use again for checking emty input/textarea strings

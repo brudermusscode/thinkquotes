@@ -3,33 +3,19 @@
 // require mysql connection and session data
 require_once $_SERVER["DOCUMENT_ROOT"] . "/session/session.inc.php";
 
-// set JSON content type
-header('Content-Type: application/json; charset=utf-8');
-
 if (
     isset(
-        $_REQUEST["aid"],
-        $_REQUEST["quote"],
         $_REQUEST["qid"],
-        $_REQUEST["sid"],
         $_REQUEST["category"]
     ) &&
-    !empty($_REQUEST["aid"]) &&
-    !empty($_REQUEST["quote"]) &&
     !empty($_REQUEST["qid"]) &&
-    !empty($_REQUEST["sid"]) &&
     !empty($_REQUEST["category"]) &&
-    is_numeric($_REQUEST["aid"]) &&
     is_numeric($_REQUEST["qid"]) &&
-    is_numeric($_REQUEST["sid"]) &&
     LOGGED
 ) {
 
     // TODO: validate request values
-    $aid = htmlspecialchars($_REQUEST["aid"]);
-    $quote = htmlspecialchars($_REQUEST["quote"]);
     $qid = htmlspecialchars($_REQUEST["qid"]);
-    $sid = htmlspecialchars($_REQUEST["sid"]);
     $category = htmlspecialchars($_REQUEST["category"]);
 
     // start mysql transaction
@@ -85,35 +71,64 @@ if (
 
     if ($stmt->status) {
 
-        // get the content for adding sources
-        // TODO: find better method to include the file
-        $content = file_get_contents($url->main . "/assets/dynamics/steps/quotes/elements/all.php");
+        // get current quote and show on process
+        $stmt = $pdo->prepare("
+            SELECT *, 
+            quotes.id AS qid, 
+            users.id AS uid, 
+            quotes_authors.id AS aid,  
+            quotes_sources.id AS sid  
+            FROM quotes, users, quotes_authors, quotes_sources 
+            WHERE quotes.uid = users.id
+            AND quotes.aid = quotes_authors.id 
+            AND quotes.sid = quotes_sources.id 
+            AND quotes.id = ?
+            AND quotes.deleted = '0' 
+            LIMIT 1
+        ");
+        $stmt->execute([$qid]);
 
-        // replace %% with actual strings
-        // in this case the author and the quote
-        $content = str_replace("%author%", $aid, $content);
-        $content = str_replace("%quote%", $quote, $content);
-        $content = str_replace("%source%", $sid, $content);
-        $content = str_replace("%category%", $category, $content);
+?>
 
-        // set the status for return to true
-        $return->status = true;
+        <div class="inr">
+            <form data-form="quotes:add,all" method="POST" action>
 
-        // add values to return object
-        $return->aid = $aid;
-        $return->quote = $quote;
-        $return->qid = $qid;
-        $return->sid = $sid;
-        $return->cid = $cid;
+                <label for="popup-module" class="mb32">
+                    <div class="label-inr light">
+                        <p>Almost there!</p>
+                    </div>
+                </label>
 
-        // pass the content from the PHP file to the return message
-        $return->message = $content;
+                <div class="input">
 
-        // exit the script with encoding the return array to JSON
-        exit(json_encode($return));
+                    <div class="pulse"></div>
+                    <input name="qid" type="hidden" value="<?php echo $qid; ?>" />
+                </div>
+
+                <?php
+
+                foreach ($stmt->fetchAll() as $elementInclude) {
+
+                    include_once SROOT . "/assets/dynamics/elements/quote.php";
+                }
+
+                ?>
+
+            </form>
+        </div>
+
+        <script class="dno">
+            $(() => {
+
+            });
+        </script>
+
+<?php
+
+        exit();
     } else {
-        exit(json_encode($return));
+        exit(false);
     }
 } else {
-    exit(json_encode($return));
+    exit(false);
 }

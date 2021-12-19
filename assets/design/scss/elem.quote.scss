@@ -152,3 +152,24 @@ quote {
     margin-top: 8px;
   }
 }
+
+quote .quote--outer .q-inr .edit-overlay {
+  position: relative;
+}
+
+quote .quote--outer .q-inr .edit-overlay {
+  position: relative;
+}
+
+quote .quote--outer .q-inr .edit-overlay textarea {
+  resize: none;
+  width: 100%;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.24);
+  transition: all 0.1s linear;
+  color: var(--colour-dark);
+  padding-bottom: 12px;
+}
+
+quote .quote--outer .q-inr .edit-overlay textarea:focus {
+  border-bottom: 1px solid var(--colour-red);
+}

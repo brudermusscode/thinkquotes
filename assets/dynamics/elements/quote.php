@@ -39,29 +39,6 @@ if (isset($elementInclude)) {
 
         <div data-append="overlay" class="quote--outer mshd-1">
 
-            <style>
-                quote .quote--outer .q-inr .edit-overlay {
-                    position: relative;
-                }
-
-                quote .quote--outer .q-inr .edit-overlay {
-                    position: relative;
-                }
-
-                quote .quote--outer .q-inr .edit-overlay textarea {
-                    resize: none;
-                    width: 100%;
-                    border-bottom: 1px solid rgba(0, 0, 0, .24);
-                    transition: all .1s linear;
-                    color: var(--colour-dark);
-                    padding-bottom: 12px;
-                }
-
-                quote .quote--outer .q-inr .edit-overlay textarea:focus {
-                    border-bottom: 1px solid var(--colour-red);
-                }
-            </style>
-
             <?php if (LOGGED) { ?>
 
                 <div data-element="dropdown" class="posrel" travelhereboy data-react="function:quotes,edit,hide">

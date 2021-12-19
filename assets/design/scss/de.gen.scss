@@ -143,6 +143,11 @@ a:focus {
   outline: 0;
 }
 
+style,
+script {
+  display: none;
+}
+
 // friendrequests
 .friendrequests-outer {
   .fr-inr {
