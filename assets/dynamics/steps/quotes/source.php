@@ -3,70 +3,69 @@
 // require mysql connection and session data
 require_once $_SERVER["DOCUMENT_ROOT"] . "/session/session.inc.php";
 
+// set JSON content type
+header('Content-Type: application/json; charset=utf-8');
+
 if (
-    isset($_REQUEST["author"]) &&
-    !empty($_REQUEST["author"]) &&
+    isset(
+
+        $_REQUEST["aid"],
+        $_REQUEST["quote"]
+    ) &&
+    !empty($_REQUEST["aid"]) &&
+    is_numeric($_REQUEST["aid"]) &&
+    !empty($_REQUEST["quote"]) &&
     LOGGED
 ) {
-    if ($my->post_permissions != "none") {
 
-        $author = htmlspecialchars($_REQUEST["author"]);
+    // TODO: validate request values
+    $aid = htmlspecialchars($_REQUEST["aid"]);
+    $quote = htmlspecialchars($_REQUEST["quote"]);
 
-?>
+    // check if the user has permissions to add new quotes
+    if ($my->post_permissions !== "none") {
 
-        <form data-form="quotes:add,done" method="POST" action>
-            <div class="inr">
+        // start mysql transaction
+        $pdo->beginTransaction();
 
-                <label for="popup-module" class="mb32">
-                    <div class="label-inr light">
-                        <p>What's the <strong style="display:inline;">source</strong>?</p>
-                    </div>
-                </label>
+        // insert the quote as a draft at first
+        $stmt = $pdo->prepare("INSERT INTO quotes (uid, aid, quote_text) VALUES (?, ?, ?)");
+        $stmt = $system->execute($stmt, [UID, $aid, $quote], $pdo, true);
 
-                <div class="input">
-                    <div class="pulse"></div>
+        if ($stmt->status) {
 
-                    <input name="author" type="hidden" value="<?php echo $author; ?>" />
-                    <textarea name="quote" class="dno" value="<?php echo $quote; ?>" readonly></textarea>
+            // get quote's insert id
+            $qid = $stmt->lastInsertId;
 
-                    <input name="source" type="text" placeholder="Internet, Book, ..." autofocus="true" />
-                </div>
+            // get the content for adding sources
+            // TODO: find better method to include the file
+            $content = file_get_contents($url->main . "/assets/dynamics/steps/quotes/elements/source.php");
 
-                <div class="recommendations" data-element="quotes:add,recommended">
+            // replace %% with actual strings
+            // in this case the author and the quote
+            $content = str_replace("%author%", $aid, $content);
+            $content = str_replace("%quote%", $quote, $content);
 
-                    <?php
+            // set the status for return to true
+            $return->status = true;
 
-                    $stmt = $pdo->prepare("SELECT * FROM quotes_sources ORDER BY RAND() LIMIT 12");
-                    $stmt->execute();
+            // save values from REQUEST variables into return object
+            $return->aid = $aid;
+            $return->quote = $quote;
+            $return->qid = $qid;
 
-                    foreach ($stmt->fetchAll() as $s) {
+            // pass the content from the PHP file to the return message
+            $return->message = $content;
 
-                    ?>
-
-                        <card>
-                            <p><?php echo $s->source_name; ?></p>
-                        </card>
-
-                    <?php } ?>
-
-                </div>
-
-            </div>
-        </form>
-
-        <script class="dno">
-            $(() => {
-
-            });
-        </script>
-
-<?php
-
+            // exit the script with encoding the return array to JSON
+            exit(json_encode($return));
+        } else {
+            $return->message = "Couldn't save your quote as a draft, something went wrong. Please close the overlay and try again";
+            exit(json_encode($return));
+        }
     } else {
-        exit(1);
+        exit(json_encode($return));
     }
 } else {
-    exit(0);
+    exit(json_encode($return));
 }
-
-?>

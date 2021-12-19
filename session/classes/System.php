@@ -33,17 +33,20 @@ class Thinkquotes
 
             // return the object back to the script
             return $return;
-        } catch (PDOException $e) {
+        } catch (\PDOException $e) {
 
             // catch error information
             $return = (object) [
+                "exception" => $e,
                 "status" => false,
                 "message" => $e->getMessage(),
                 "code" => $e->getCode()
             ];
 
             // rollback data and return error information
-            $connection->rollback();
+            if ($commit) {
+                $connection->rollback();
+            }
 
             return $return;
         }

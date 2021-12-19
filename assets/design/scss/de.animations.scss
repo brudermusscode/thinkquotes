@@ -271,6 +271,28 @@
   -moz-animation-fill-mode: forwards;
 }
 
+@keyframes fade-in-slow {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.fade-in-slow {
+  animation: fade-in 0.8s linear;
+  -webkit-animation: fade-in 0.8s linear;
+  -moz-animation: fade-in 0.8s linear;
+  -ms-animation: fade-in 0.8s linear;
+  -o-animation: fade-in 0.8s linear;
+  animation-fill-mode: forwards;
+  -webkit-animation-fill-mode: forwards;
+  -ms-animation-fill-mode: forwards;
+  -o-animation-fill-mode: forwards;
+  -moz-animation-fill-mode: forwards;
+}
+
 @keyframes glow {
   from {
     opacity: 1;

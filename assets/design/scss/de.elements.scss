@@ -207,6 +207,7 @@ popup-module {
   .recommendations {
     margin-top: 24px;
     position: absolute;
+    width: 100%;
 
     flex-direction: row;
     flex-wrap: wrap;
@@ -230,6 +231,25 @@ popup-module {
       &:hover {
         @extend .mshd-2;
       }
+    }
+  }
+
+  .confirmation-text {
+    display: block;
+    opacity: 0;
+
+    @extend .posrel, .fade-in-slow;
+
+    &.centered {
+      position: fixed;
+      @extend .alignmiddle;
+    }
+
+    p {
+      font-family: "frente", sans-serif;
+      color: var(--colour-light);
+      font-size: 3.8em;
+      line-height: 1;
     }
   }
 }

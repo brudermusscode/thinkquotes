@@ -3,37 +3,9 @@
  $(function(){
  
     let url, overlay, formData, body = $("body");
-
-    // quotes > add
-	$(document).on('click', '[data-action="popup:quotes,add"]', function(e) {
-
-        categoryArray = [];
-        url = dynamicHost + "/dyn/steps/quotes/author";
-
-        // add new overlay
-        overlay = Overlay.add(body, $(this), false);
-
-        $.ajax({
-            url: url,
-            type: "POST",
-            dataType: 'HTML',
-            success: function(data){
-
-                if(data !== 0) {
-
-                    // append the data which came from the xhr request
-                    // to the overlay
-                    overlay.overlay.append(data);
-                }
-
-            },
-            error: function(data){
-                console.error(data);
-            }
-        });
     
-	})
-    
+    $(document)
+
     // >> quotes > report
 	.on('click', '[data-action="popup:quotes,report"]', function(e) {
 

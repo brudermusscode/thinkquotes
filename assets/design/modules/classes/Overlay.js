@@ -1,6 +1,6 @@
 class Overlay {
 
-    static add(append, element, card = false) {
+    static add(append, element, card = false, zIndex = false, color = false) {
 
         let $overlay, array, hw, position, elementOffset;
 
@@ -16,10 +16,20 @@ class Overlay {
         // set body's overflow to hidden
         $('body').addClass('ovhid');
 
+        // set zIndex if it's not passed
+        if(!zIndex) {
+            zIndex = "1000";
+        }
+
+        // set background colour to standard red, if no param was passed
+        if(!color) {
+            color = "var(--colour-red)";
+        }
+
         // append the page overlay to passed param append and set a
         // background of the clicked element as well as it's height
         // and width and coordinates
-        $overlay = append.prepend('<page-overlay style="background:'+element.css("background-color")+';height:'+element.outerHeight()+'px;width:'+element.outerWidth()+'px;top:'+elementOffset.top+'px;left:'+elementOffset.left+'px;"></page-overlay>');
+        $overlay = append.prepend('<page-overlay style="background:'+element.css("background-color")+';height:'+element.outerHeight()+'px;width:'+element.outerWidth()+'px;top:'+elementOffset.top+'px;left:'+elementOffset.left+'px;z-index: ' + zIndex + ';"></page-overlay>');
 
         // store added page overlay
         $overlay = append.find("page-overlay");
@@ -54,7 +64,9 @@ class Overlay {
                     top:0,
                     left:0,
                     width: "100%",
-                    background: "var(--colour-red)"
+
+                    // the color that was passed through param color. Std is var(--colour-red)
+                    background: color
                 });
             }, 0);
         }, 10);

@@ -1,2 +1,4 @@
-// ideas
-// ? add ability to choose font for quotes
+>> quotes
+// TODO: add ability to choose font for quotes
+// TODO: step back and edit
+// TODO: quote draft should be added as soon as a author was chosen, so we just need to save the qid in the adding process

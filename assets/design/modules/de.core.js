@@ -133,8 +133,8 @@ $(function(){
     
     // close popups
     $(document).on('click', 'close-overlay', function(e) { 
-        
-        closeOverlay = Overlay.close(body);
+
+        closeOverlay(body);
     });
 
     // close dropdown
@@ -192,6 +192,10 @@ $(function(){
 
 });
 
+const closeOverlay = (append) => {
+    return Overlay.close(append);
+}
+
 var fitPopupModule = function() {
     var $md = $(document).find('response-overlay popup-module');
     var mdHeight = $md.outerHeight();
@@ -202,42 +206,6 @@ var fitPopupModule = function() {
     } else {
         $md.removeClass("scrollable");
     }
-}
-
-// response overlay functionality
-function addOverlay(appendTo, color = "dark") {
-
-    let $appendTo;
-    let $ro;
-
-    if(appendTo !== undefined) {
-        $appendTo = $(appendTo);
-        $appendTo.prepend('<response-overlay class="tran-all" style="position:absolute;"><div class="progressbar spinner spinner5 float"></div></response-overlay>');
-    } else {
-        $appendTo = $('body app');
-        $appendTo.prepend('<response-overlay class="tran-all"><div class="progressbar spinner spinner5 float"></div></response-overlay>');
-    }
-
-    $ro = $('response-overlay');
-    $ro.css({ 'opacity':'1', 'visibility':'visible' });
-
-}
-
-function closeOverlay(overlay = undefined) {
-    let responseOverlay;
-    
-    if(overlay !== undefined) {
-        responseOverlay = $(overlay);
-    } else {
-        responseOverlay = $('response-overlay');
-    }
-
-    responseOverlay.css({ "visibility":"hidden", "opacity":"0" });
-    togglebody();
-
-    setTimeout(function(){
-        responseOverlay.remove();
-    }, 400);
 }
 
 function addLoaderFloat(overlay) {

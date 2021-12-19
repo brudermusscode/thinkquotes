@@ -11,14 +11,17 @@ if (
         $_REQUEST["aid"],
         $_REQUEST["quote"],
         $_REQUEST["qid"],
-        $_REQUEST["source"]
+        $_REQUEST["sid"],
+        $_REQUEST["category"]
     ) &&
     !empty($_REQUEST["aid"]) &&
-    is_numeric($_REQUEST["aid"]) &&
     !empty($_REQUEST["quote"]) &&
     !empty($_REQUEST["qid"]) &&
+    !empty($_REQUEST["sid"]) &&
+    !empty($_REQUEST["category"]) &&
+    is_numeric($_REQUEST["aid"]) &&
     is_numeric($_REQUEST["qid"]) &&
-    !empty($_REQUEST["source"]) &&
+    is_numeric($_REQUEST["sid"]) &&
     LOGGED
 ) {
 
@@ -26,25 +29,27 @@ if (
     $aid = htmlspecialchars($_REQUEST["aid"]);
     $quote = htmlspecialchars($_REQUEST["quote"]);
     $qid = htmlspecialchars($_REQUEST["qid"]);
-    $source = htmlspecialchars($_REQUEST["source"]);
+    $sid = htmlspecialchars($_REQUEST["sid"]);
+    $category = htmlspecialchars($_REQUEST["category"]);
 
     // start mysql transaction
     $pdo->beginTransaction();
 
     // insert the author
-    $stmt = $pdo->prepare("INSERT INTO quotes_sources (uid, source_name) VALUES (?, ?)");
-    $stmt = $system->execute($stmt, [UID, $source], $pdo, false);
+    // TODO: make multiple categories adding possible
+    $stmt = $pdo->prepare("INSERT INTO quotes_categories (uid, category_name) VALUES (?, ?)");
+    $stmt = $system->execute($stmt, [UID, $category], $pdo, false);
 
     if ($stmt->status) {
 
         // store the new id in aid variable
-        $sid = $stmt->lastInsertId;
+        $cid = $stmt->lastInsertId;
 
         // check for permissions of user to add new things
         // before actually committing
         if ($my->post_permissions !== "full") {
 
-            $return->message = "Please choose from preset sources. Your permissions aren't set to add new ones";
+            $return->message = "Please choose from preset categories. Your permissions aren't set to add new ones";
             exit(json_encode($return));
         }
     } else {
@@ -57,8 +62,8 @@ if (
             case "23000":
 
                 // select the source and get the id
-                $stmt = $pdo->prepare("SELECT * FROM quotes_sources WHERE source_name = ? LIMIT 1");
-                $stmt->execute([$source]);
+                $stmt = $pdo->prepare("SELECT * FROM quotes_categories WHERE category_name = ? LIMIT 1");
+                $stmt->execute([$category]);
 
                 // check again if source exists
                 if ($stmt->rowCount() < 1) {
@@ -66,30 +71,30 @@ if (
                 }
 
                 // fetch the select statement and store the id
-                $sid = $stmt->fetch()->id;
+                $cid = $stmt->fetch()->id;
                 break;
 
             default:
                 exit(json_encode($return));
-                break;
         }
     }
 
-    // update quote and set category
-    $stmt = $pdo->prepare("UPDATE quotes SET sid = ? WHERE id = ? AND uid = ?");
-    $stmt = $system->execute($stmt, [$sid, $qid, UID], $pdo, true);
+    // insert into categories used for relation between quote and category
+    $stmt = $pdo->prepare("INSERT INTO quotes_categories_used (qid, cid) VALUES (?, ?)");
+    $stmt = $system->execute($stmt, [$qid, $cid], $pdo, true);
 
     if ($stmt->status) {
 
         // get the content for adding sources
         // TODO: find better method to include the file
-        $content = file_get_contents($url->main . "/assets/dynamics/steps/quotes/elements/categories.php");
+        $content = file_get_contents($url->main . "/assets/dynamics/steps/quotes/elements/all.php");
 
         // replace %% with actual strings
-        // in this case the author, quote and the source
+        // in this case the author and the quote
         $content = str_replace("%author%", $aid, $content);
         $content = str_replace("%quote%", $quote, $content);
-        $content = str_replace("%source%", $source, $content);
+        $content = str_replace("%source%", $sid, $content);
+        $content = str_replace("%category%", $category, $content);
 
         // set the status for return to true
         $return->status = true;
@@ -99,11 +104,12 @@ if (
         $return->quote = $quote;
         $return->qid = $qid;
         $return->sid = $sid;
+        $return->cid = $cid;
 
         // pass the content from the PHP file to the return message
         $return->message = $content;
 
-        // return the content formatted as JSON
+        // exit the script with encoding the return array to JSON
         exit(json_encode($return));
     } else {
         exit(json_encode($return));

@@ -26,7 +26,7 @@ if (!$is_page) {
 
     <link rel="shortcut icon" href="<?php echo $url->img; ?>/global/new.logo.thq.png" type="image/x-icon">
 
-    <!-- STYLESHEETS -->
+    <!-- scss -->
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo $url->css; ?>/de.normalize.css" />
     <link rel="stylesheet" href="<?php echo $url->css; ?>/de.gen.css" />
@@ -50,7 +50,7 @@ if (!$is_page) {
 
     <link rel="stylesheet" href="<?php echo $url->css; ?>/sign.css" />
 
-    <!-- SCRIPTS -->
+    <!-- js -->
     <script src="<?php echo $url->js; ?>/thirdparty/de.jquery.3.js"></script>
     <script src="<?php echo $url->js; ?>/thirdparty/de.cookie.min.js"></script>
     <script src="<?php echo $url->js; ?>/thirdparty/de.masonry.js"></script>
@@ -61,6 +61,11 @@ if (!$is_page) {
     <script src="<?php echo $url->js; ?>/users/users.get.min.js"></script>
     <script src="<?php echo $url->js; ?>/quotes/quotes.get.min.js"></script>
     <script src="<?php echo $url->js; ?>/quotes/quotes.functions.min.js"></script>
+
+    <!--- js > steps --->
+    <?php if (LOGGED) { ?>
+        <script src="<?php echo $url->js; ?>/steps/quotes.add.min.js"></script>
+    <?php } ?>
 
 </head>
 

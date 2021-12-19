@@ -40,7 +40,10 @@ if (isset($_REQUEST["search"]) && LOGGED) {
 
         ?>
 
-        No authors found, if you proceed you gonna add it
+
+        <p style="font-size:1.2em;color:var(--colour-light);flex-grow:0;flex-shrink:0;flex-basis:100%;" class="tac w100 mt12">
+            No authors found, if you proceed you gonna add it
+        </p>
 
 <?php
 
