@@ -102,44 +102,43 @@ $(function(){
     // >> quotes, favorite
     .on("click", "[data-action='function:quotes,favorite']", function(){
 
-        var $t = $(this);
-        var getData = $t.closest('quote').data("json");
-        var qid = getData[0].qid;
-        var $reactCount = $t.closest('quote').find('[data-react="functions:quotes,favorite,count"]');
-        let url = dynamicHost + "/dyn/quotes/favorite";
+        let $t, formData, qid, $reactCount, url, newCount, setNewCount;
+
+        $t = $(this);
+        $quote = $t.closest("quote");
+        qid = $quote.data("json")[0].qid;
+        formData = { qid: qid };
+        $reactCount = $t.closest('quote').find('[data-react="functions:quotes,favorite,count"]');
+        url = dynamicHost + "/dyn/quotes/favorite";
 
         $.ajax({
             
             url: url,
-            dataType: "text",
-            data: { qid: qid },
+            data: formData,
             method: "POST",
-            success: function(data){
+            dataType: "JSON",
+            success: (data) => {
                 
                 console.log(data);
+
+                // get current count container
+                newCount = $reactCount.html();
                 
-                var dataInt = parseInt(data);
-                var error,
-                    newCount = $reactCount.html(),
-                    setNewCount;
-                
-                switch(dataInt) {
-                    case 1:
+                if(data.status) {
+
+                    $quote.toggleClass("loved");
+
+                    if(data.state == 1) {
+
                         newCount = parseInt($reactCount.html()) + 1;
-                        error = "Added to your favorite library!";
-                        $t.toggleClass("active");
-                        break;
-                    case 2:
+                    } else {
+
                         newCount = parseInt($reactCount.html()) - 1;
-                        error = "Removed from your favorites!";
-                        $t.toggleClass("active");
-                        break;
-                    default:
-                        error = randomStringArray(randomErrorTexts);
+                    }
                 }
                 
-                setNewCount = $reactCount.html(newCount);
-                showErrorModule(error);
+                //setNewCount = $reactCount.html(newCount);
+                showErrorModule(data.message);
                 
             },
             error: function(data){
@@ -256,17 +255,6 @@ $(function(){
         });
         
     });
-
-
-
-    $(document).on('mouseup', function(e){
-
-        if(!$(e.target).is('[data-react="function:type,search"]')) {
-            closeSearchType();
-        }
-
-    });
-    
 });
 
 var closeSearchType = function(){

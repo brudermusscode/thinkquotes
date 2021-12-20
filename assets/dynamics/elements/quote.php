@@ -37,7 +37,7 @@ if (isset($elementInclude)) {
 
 ?>
 
-    <quote data-element="quote" data-quote-id="<?php echo $elementInclude->qid; ?>" data-json='[{"qid":"<?php echo $elementInclude->qid; ?>"}]' class="fade-in">
+    <quote data-element="quote" data-quote-id="<?php echo $elementInclude->qid; ?>" data-json='[{"qid":"<?php echo $elementInclude->qid; ?>"}]' class="fade-in <?php if ($isFavorite) { ?>loved<?php } ?>">
 
         <div data-append="overlay" class="quote--outer mshd-1">
 
@@ -134,8 +134,8 @@ if (isset($elementInclude)) {
 
                         <div style="margin-left:auto;" class="disfl flexdirrow">
                             <div class="duo">
-                                <div data-action="function:quotes,favorite" class="lt uno love <?php if ($isFavorite) { ?>active<?php } ?>">
-                                    <i class="ri-heart-3-fill small"></i>
+                                <div data-action="function:quotes,favorite" class="lt uno love">
+                                    <i class="material-icons small"></i>
                                 </div>
                                 <div class="lt duo-text">
                                     <p data-react="functions:quotes,favorite,count"><?php echo $elementInclude->upvotes; ?></p>

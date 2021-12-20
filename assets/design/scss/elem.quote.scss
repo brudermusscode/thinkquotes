@@ -27,6 +27,36 @@ quote {
     }
   }
 
+  [data-action="function:quotes,favorite"] {
+    i {
+      @extend .tran-all-cubic;
+
+      &::before {
+        display: block;
+        content: "favorite_border";
+        color: var(--colour-dark);
+      }
+
+      &.small {
+        font-size: 1.4em;
+      }
+
+      &:active {
+        transform: scale(0.9);
+      }
+    }
+  }
+
+  &.loved {
+    [data-action="function:quotes,favorite"] {
+      i::before {
+        display: block;
+        content: "favorite";
+        color: var(--colour-darkred);
+      }
+    }
+  }
+
   .quote--outer {
     background: var(--colour-light);
     position: relative;
