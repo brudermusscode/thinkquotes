@@ -106,6 +106,8 @@ if (
 
                     <?php
 
+                    $pure = true;
+
                     foreach ($stmt->fetchAll() as $elementInclude) {
 
                         include_once SROOT . "/assets/dynamics/elements/quote.php";

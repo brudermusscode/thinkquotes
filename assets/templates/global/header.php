@@ -43,7 +43,7 @@ if (LOGGED) {
 
             <?php if (LOGGED) { ?>
 
-                <pulse class="roundedPulse" style="display:block;opacity:1;"></pulse>
+                <pulse class="roundedPulse small"></pulse>
 
                 <hellofresh <?php if ($my->post_permissions == "none") { ?>disabled="true" <?php } ?> data-action="popup:quotes,add" class="hellofresh hover-shadow shadowed red rounded icon-only">
                     <div class="c-ripple js-ripple">
@@ -83,7 +83,7 @@ if (LOGGED) {
                                                 echo "active";
                                             } ?>" onclick="window.location.replace('<?php echo $url->intern; ?>');">
                     <p>
-                        <i class="ri-shield-user-fill std"></i>
+                        <i class="material-icons std">explore</i>
                     </p>
                 </div>
 
@@ -107,21 +107,25 @@ if (LOGGED) {
 
                             <div data-react="check:friends,request" class="posrel" style="z-index:2;" travelhereboy>
 
-                                <hellofresh data-action="dropdown:open" class="<?php if ($my->check_friendrequests == "false") {
-                                                                                    echo "pulse";
-                                                                                } ?> hellofresh hover-shadow dark rd6 icon-only mr12">
+                                <?php if ($my->check_friendrequests) { ?>
+
+                                    <pulse class="roundedPulse small"></pulse>
+
+                                <?php } ?>
+
+                                <hellofresh data-action="dropdown:open" class="hellofresh hover-shadow green dark rounded icon-only">
                                     <div class="c-ripple js-ripple">
                                         <span class="c-ripple__circle"></span>
                                     </div>
 
                                     <p class="lt posabs alignmiddle">
-                                        <i class="ri-user-5-fill std"></i>
+                                        <i class="material-icons std">more_vert</i>
                                     </p>
 
                                     <div class="cl"></div>
                                 </hellofresh>
 
-                                <dropdown data-dropdown="header,usermenu" data-react="dropdown:open" class="mshd-2">
+                                <dropdown data-dropdown="header,usermenu" data-react="dropdown:open" class="mshd-2" style="z-index:11;">
                                     <div class="dd-inr">
                                         <ul>
 

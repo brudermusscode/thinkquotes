@@ -1,4 +1,6 @@
 >> quotes
-// TODO: add ability to choose font for quotes
-// TODO: step back and edit
-// TODO: #14 quote draft should be added as soon as a author was chosen, so we just need to save the qid in the adding process
+
+// TODO: #14 quote draft should be added as soon as an author was chosen, so we just need to save the qid in the adding process
+// TODO: #15 show all authors, sources and categories when input is empty after hitting backspace
+// TODO: #16 add ability to choose font for quotes
+// TODO: #17 steps adding quote >> give option to step back and edit values

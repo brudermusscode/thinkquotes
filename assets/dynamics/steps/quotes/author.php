@@ -7,7 +7,7 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/session/session.inc.php";
 header('Content-Type: application/json; charset=utf-8');
 
 if (isset($_POST) && LOGGED) {
-    if ($my->post_permissions != "none") {
+    if ($my->post_permissions !== "none") {
 
         // get the content for adding sources
         // TODO: find better method to include the file

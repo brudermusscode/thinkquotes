@@ -86,6 +86,17 @@
   }
 }
 
+// animation elements
+pulse {
+  display: block;
+  background: var(--colour-red);
+  border-radius: 12px;
+  height: 100%;
+  width: 100%;
+
+  @extend .alignmiddle, .posabs;
+}
+
 // popups
 popup-module {
   position: absolute;

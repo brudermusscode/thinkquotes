@@ -56,15 +56,15 @@ include_once SROOT . "/assets/templates/global/header.php";
 
                 ?>
 
-                        <hellofresh data-action='function:friends,request,send/cancel/remove' data-json='[{"uid":"<?php echo $user->uid; ?>", "action":"removeFriendRequest"}]' class="rd6 big shadowed light">
+                        <hellofresh data-action='function:friends,request,send/cancel/remove' data-json='[{"uid":"<?php echo $user->uid; ?>", "action":"removeFriendRequest"}]' class="rd6 big shadowed light friendrequest deleteFriend">
                             <div class="c-ripple js-ripple">
                                 <span class="c-ripple__circle"></span>
                             </div>
                             <div class="disfl fldirrow">
-                                <div class="mr12">
-                                    <i class="ri-user-unfollow-fill small"></i>
+                                <div class="mr12 icon">
+                                    <i class="material-icons small"></i>
                                 </div>
-                                <p class="text">Remove friend</p>
+                                <p class="text"></p>
                             </div>
                         </hellofresh>
 
@@ -75,15 +75,15 @@ include_once SROOT . "/assets/templates/global/header.php";
 
                     ?>
 
-                        <hellofresh data-action='function:friends,request,send/cancel/remove' data-json='[{"uid":"<?php echo $user->uid; ?>", "action":"cancelFriend"}]' class="rd6 big shadowed light">
+                        <hellofresh data-action='function:friends,request,send/cancel/remove' data-json='[{"uid":"<?php echo $user->uid; ?>", "action":"cancelFriend"}]' class="rd6 big shadowed light friendrequest cancelRequest">
                             <div class="c-ripple js-ripple">
                                 <span class="c-ripple__circle"></span>
                             </div>
                             <div class="disfl fldirrow">
-                                <div class="mr12">
-                                    <span class="align-mid-vert material-icons-round md-24">not_interested</span>
+                                <div class="mr12 icon">
+                                    <i class="material-icons small"></i>
                                 </div>
-                                <p class="text">Cancel friendrequest</p>
+                                <p class="text"></p>
                             </div>
                         </hellofresh>
 
@@ -111,15 +111,15 @@ include_once SROOT . "/assets/templates/global/header.php";
 
                         ?>
 
-                            <hellofresh data-action='function:friends,request,send/cancel/remove' data-json='[{"uid":"<?php echo $user->uid; ?>", "action":"addFriend"}]' class="rd6 big shadowed light">
+                            <hellofresh data-action='function:friends,request,send/cancel/remove' data-json='[{"uid":"<?php echo $user->uid; ?>", "action":"addFriend"}]' class="rd6 big shadowed light friendrequest addFriend">
                                 <div class="c-ripple js-ripple">
                                     <span class="c-ripple__circle"></span>
                                 </div>
                                 <div class="disfl fldirrow">
-                                    <div class="mr12">
-                                        <i class="ri-user-add-fill small"></i>
+                                    <div class="mr12 icon">
+                                        <i class="material-icons small"></i>
                                     </div>
-                                    <p class="text">Add friend</p>
+                                    <p class="text"></p>
                                 </div>
                             </hellofresh>
 

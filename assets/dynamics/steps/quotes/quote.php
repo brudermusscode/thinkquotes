@@ -64,6 +64,8 @@ if (
         }
     }
 
+    // TODO: add draft as soon as author was added
+
     // get the content for adding quotes
     // TODO: find better method to include the file
     $content = file_get_contents($url->main . "/assets/dynamics/steps/quotes/elements/quote.php");

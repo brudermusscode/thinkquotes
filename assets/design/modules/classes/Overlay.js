@@ -2,10 +2,15 @@ class Overlay {
 
     static add(append, element, card = false, zIndex = false, color = false) {
 
-        let $overlay, array, hw, position, elementOffset;
+        let $overlay, array, hw, position, elementOffset, scrollTop, elementOffsetTop;
 
         // store offset of the clicked element
+        scrollTop = $(window).scrollTop();
         elementOffset = element.offset();
+
+        // calculate actual window position by taking away the scrolltop
+        // amount of the top offset of the element that was clicked
+        elementOffsetTop = elementOffset.top - scrollTop;
 
         array = {
             overlay : null,
@@ -15,6 +20,14 @@ class Overlay {
     
         // set body's overflow to hidden
         $('body').addClass('ovhid');
+
+        // standard is absolute positioning
+        position = "posabs";
+
+        // set fixed position if its not a card overlay
+        if(!card) {
+            position = "posfix";
+        }
 
         // set zIndex if it's not passed
         if(!zIndex) {
@@ -29,7 +42,7 @@ class Overlay {
         // append the page overlay to passed param append and set a
         // background of the clicked element as well as it's height
         // and width and coordinates
-        $overlay = append.prepend('<page-overlay style="background:'+element.css("background-color")+';height:'+element.outerHeight()+'px;width:'+element.outerWidth()+'px;top:'+elementOffset.top+'px;left:'+elementOffset.left+'px;z-index: ' + zIndex + ';"></page-overlay>');
+        $overlay = append.prepend('<page-overlay class="'+position+'" style="background:'+element.css("background-color")+';height:'+element.outerHeight()+'px;width:'+element.outerWidth()+'px;top:'+elementOffsetTop+'px;left:'+elementOffset.left+'px;z-index: ' + zIndex + ';"></page-overlay>');
 
         // store added page overlay
         $overlay = append.find("page-overlay");
@@ -51,24 +64,16 @@ class Overlay {
                 }
             }, 700);
 
-            // make it visible
-            $overlay.addClass("visible");
-
             // add some additional css for nice enlargen effect
             $overlay.addClass("visible").css({
-                height: "100%"
+                height: "100vh",
+                top:"0%",
+                left:"0%",
+                width: "100vw",
+
+                // the color that was passed through param color. Std is var(--colour-red)
+                background: color
             });
-
-            setTimeout(function() {
-                $overlay.css({
-                    top:0,
-                    left:0,
-                    width: "100%",
-
-                    // the color that was passed through param color. Std is var(--colour-red)
-                    background: color
-                });
-            }, 0);
         }, 10);
 
         // return the overlay as array

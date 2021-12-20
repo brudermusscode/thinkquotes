@@ -9,7 +9,7 @@ if (
     isset($_POST["uid"], $_POST["action"])
     && $_POST["uid"] !== ""
     && $_POST["action"] !== ""
-    && $logged
+    && LOGGED
 ) {
 
     $errorCount = 0;
@@ -17,7 +17,7 @@ if (
     $myuid = $_SESSION["id"];
     $action = $_POST["action"];
 
-    if ($uid === $sessionid)
+    if ($uid === $myuid)
         exit("0");
 
     $validActions = [

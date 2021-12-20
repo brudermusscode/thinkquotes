@@ -219,11 +219,8 @@ $(function(){
         let uid = getData[0].uid;
         let action = getData[0].action;
         let error;
-        let icon;
-        let text;
         let serializedData = { uid: uid, action: action };
         let $nt = $('.u-hdr').find("[data-action='function:friends,request,send/cancel/remove']");
-        let ntGetData = $nt.data("json");
 
         let url = dynamicHost + "/dyn/users/friends-add.php";
 
@@ -238,7 +235,7 @@ $(function(){
                     dataType: "TEXT",
                     success: function(data) {
 
-                        console.log(data);
+                        $t.removeClass('addFriend, removeFriend, cancelRequest');
 
                         let $icon = $nt.find(".material-icons-round");
                         let $text = $nt.find(".text");
@@ -252,21 +249,15 @@ $(function(){
                                 break;
                             case 3:
                                 error = "Friendrequest canceled!";
-                                icon = 'add_reaction';
-                                text = 'Add friend';
-                                ntGetData[0].action = 'addFriend';
+                                $t.addClass("addFriend");
                                 break;
                             case 4:
                                 error = "Friendrequest sent!";
-                                icon = 'not_interested';
-                                text = 'Cancel friendrequest';
-                                ntGetData[0].action = 'cancelFriend';
+                                $t.addClass("cancelRequest");
                                 break;
                             case 5:
                                 error = "You are no longer friends! Too bad!";
-                                icon = 'add_reaction';
-                                text = 'Add friend';
-                                ntGetData[0].action = 'addFriend';
+                                $t.addClass("removeFriend");
                                 closeOverlay();
                                 togglebody();
                                 break;
@@ -274,8 +265,6 @@ $(function(){
                                 error = "A wild error appeared! Fight it!";
                         }
 
-                        $icon.html(icon);
-                        $text.html(text);
                         showErrorModule(error);
 
                     },

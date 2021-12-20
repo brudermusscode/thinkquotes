@@ -28,6 +28,7 @@ if (!$is_page) {
 
     <!-- scss -->
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo $url->css; ?>/de.normalize.css" />
     <link rel="stylesheet" href="<?php echo $url->css; ?>/de.gen.css" />
     <link rel="stylesheet" href="<?php echo $url->css; ?>/elem.quote.css" />

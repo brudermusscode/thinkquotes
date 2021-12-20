@@ -509,6 +509,45 @@ hellofresh {
     background-color: var(--colour-orange);
     color: white;
   }
+
+  // friendship system buttons
+  &.friendrequest {
+    &.addFriend {
+      .icon i::before {
+        display: block;
+        content: "person_add";
+      }
+
+      .text::before {
+        display: block;
+        content: "Add friend";
+      }
+    }
+
+    &.cancelRequest {
+      .icon i::before {
+        display: block;
+        content: "cached";
+      }
+
+      .text::before {
+        display: block;
+        content: "Cancel friendrequest";
+      }
+    }
+
+    &.removeFriend {
+      .icon i::before {
+        display: block;
+        content: "person_remove";
+      }
+
+      .text::before {
+        display: block;
+        content: "Remove friend";
+      }
+    }
+  }
 }
 
 .c-ripple {

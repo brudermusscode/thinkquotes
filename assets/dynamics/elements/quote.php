@@ -138,7 +138,7 @@ if (isset($elementInclude)) {
                                     <i class="ri-heart-3-fill small"></i>
                                 </div>
                                 <div class="lt duo-text">
-                                    <p data-react="functions:quotes,favorite,count"><?php echo $getAllFaves->rowCount(); ?></p>
+                                    <p data-react="functions:quotes,favorite,count"><?php echo $elementInclude->upvotes; ?></p>
                                 </div>
 
                                 <div class="cl"></div>

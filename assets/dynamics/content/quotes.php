@@ -56,7 +56,7 @@ if (isset($_POST["page"], $_POST["order"], $_POST["limit"], $_POST["uid"])) {
                     AND quotes.aid = quotes_authors.id 
                     AND quotes.sid = quotes_sources.id 
                     AND quotes.deleted = '0' 
-                    ORDER BY $o 
+                    ORDER BY quotes.upvotes 
                     DESC LIMIT ?
                 ";
                 $bind = [$l];
@@ -119,16 +119,18 @@ if (isset($_POST["page"], $_POST["order"], $_POST["limit"], $_POST["uid"])) {
 
             // no quotes content
             if ($getQuotes->rowCount() < 1) {
+
                 include_once "quotes-empty.php";
-            }
+            } else {
 
-            // querry all quotes
-            foreach ($getQuotes->fetchAll() as $elementInclude) {
+                // querry all quotes
+                foreach ($getQuotes->fetchAll() as $elementInclude) {
 
-                $pure = false;
+                    $pure = false;
 
-                // include quote card
-                include SROOT . "/assets/dynamics/elements/quote.php";
+                    // include quote card
+                    include SROOT . "/assets/dynamics/elements/quote.php";
+                }
             }
 
             ?>

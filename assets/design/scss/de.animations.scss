@@ -520,16 +520,16 @@
 }
 
 .roundedPulse {
-  background: rgba(255, 255, 255, 0.48);
-  border-radius: 12px;
-  height: 100%;
-  width: 100%;
-  animation: roundedPulse 1.4s cubic-bezier(0.1, 0.01, 0.11, 0.98) infinite;
+  &.small {
+    animation: roundedPulseSmall 2s cubic-bezier(0.1, 0.01, 0.11, 0.98) infinite;
+  }
 
-  @extend .alignmiddle, .posabs;
+  &.large {
+    animation: roundedPulseLarge 2s cubic-bezier(0.1, 0.01, 0.11, 0.98) infinite;
+  }
 }
 
-@keyframes roundedPulse {
+@keyframes roundedPulseSmall {
   from {
     height: 100%;
     width: 100%;
@@ -538,9 +538,25 @@
   }
 
   to {
-    height: calc(100% + 12px);
-    width: calc(100% + 12px);
+    height: calc(100% + 24px);
+    width: calc(100% + 24px);
     opacity: 0;
     border-radius: 16px;
+  }
+}
+
+@keyframes roundedPulseLarge {
+  from {
+    height: 100%;
+    width: 100%;
+    opacity: 1;
+    border-radius: 12px;
+  }
+
+  to {
+    height: calc(100% + 32px);
+    width: calc(100% + 32px);
+    opacity: 0;
+    border-radius: 24px;
   }
 }
