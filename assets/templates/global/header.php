@@ -121,7 +121,7 @@ if (LOGGED) {
                                     <div class="cl"></div>
                                 </hellofresh>
 
-                                <dropdown data-dropdown="header,usermenu" data-react="dropdown:open" class="mshd-2" style="z-index:11;">
+                                <dropdown data-dropdown="header,usermenu" data-react="dropdown:open" class="mshd-4" style="z-index:11;">
                                     <div class="dd-inr">
                                         <ul>
 
@@ -157,16 +157,9 @@ if (LOGGED) {
 
                                                 <li class="trimt" onclick="window.location.replace('/u/profile/<?php echo UID; ?>');">
                                                     <p>
-                                                        <i class="ri-dashboard-fill"></i>
+                                                        <i class="ri-dashboard-fill small"></i>
                                                     </p>
                                                     <p>Your quotes</p>
-                                                </li>
-
-                                                <li class="trimt disabled">
-                                                    <p>
-                                                        <i class="ri-eye-off-fill"></i>
-                                                    </p>
-                                                    <p>Drafts</p>
                                                 </li>
 
                                                 <li class="trimt" onclick="window.location.replace('/u/favorites/<?php echo UID; ?>');">
@@ -174,6 +167,20 @@ if (LOGGED) {
                                                         <i class="ri-heart-3-fill small"></i>
                                                     </p>
                                                     <p>Favorite quotes</p>
+                                                </li>
+
+                                                <li class="trimt disabled">
+                                                    <p>
+                                                        <i class="ri-eye-off-fill small"></i>
+                                                    </p>
+                                                    <p>Drafts</p>
+                                                </li>
+
+                                                <li class="trimt disabled">
+                                                    <p>
+                                                        <i class="ri-archive-fill small"></i>
+                                                    </p>
+                                                    <p>Archive</p>
                                                 </li>
 
                                             </div>

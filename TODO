@@ -4,3 +4,9 @@
 // TODO: #15 show all authors, sources and categories when input is empty after hitting backspace
 // TODO: #16 add ability to choose font for quotes
 // TODO: #17 steps adding quote >> give option to step back and edit values
+// TODO: #23 #22 steps >> adding quote >> show suggestions on quotes on quote textarea input
+
+>> global
+
+// TODO: #20 give user the option to individually change background colour
+// TODO: #21 read-only mode for quotes home page

@@ -3,8 +3,10 @@
 // main
 $main-main-width: 1280px;
 $main-menu-width: 1230px;
+$main-popup-width: 900px;
 $main-width-with-padding: calc(100% - 48px);
 
+// manipulate quotes and popups width' on screen size change
 @media screen and (max-width: 600px) {
   $main-width-with-padding: 100%;
 }

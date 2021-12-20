@@ -6,7 +6,7 @@
 // sidemenu for showing dumps
 #adminDump {
   position: fixed;
-  z-index: 10000000;
+  z-index: 200;
   left: -370px;
   top: 0;
   height: 100vh;
@@ -105,8 +105,8 @@ popup-module {
   transform: translate(-50%, -50%);
   top: 50%;
   left: 50%;
-  max-width: 900px;
-  width: calc(100% - 48px);
+  max-width: $main-popup-width;
+  width: $main-width-with-padding;
 
   .cover-image {
     height: 32em;
@@ -269,7 +269,8 @@ steps {
   bottom: -70px;
   opacity: 0;
   transform: translateX(-50%);
-  width: 900px;
+  max-width: $main-popup-width;
+  width: $main-width-with-padding;
   border-radius: 12px 12px 0 0;
   background: white;
   box-shadow: 0 0px 0 2px rgba(0, 0, 0, 0.12);

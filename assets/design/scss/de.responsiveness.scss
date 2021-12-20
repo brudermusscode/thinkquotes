@@ -39,3 +39,15 @@
     --masonry-coloumns-index: 1;
   }
 }
+
+@media screen and (max-width: 600px) {
+  steps,
+  popup-module,
+  quote .q-inr,
+  popup-module .input .pulse,
+  popup-module .input input,
+  popup-module .input textarea {
+    width: 100%;
+    border-radius: 0px !important;
+  }
+}
