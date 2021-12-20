@@ -74,6 +74,10 @@ i {
   &.small {
     font-size: 1.2em;
   }
+
+  &.large {
+    font-size: 3em;
+  }
 }
 
 /* gen styles */
@@ -331,6 +335,8 @@ hellofresh {
   padding: 0;
   outline: none;
   transition: all 0.1s linear;
+  height: 3em;
+  overflow: hidden;
 
   // if the button has the attribute disabled
   &[disabled] {
@@ -365,14 +371,14 @@ hellofresh {
     border-radius: 50%;
 
     &.small {
-      height: 32px;
-      width: 32px;
+      height: 2em;
+      width: 2em;
     }
   }
 
   &.icon-only {
-    width: 48px;
-    height: 48px;
+    width: 3em;
+    height: 3em;
     padding: 0;
     text-align: center;
 

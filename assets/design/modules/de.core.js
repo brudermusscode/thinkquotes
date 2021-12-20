@@ -55,6 +55,7 @@ $(function(){
         return false;
     });
 
+    // TODO: #18 let intern main header be scrolled if page is scrolled on page loadup
     $(document).scroll(function(){
 
         // hide header elements on scroll top

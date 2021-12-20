@@ -13,10 +13,6 @@ if (LOGGED) {
     $frcount = $hasFriendsRequests;
 }
 
-//var_dump($_SESSION);
-//unset($_SESSION);
-//session_destroy();
-
 ?>
 
 <header id="main-hdr" class="posrel">
@@ -107,13 +103,13 @@ if (LOGGED) {
 
                             <div data-react="check:friends,request" class="posrel" style="z-index:2;" travelhereboy>
 
-                                <?php if ($my->check_friendrequests) { ?>
+                                <?php if (!$my->check_friendrequests) { ?>
 
                                     <pulse class="roundedPulse small"></pulse>
 
                                 <?php } ?>
 
-                                <hellofresh data-action="dropdown:open" class="hellofresh hover-shadow green dark rounded icon-only">
+                                <hellofresh data-action="dropdown:open" class="hellofresh hover-shadow lila dark rounded icon-only">
                                     <div class="c-ripple js-ripple">
                                         <span class="c-ripple__circle"></span>
                                     </div>
@@ -129,7 +125,7 @@ if (LOGGED) {
                                     <div class="dd-inr">
                                         <ul>
 
-                                            <li class="has-icon trimt" onclick="window.location.replace('/u/profile/<?php echo UID; ?>');">
+                                            <li class="trimt" onclick="window.location.replace('/u/profile/<?php echo UID; ?>');">
                                                 <p>
                                                     <i class="ri-user-smile-fill small"></i>
                                                 </p>
@@ -137,10 +133,11 @@ if (LOGGED) {
                                             </li>
 
                                             <?php if ($hasFriendsRequests) { ?>
+
                                                 <div data-react="remove:friendrequest,container">
                                                     <div style="border-bottom:1px solid rgba(0,0,0,.06);margin:4px 12px;height:1px;"></div>
 
-                                                    <li data-action="popup:users,friendrequests" class="friendrequest <?php if ($my->check_friendrequests === "false") echo "hasRequest"; ?> has-icon trimt">
+                                                    <li data-action="popup:users,friendrequests" class="friendrequest <?php if (!$my->check_friendrequests) echo "hasRequest "; ?> trimt">
                                                         <p class="align-mid-vert">
                                                             <span class="material-icons-round md-18">emoji_people</span>
                                                         </p>
@@ -149,29 +146,62 @@ if (LOGGED) {
 
                                                     <div style="border-bottom:1px solid rgba(0,0,0,.06);margin:4px 12px;height:1px;"></div>
                                                 </div>
+
                                             <?php } ?>
-                                            <li class="has-icon trimt" onclick="window.location.replace('/u/favorites/<?php echo UID; ?>');">
-                                                <p>
-                                                    <i class="ri-heart-3-fill small"></i>
-                                                </p>
-                                                <p>Favorite quotes</p>
-                                            </li>
 
-                                            <li class="has-icon trimt" data-action="popup:users,settings">
-                                                <p>
-                                                    <i class="ri-settings-6-fill small"></i>
-                                                </p>
-                                                <p>Settings</p>
-                                            </li>
+                                            <div>
 
-                                            <div style="border-bottom:1px solid rgba(0,0,0,.06);margin:4px 12px;height:1px;"></div>
+                                                <div style="border-bottom:1px solid rgba(0,0,0,.06);margin:4px 12px;height:1px;"></div>
 
-                                            <li class="has-icon trimt tac" data-action='users:sign,out' style="color:var(--colour-red);">
-                                                <p>
-                                                    <i class="ri-logout-circle-r-fill small"></i>
-                                                </p>
-                                                <p>Leave</p>
-                                            </li>
+                                                <p style="padding:4px 32px 0;color:rgba(0,0,0,.24);">Quotes</p>
+
+                                                <li class="trimt" onclick="window.location.replace('/u/profile/<?php echo UID; ?>');">
+                                                    <p>
+                                                        <i class="ri-dashboard-fill"></i>
+                                                    </p>
+                                                    <p>Your quotes</p>
+                                                </li>
+
+                                                <li class="trimt disabled">
+                                                    <p>
+                                                        <i class="ri-eye-off-fill"></i>
+                                                    </p>
+                                                    <p>Drafts</p>
+                                                </li>
+
+                                                <li class="trimt" onclick="window.location.replace('/u/favorites/<?php echo UID; ?>');">
+                                                    <p>
+                                                        <i class="ri-heart-3-fill small"></i>
+                                                    </p>
+                                                    <p>Favorite quotes</p>
+                                                </li>
+
+                                            </div>
+
+                                            <div>
+
+                                                <div style="border-bottom:1px solid rgba(0,0,0,.06);margin:4px 12px;height:1px;"></div>
+
+                                                <p style="padding:4px 32px 0;color:rgba(0,0,0,.24);">Setup</p>
+
+                                                <li class="trimt" data-action="popup:users,settings">
+                                                    <p>
+                                                        <i class="ri-settings-6-fill small"></i>
+                                                    </p>
+                                                    <p>Settings</p>
+                                                </li>
+
+                                                <div style="border-bottom:1px solid rgba(0,0,0,.06);margin:4px 12px;height:1px;"></div>
+
+                                                <li class="trimt" data-action='users:sign,out' style="color:var(--colour-red);">
+                                                    <p>
+                                                        <i class="ri-logout-circle-r-fill small"></i>
+                                                    </p>
+                                                    <p>Leave</p>
+                                                </li>
+
+                                            </div>
+
                                         </ul>
                                     </div>
                                 </dropdown>

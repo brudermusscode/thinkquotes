@@ -31,8 +31,8 @@ include_once SROOT . "/assets/templates/global/header.php";
                 </div>
             </div>
 
-            <div style="line-height:1;">
-                <p class="trimt" style="font-family: 'Indie Flower', cursive;text-shadow:0 1px 1px rgba(0,0,0,.38);font-size:3em;font-weight:300;color:var(--colour-light);">
+            <div class="user-action" style="line-height:1;">
+                <p class="trimt">
                     <?php echo $user->username ?>
                 </p>
             </div>
@@ -137,7 +137,7 @@ include_once SROOT . "/assets/templates/global/header.php";
                         </div>
                         <div class="disfl fldirrow">
                             <div class="mr12">
-                                <span class="align-mid-vert material-icons-round md-24">auto_fix_normal</span>
+                                <i class="material-icons std" style="line-height:1.8em;">auto_fix_normal</i>
                             </div>
                             <p>Profile editor</p>
                         </div>

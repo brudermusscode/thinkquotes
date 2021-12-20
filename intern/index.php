@@ -49,7 +49,7 @@ include_once "../assets/templates/global/header.php";
             ?>
 
                 <a href="<?php echo $url->intern; ?>/<?php echo $card->iurl; ?>">
-                    <div class="element">
+                    <div class="element <?php if ($card->disabled) echo "disabled"; ?>">
                         <div class="render" style="background:url(<?php echo $url->img; ?>/<?php echo $card->image; ?>) top right / cover no-repeat;">
                             <img onload="fadeInVisOpaBg($(this).parents().eq(1))" src="<?php echo $url->img; ?>/<?php echo $card->image; ?>">
                         </div>
@@ -58,7 +58,7 @@ include_once "../assets/templates/global/header.php";
                             <div class="inr-outer">
                                 <div class="tar">
                                     <p class="tac rd6" style="background:<?php echo $card->icon_color; ?>;position:absolute;top:12px;right:12px;height:48px;width:48px;">
-                                        <i class="material-icons-round md-24 align-mid-vert"><?php echo $card->icon; ?></i>
+                                        <i class="material-icons std align-mid-vert"><?php echo $card->icon; ?></i>
                                     </p>
 
                                     <div class="cl"></div>
@@ -80,7 +80,7 @@ include_once "../assets/templates/global/header.php";
             <?php if ($counter <= ($countSections - 1)) { ?>
 
                 <div style="width:2.6em;margin:42px auto;">
-                    <span style="color:white;text-shadow: 0 1px 2px rgba(0 0 0 / 24%);" class="material-icons-round md-42">keyboard_arrow_down</span>
+                    <i style="color:white;text-shadow: 0 1px 2px rgba(0 0 0 / 24%);" class="material-icons large">keyboard_arrow_down</i>
                 </div>
 
         <?php

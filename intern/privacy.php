@@ -60,7 +60,7 @@ include_once "../assets/templates/global/header.php";
 
                     <div class="mt12">
                         <p class="posrel lt mr12" style="color:white;background:var(--colour-red);border-radius:50%;height:32px;width:32px;">
-                            <span class="posabs alignmiddle material-icons-round md-24">alternate_email</span>
+                            <i class="posabs alignmiddle material-icons std">alternate_email</i>
                         </p>
                         <p class="lt mt6">E-Mail Adresse: <a href="mailto:hou@thinkquotes.de">hou@thinkquotes.de</a></p>
 
@@ -69,7 +69,7 @@ include_once "../assets/templates/global/header.php";
 
                     <div>
                         <p class="posrel lt mr12" style="color:white;background:var(--colour-bluegrey);border-radius:50%;height:32px;width:32px;">
-                            <span class="posabs alignmiddle material-icons-round md-24">web</span>
+                            <span class="posabs alignmiddle material-icons std">web</span>
                         </p>
                         <p class="lt mt6">Impressum: <a href="<?php echo $url->intern; ?>/imprint"><?php echo $url->intern; ?>/imprint</a></p>
 
@@ -91,22 +91,22 @@ include_once "../assets/templates/global/header.php";
 
                 <div class="nb-inr posrel" style="z-index:1;">
                     <ul class="index">
-                        <li><span class="material-icons-round md-24 lt mr12">keyboard_arrow_right</span><a class="index-link" href="#m1">Einleitung</a></li>
-                        <li><span class="material-icons-round md-24 lt mr12">keyboard_arrow_right</span><a class="index-link" href="#m2">Verantwortlicher</a></li>
-                        <li><span class="material-icons-round md-24 lt mr12">keyboard_arrow_right</span><a class="index-link" href="#overview">Übersicht der Verarbeitungen</a></li>
-                        <li><span class="material-icons-round md-24 lt mr12">keyboard_arrow_right</span><a class="index-link" href="#m3">Maßgebliche Rechtsgrundlagen</a></li>
-                        <li><span class="material-icons-round md-24 lt mr12">keyboard_arrow_right</span><a class="index-link" href="#m27">Sicherheitsmaßnahmen</a></li>
-                        <li><span class="material-icons-round md-24 lt mr12">keyboard_arrow_right</span><a class="index-link" href="#m4">Datenverarbeitung in Drittländern</a></li>
-                        <li><span class="material-icons-round md-24 lt mr12">keyboard_arrow_right</span><a class="index-link" href="#m5">Löschung von Daten</a></li>
-                        <li><span class="material-icons-round md-24 lt mr12">keyboard_arrow_right</span><a class="index-link" href="#m6">Einsatz von Cookies</a></li>
-                        <li><span class="material-icons-round md-24 lt mr12">keyboard_arrow_right</span><a class="index-link" href="#m7">Bereitstellung des Onlineangebotes und Webhosting</a></li>
-                        <li><span class="material-icons-round md-24 lt mr12">keyboard_arrow_right</span><a class="index-link" href="#m8">Registrierung, Anmeldung und Nutzerkonto</a></li>
-                        <li><span class="material-icons-round md-24 lt mr12">keyboard_arrow_right</span><a class="index-link" href="#m9">Webanalyse, Monitoring und Optimierung</a></li>
-                        <li><span class="material-icons-round md-24 lt mr12">keyboard_arrow_right</span><a class="index-link" href="#m10">Onlinemarketing</a></li>
-                        <li><span class="material-icons-round md-24 lt mr12">keyboard_arrow_right</span><a class="index-link" href="#m11">Plugins und eingebettete Funktionen sowie Inhalte</a></li>
-                        <li><span class="material-icons-round md-24 lt mr12">keyboard_arrow_right</span><a class="index-link" href="#m12">Änderung und Aktualisierung der Datenschutzerklärung</a></li>
-                        <li><span class="material-icons-round md-24 lt mr12">keyboard_arrow_right</span><a class="index-link" href="#m13">Rechte der betroffenen Personen</a></li>
-                        <li><span class="material-icons-round md-24 lt mr12">keyboard_arrow_right</span><a class="index-link" href="#m14">Begriffsdefinitionen</a></li>
+                        <li><span class="material-icons std lt mr12">keyboard_arrow_right</span><a class="index-link" href="#m1">Einleitung</a></li>
+                        <li><span class="material-icons std lt mr12">keyboard_arrow_right</span><a class="index-link" href="#m2">Verantwortlicher</a></li>
+                        <li><span class="material-icons std lt mr12">keyboard_arrow_right</span><a class="index-link" href="#overview">Übersicht der Verarbeitungen</a></li>
+                        <li><span class="material-icons std lt mr12">keyboard_arrow_right</span><a class="index-link" href="#m3">Maßgebliche Rechtsgrundlagen</a></li>
+                        <li><span class="material-icons std lt mr12">keyboard_arrow_right</span><a class="index-link" href="#m27">Sicherheitsmaßnahmen</a></li>
+                        <li><span class="material-icons std lt mr12">keyboard_arrow_right</span><a class="index-link" href="#m4">Datenverarbeitung in Drittländern</a></li>
+                        <li><span class="material-icons std lt mr12">keyboard_arrow_right</span><a class="index-link" href="#m5">Löschung von Daten</a></li>
+                        <li><span class="material-icons std lt mr12">keyboard_arrow_right</span><a class="index-link" href="#m6">Einsatz von Cookies</a></li>
+                        <li><span class="material-icons std lt mr12">keyboard_arrow_right</span><a class="index-link" href="#m7">Bereitstellung des Onlineangebotes und Webhosting</a></li>
+                        <li><span class="material-icons std lt mr12">keyboard_arrow_right</span><a class="index-link" href="#m8">Registrierung, Anmeldung und Nutzerkonto</a></li>
+                        <li><span class="material-icons std lt mr12">keyboard_arrow_right</span><a class="index-link" href="#m9">Webanalyse, Monitoring und Optimierung</a></li>
+                        <li><span class="material-icons std lt mr12">keyboard_arrow_right</span><a class="index-link" href="#m10">Onlinemarketing</a></li>
+                        <li><span class="material-icons std lt mr12">keyboard_arrow_right</span><a class="index-link" href="#m11">Plugins und eingebettete Funktionen sowie Inhalte</a></li>
+                        <li><span class="material-icons std lt mr12">keyboard_arrow_right</span><a class="index-link" href="#m12">Änderung und Aktualisierung der Datenschutzerklärung</a></li>
+                        <li><span class="material-icons std lt mr12">keyboard_arrow_right</span><a class="index-link" href="#m13">Rechte der betroffenen Personen</a></li>
+                        <li><span class="material-icons std lt mr12">keyboard_arrow_right</span><a class="index-link" href="#m14">Begriffsdefinitionen</a></li>
                     </ul>
                 </div>
             </div>

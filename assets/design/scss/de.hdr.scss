@@ -180,9 +180,20 @@ dropdown[data-dropdown="header,usermenu"] {
           background: rgba(230, 129, 152, 0.28);
         }
 
+        &.disabled {
+          color: rgba(0, 0, 0, 0.24);
+
+          &:hover,
+          &:active {
+            cursor: default;
+            background: transparent;
+          }
+        }
+
         p {
           &:first-of-type {
             @extend .mr12;
+            width: 1.2em;
           }
         }
       }

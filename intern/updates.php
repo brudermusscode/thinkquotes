@@ -22,7 +22,7 @@ include_once "../assets/templates/global/header.php";
 
         <div class="lt-content posrel">
 
-            <div class="timeline-start-dot align-mid-horiz" style="border-radius: 50%;background: var(--colour-light);border: 10px solid var(--colour-orange);position: absolute;top:-1em;height: 42px;width: 42px;"></div>
+            <div class="timeline-start-dot align-mid-horiz" style="border-radius: 50%;background: var(--colour-light);border: 10px solid var(--colour-lila);position: absolute;top:-1em;height: 42px;width: 42px;"></div>
 
             <div class="whole-line updates posabs align-mid-horiz"></div>
 
@@ -62,7 +62,7 @@ include_once "../assets/templates/global/header.php";
                                 <div class="timestamp-inr">
 
                                     <div class="timestamp-text">
-                                        <div class="username"><?php echo $u->uname; ?></div>
+                                        <div class="username"><?php echo $u->username; ?></div>
                                         <p style="color:var(--colour-light);"><?php echo $when; ?></p>
                                     </div>
 

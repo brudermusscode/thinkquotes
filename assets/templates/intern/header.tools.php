@@ -6,12 +6,12 @@ if (isset($pageTitle)) {
 
     <div class="intern-head-tools mb42 posrel">
         <div class="lt">
-            <hellofresh data-action="dropdown:open" class="hellofresh dark red circled big shadowed icon-only" onclick="window.history.back();">
+            <hellofresh data-action="dropdown:open" class="hellofresh dark red rounded shadowed icon-only" onclick="window.history.back();">
                 <div class="c-ripple js-ripple">
                     <span class="c-ripple__circle"></span>
                 </div>
 
-                <p class="lt posabs alignmiddle"><span class="material-icons-round md-24">arrow_back</span></p>
+                <p class="tac"><i class="material-icons std">arrow_back</i></p>
 
                 <div class="cl"></div>
             </hellofresh>
@@ -28,6 +28,6 @@ if (isset($pageTitle)) {
 <?php
 
 } else {
-    header("location: ./404");
+    header("location: /404");
 }
 ?>

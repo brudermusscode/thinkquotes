@@ -41,7 +41,7 @@ include_once "../assets/templates/global/header.php";
 
                     <div class="mt12">
                         <p class="posrel lt mr12" style="color:white;background:var(--colour-bluegrey);border-radius:50%;height:32px;width:32px;">
-                            <span class="posabs alignmiddle material-icons-round md-24">web</span>
+                            <span class="posabs alignmiddle material-icons std">web</span>
                         </p>
                         <p class="lt mt6">Datenschutzerklärung: <a href="<?php echo $url->intern; ?>/privacy"><?php echo $url->intern; ?>/privacy</a></p>
 
@@ -65,7 +65,7 @@ include_once "../assets/templates/global/header.php";
 
                     <div>
                         <p class="posrel lt mr12" style="color:white;background:var(--colour-red);border-radius:50%;height:32px;width:32px;">
-                            <span class="posabs alignmiddle material-icons-round md-24">alternate_email</span>
+                            <span class="posabs alignmiddle material-icons std">alternate_email</span>
                         </p>
                         <p class="lt mt6">E-Mail-Adresse: <a href="mailto:hou@thinkquotes.de">hou@thinkquotes.de</a></p>
 
@@ -74,7 +74,7 @@ include_once "../assets/templates/global/header.php";
 
                     <div>
                         <p class="posrel lt mr12" style="color:white;background:var(--colour-orange);border-radius:50%;height:32px;width:32px;">
-                            <span class="posabs alignmiddle material-icons-round md-24">phone_iphone</span>
+                            <span class="posabs alignmiddle material-icons std">phone_iphone</span>
                         </p>
                         <p class="lt mt6">Telefon: <a href="https://discord.gg/b5ZsgPjN" target="_blank">015773602821</a></p>
 
@@ -83,7 +83,7 @@ include_once "../assets/templates/global/header.php";
 
                     <div>
                         <p class="posrel lt mr12" style="color:white;background:#6570F7;border-radius:50%;height:32px;width:32px;">
-                            <span class="posabs alignmiddle material-icons-round md-24">discord</span>
+                            <span class="posabs alignmiddle material-icons std">discord</span>
                         </p>
                         <p class="lt mt6">Discord: <a href="https://discord.gg/b5ZsgPjN" target="_blank">https://discord.gg/b5ZsgPjN</a></p>
 
@@ -103,7 +103,7 @@ include_once "../assets/templates/global/header.php";
                     <p>Dieses Impressum gilt auch für die folgenden Social-Media-Präsenzen und Onlineprofile:</p>
                     <div class="mt24">
                         <p class="posrel lt mr12" style="color:white;background:#6570F7;border-radius:50%;height:32px;width:32px;">
-                            <span class="posabs alignmiddle material-icons-round md-24">discord</span>
+                            <span class="posabs alignmiddle material-icons std">discord</span>
                         </p>
                         <p class="lt mt6">Discord: <a href="https://discord.gg/b5ZsgPjN" target="_blank">https://discord.gg/b5ZsgPjN</a></p>
 
@@ -111,7 +111,7 @@ include_once "../assets/templates/global/header.php";
                     </div>
                     <div>
                         <p class="posrel lt mr12" style="color:white;background:var(--colour-lila);border-radius:50%;height:32px;width:32px;">
-                            <span class="posabs alignmiddle material-icons-round md-24">stream</span>
+                            <span class="posabs alignmiddle material-icons std">stream</span>
                         </p>
                         <p class="lt mt6">Twitch: <a href="https://www.twitch.tv/brudermusscode" target="_blank">https://www.twitch.tv/brudermusscode</a></p>
 

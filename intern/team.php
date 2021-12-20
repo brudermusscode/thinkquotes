@@ -46,7 +46,7 @@ include_once SROOT . "/assets/templates/global/header.php";
                                 <div class="rc-inr">
                                     <div class="top-section">
                                         <div class="icon">
-                                            <span class="material-icons-round md-32"><?php echo $member->icon; ?></span>
+                                            <i class="material-icons"><?php echo $member->icon; ?></i>
                                         </div>
                                         <div class="image-outer">
                                             <div class="actual" style="background-image:url(<?php echo $url->img; ?>/<?php echo $member->image; ?>);">
@@ -92,8 +92,8 @@ include_once SROOT . "/assets/templates/global/header.php";
                                             <a href="<?php if ($social->base_url !== "") echo $social->base_url . "/" . $social->url;
                                                         else echo $social->url; ?>" target="_blank">
                                                 <div class="a">
-                                                    <p class="posrel lt mr12 mshd-1" style="color:white;background:<?php echo $social->icon_color; ?>;border-radius:50%;height:32px;width:32px;">
-                                                        <span class="posabs alignmiddle material-icons-round md-24"><?php echo $social->icon; ?></span>
+                                                    <p class="icon" style="color:white;background:<?php echo $social->icon_color; ?>;">
+                                                        <i class="material-icons std"><?php echo $social->icon; ?></i>
                                                     </p>
                                                     <p class="lt trimt mt6 posrel" style="width:calc(100% - 48px);"><?php echo $social->title; ?></p>
                                                 </div>
