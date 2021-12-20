@@ -13,7 +13,7 @@ if (isset($subpage) && $subpage == "favorites") {
                 if (LOGGED && $user->uid == UID) {
                     echo "Quotes you love";
                 } else {
-                    echo "Favorite quotes";
+                    echo "Favorite quotes by $user->username";
                 }
 
                 ?>

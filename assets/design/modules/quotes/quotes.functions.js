@@ -220,12 +220,16 @@ $(function(){
             contentType: false,
             success: (data) => {
 
-                console.log(data);
-
                 if(data.status) {
 
                     // set state if archived or unarchived
                     state = data.state;
+
+                    if(state == '1') {
+                        message = "It's gone!";
+                    } else {
+                        message = "It's back up!";
+                    }
 
                     // add new overlay
                     overlay = Overlay.add(body, $appendOverlay, false, "1001", "var(--colour-lila-200)");
@@ -235,7 +239,7 @@ $(function(){
 
                         // add confirmation text to overlay
                         // TODO: maybe add own file with some script action to let it look even cooler
-                        overlay.overlay.append('<popup-module class="active"><div class="confirmation-text centered"><p>It\'s gone!</p></div></popup-module>');
+                        overlay.overlay.append('<popup-module class="active"><div class="confirmation-text centered"><p>'+message+'</p></div></popup-module>');
 
                         // set another timeout to close the overlay
                         setTimeout(() => {
@@ -254,6 +258,10 @@ $(function(){
             
         });
         
+    })
+    .on("click", '[data-action="quotes:archive"]', function() {
+
+        $(this).closest("[data-form='quotes:archive']").submit();
     });
 });
 

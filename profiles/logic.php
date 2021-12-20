@@ -7,7 +7,8 @@ if (isset($_GET["page"], $_GET["userid"], $is_page)) {
     // define valid subpages
     $validPages = [
         "profile",
-        "favorites"
+        "favorites",
+        "archive"
     ];
 
     $subpage = $collection->only($_GET["page"], "let");

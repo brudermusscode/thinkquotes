@@ -23,6 +23,9 @@ if (!empty($_REQUEST["qid"])) {
     ");
     $stmt->execute([$qid]);
 
+    // fetch quote
+    $elementInclude = $stmt->fetch();
+
 ?>
 
     <popup-module>
@@ -30,7 +33,8 @@ if (!empty($_REQUEST["qid"])) {
 
             <label for="popup-module" class="mb32">
                 <div class="label-inr light">
-                    <p><strong style="display:inline;">Archive</strong> quote</p>
+                    <p><strong style="display:inline;"><?php if ($elementInclude->deleted) echo "Unarchive";
+                                                        else echo "Archive"; ?></strong> quote</p>
                 </div>
             </label>
 
@@ -38,9 +42,6 @@ if (!empty($_REQUEST["qid"])) {
                 <div class="pulse"></div>
 
                 <?php
-
-                // fetch quote
-                $elementInclude = $stmt->fetch();
 
                 // set pure to true for pure quote content without dropdown actions
                 $pure = true;
@@ -102,11 +103,6 @@ if (!empty($_REQUEST["qid"])) {
                 $popupModule.addClass("active");
                 $steps.addClass("active");
             }, 750);
-
-            $(document).on("click", '[data-action="quotes:archive"]', function() {
-
-                $(this).closest("[data-form='quotes:archive']").submit();
-            });
         });
     </script>
 

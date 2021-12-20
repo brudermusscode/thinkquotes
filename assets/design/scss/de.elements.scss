@@ -705,3 +705,162 @@ page-overlay {
     }
   }
 }
+
+.base-menu {
+  position: relative;
+
+  &.fullpage {
+    .inr {
+      max-width: $main-menu-width;
+      width: $main-width-with-padding;
+      margin: 0 auto;
+    }
+  }
+
+  .bm {
+    margin-right: 12px;
+    cursor: pointer;
+    transition: all 0.1s linear;
+    color: var(--colour-light);
+    line-height: 3em;
+    position: relative;
+    height: 3em;
+
+    &:hover {
+      background: var(--colour-lila-200);
+
+      @extend .mshd-2;
+    }
+
+    &:active {
+      transform: scale(0.9);
+    }
+
+    &.active {
+      background: var(--colour-light);
+      color: var(--colour-dark);
+    }
+
+    &.text {
+      padding: 0 18px;
+
+      &.active {
+        background: var(--colour-red);
+        color: var(--colour-light);
+      }
+    }
+
+    &.rounded {
+      @extend .rd12;
+    }
+
+    &.single {
+      width: 48px;
+      overflow: hidden;
+      text-align: center;
+
+      i {
+        line-height: 1.8em;
+      }
+    }
+  }
+}
+
+// dropdown menus
+dropdown[data-dropdown="header,usermenu"] {
+  top: 0;
+  right: 0;
+  position: absolute;
+  visibility: hidden;
+  opacity: 0;
+  height: 0px;
+  width: 0px;
+  transition: all 0.6s cubic-bezier(0.1, 0.82, 0.25, 1);
+  overflow: hidden;
+  background: var(--colour-light);
+  border-radius: 6px;
+
+  &.active {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .dd-inr {
+    ul {
+      padding: 12px 0;
+      min-width: 220px;
+
+      li {
+        padding: 4px 32px 0;
+        line-height: 2.2em;
+        height: 2.8em;
+        position: relative;
+        color: var(--colour-dark);
+        cursor: pointer;
+        transition: all 0.1s linear;
+
+        @extend .disfl, .fldirrow;
+
+        &:hover {
+          background: rgba(230, 129, 152, 0.12);
+        }
+
+        &:active {
+          background: rgba(230, 129, 152, 0.28);
+        }
+
+        // * disabled
+        &.disabled {
+          color: rgba(0, 0, 0, 0.24);
+
+          &:hover,
+          &:active {
+            cursor: default;
+            background: transparent;
+          }
+        }
+
+        // * archiving/unarchiving
+        &.unarchive {
+          p.icon i::before {
+            display: block;
+            content: "unarchive";
+          }
+
+          p.text::before {
+            display: block;
+            content: "Unarchive";
+          }
+        }
+
+        &.archive {
+          p.icon i::before {
+            display: block;
+            content: "archive";
+          }
+
+          p.text::before {
+            display: block;
+            content: "Archive";
+          }
+        }
+
+        p {
+          // * always the icon
+          &:first-of-type {
+            width: 1.2em;
+
+            @extend .mr12;
+
+            i {
+              // material icons need extra styling since they won't come off the top
+              &.material-icons {
+                margin-top: 8px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

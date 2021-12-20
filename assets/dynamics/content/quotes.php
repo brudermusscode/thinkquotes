@@ -44,6 +44,8 @@ if (isset($_POST["page"], $_POST["order"], $_POST["limit"], $_POST["uid"])) {
         // create queries
         // home page
         switch ($p) {
+
+                // startup page
             case "index":
                 $sql = "
                     SELECT *, 
@@ -61,6 +63,8 @@ if (isset($_POST["page"], $_POST["order"], $_POST["limit"], $_POST["uid"])) {
                 ";
                 $bind = [$l];
                 break;
+
+                // standard view profiles
             case "profiles":
                 $sql = "
                     SELECT *, 
@@ -80,6 +84,8 @@ if (isset($_POST["page"], $_POST["order"], $_POST["limit"], $_POST["uid"])) {
                 ";
                 $bind = [$uid, $l];
                 break;
+
+                // profiles favorites
             case "profiles:favorites":
                 $sql = "
                     SELECT *, 
@@ -99,6 +105,27 @@ if (isset($_POST["page"], $_POST["order"], $_POST["limit"], $_POST["uid"])) {
                     AND quotes_favorites.deleted = '0'
                     AND quotes.deleted = '0' 
                     ORDER BY $o
+                    DESC
+                    LIMIT ?
+                ";
+                $bind = [$uid, $l];
+                break;
+
+
+            case "profiles:archive":
+                $sql = "
+                    SELECT *, 
+                    quotes.id AS qid, 
+                    users.id AS uid, 
+                    quotes_authors.id AS aid,  
+                    quotes_sources.id AS sid  
+                    FROM quotes, users, quotes_authors, quotes_sources 
+                    WHERE quotes.uid = users.id
+                    AND quotes.aid = quotes_authors.id 
+                    AND quotes.sid = quotes_sources.id 
+                    AND quotes.uid = ?
+                    AND quotes.deleted = '1' 
+                    ORDER BY $o 
                     DESC
                     LIMIT ?
                 ";

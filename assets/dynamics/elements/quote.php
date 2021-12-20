@@ -37,55 +37,97 @@ if (isset($elementInclude)) {
 
 ?>
 
-    <quote data-element="quote" data-quote-id="<?php echo $elementInclude->qid; ?>" data-json='[{"qid":"<?php echo $elementInclude->qid; ?>"}]' class="fade-in <?php if ($isFavorite) { ?>loved<?php } ?>">
+    <quote data-element="quote" data-quote-id="<?php echo $elementInclude->qid; ?>" data-json='[{"qid":"<?php echo $elementInclude->qid; ?>"}]' class="fade-in <?php if ($isFavorite) { ?>loved<?php } ?>" <?php if ($elementInclude->deleted) echo "archived"; ?>>
 
         <div data-append="overlay" class="quote--outer mshd-1">
 
-            <?php if (LOGGED && !$pure) { ?>
+            <?php
+
+            // quote heading tools should just be shown when user is logged in
+            // and the pure mode is not enabled    
+            if (LOGGED && !$pure) {
+
+            ?>
 
                 <div data-element="dropdown" class="posrel" travelhereboy data-react="function:quotes,edit,hide">
                     <div class="q-top-tools">
 
-                        <div class="sizing" data-action="dropdown:open">
-                            <p>
-                                <i class="ri-arrow-down-s-line std"></i>
-                            </p>
-                        </div>
+                        <?php
 
-                        <dropdown data-dropdown="header,usermenu" data-react="dropdown:open" class="mshd-2">
-                            <div class="dd-inr">
-                                <ul>
+                        // in addition, if the quote is archived, show special button
+                        // instead of the dropdown menu
+                        if ($elementInclude->deleted) {
 
-                                    <?php if ($myQuote) { ?>
+                        ?>
 
-                                        <li class="has-icon trimt" data-action="popup:quotes,edit">
-                                            <p>
-                                                <i class="ri-edit-circle-fill small"></i>
-                                            </p>
-                                            <p>Edit</p>
-                                        </li>
-
-                                        <li class="has-icon trimt" data-action="popups:quotes,delete">
-                                            <p>
-                                                <i class="ri-delete-bin-4-fill small"></i>
-                                            </p>
-                                            <p>Archive</p>
-                                        </li>
-
-                                    <?php } else { ?>
-
-                                        <li class="has-icon trimt" data-action="popup:quotes,report">
-                                            <p>
-                                                <i class="ri-flag-2-fill small"></i>
-                                            </p>
-                                            <p>Report</p>
-                                        </li>
-
-                                    <?php } ?>
-
-                                </ul>
+                            <div class="sizing unarchive disfl fldirrow" data-action="popups:quotes,delete">
+                                <p class="pt4 mr4">
+                                    <i class="material-icons small">unarchive</i>
+                                </p>
+                                <p>Unarchive</p>
                             </div>
-                        </dropdown>
+
+                        <?php
+
+                            // if it's not archived, show the dropdown menu with dynamic
+                            // content specified for each user
+                        } else {
+
+                        ?>
+
+                            <div class="sizing" data-action="dropdown:open">
+                                <p>
+                                    <i class="ri-arrow-down-s-line std"></i>
+                                </p>
+                            </div>
+
+                            <dropdown data-dropdown="header,usermenu" data-react="dropdown:open" class="mshd-2">
+                                <div class="dd-inr">
+                                    <ul>
+
+                                        <?php
+
+                                        // those tools should be shown if the quote belongs to
+                                        // the viewing user
+                                        if ($myQuote) { ?>
+
+                                            <li class="has-icon trimt" data-action="popup:quotes,edit">
+                                                <p>
+                                                    <i class="ri-edit-circle-fill small"></i>
+                                                </p>
+                                                <p>Edit</p>
+                                            </li>
+
+                                            <li class="has-icon trimt archive" data-action="popups:quotes,delete">
+                                                <p class="icon">
+                                                    <i class="material-icons small"></i>
+                                                </p>
+                                                <p class="text"></p>
+                                            </li>
+
+                                        <?php
+
+                                            // if it's not the quote of the viewing user, show the options
+                                            // beneath
+                                        } else {
+
+                                        ?>
+
+                                            <li class="has-icon trimt" data-action="popup:quotes,report">
+                                                <p>
+                                                    <i class="ri-flag-2-fill small"></i>
+                                                </p>
+                                                <p>Report</p>
+                                            </li>
+
+                                        <?php } ?>
+
+                                    </ul>
+                                </div>
+                            </dropdown>
+
+                        <?php } ?>
+
                     </div>
                 </div>
 
@@ -119,7 +161,17 @@ if (isset($elementInclude)) {
                 </div>
             </div>
 
-            <?php if (LOGGED && !$pure) { ?>
+            <?php
+
+            // show bottom quote tools just if the user is logged in, the quote is not in
+            // pure mode and it hasn't been archived
+            if (
+                LOGGED &&
+                !$pure &&
+                !$elementInclude->deleted
+            ) {
+
+            ?>
 
                 <div class="tools">
                     <div class="disfl fldirrow" style="padding:12px 32px;">
@@ -152,8 +204,15 @@ if (isset($elementInclude)) {
 
         </div>
 
-        <?php if (!$pure) { ?>
+        <?php
+
+        // just show bottom distance if pure mode is not enabled
+        if (!$pure) {
+
+        ?>
+
             <div style="width:100%;height:1.4em;visibility:hidden;"></div>
+
         <?php } ?>
 
     </quote>

@@ -156,23 +156,45 @@ include_once SROOT . "/assets/templates/global/header.php";
     </div>
 </div>
 
+<?php
+
+// insert base menu for profiles
+include_once SROOT . "/assets/templates/profiles/menu.php";
+
+?>
+
 <div id="main" class="wpx--main">
+
+    <div class="mt24"></div>
 
     <?php
 
+    // switch through subpage
     if (isset($subpage)) {
 
         switch ($subpage) {
+
             case "profile":
+
                 include_once "pages/profiles.php";
                 break;
+
             case "favorites":
+
                 include_once "pages/favorites.php";
                 break;
+
+            case "archive":
+
+                include_once "pages/archive.php";
+                break;
+
             default:
                 header("location: ./404");
+                break;
         }
     } else {
+
         header("location: ./404");
     }
 

@@ -29,7 +29,17 @@ if (!empty($_POST["qid"])) {
 
         $return->status = true;
         $return->state = $stmt;
-        $return->message = "Your quote has been archived";
+
+        // set return message for archived or unarchived
+        if ($return->state) {
+
+            $return->message = "Your quote has been archived";
+        } else {
+
+            $return->message = "Your quote has been unarchived";
+        }
+
+        $pdo = NULL;
 
         exit(json_encode($return));
     } else {

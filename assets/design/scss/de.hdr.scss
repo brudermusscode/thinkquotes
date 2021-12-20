@@ -61,44 +61,6 @@
   .lt-content {
     float: left;
     width: 50%;
-
-    .base-menu {
-      position: relative;
-
-      .bm {
-        margin-right: 12px;
-        cursor: pointer;
-        transition: all 0.1s linear;
-        border: 1px solid transparent;
-        color: var(--colour-light);
-        line-height: 3em;
-        position: relative;
-        height: 48px;
-
-        &:hover {
-          border: 1px solid var(--colour-light);
-        }
-
-        &.active {
-          background: var(--colour-light);
-          color: var(--colour-dark);
-        }
-
-        &.single {
-          width: 48px;
-          overflow: hidden;
-          text-align: center;
-
-          i {
-            line-height: 1.8em;
-          }
-        }
-
-        &.duo {
-          padding: 0 12px;
-        }
-      }
-    }
   }
 
   .rt-content {
@@ -133,70 +95,6 @@ usermainmenu {
     &.user {
       background: var(--colour-red);
       border-radius: 50%;
-    }
-  }
-}
-
-// dropdown menus
-dropdown[data-dropdown="header,usermenu"] {
-  top: 0;
-  right: 0;
-  position: absolute;
-  visibility: hidden;
-  opacity: 0;
-  height: 0px;
-  width: 0px;
-  transition: all 0.6s cubic-bezier(0.1, 0.82, 0.25, 1);
-  overflow: hidden;
-  background: var(--colour-light);
-  border-radius: 6px;
-
-  &.active {
-    visibility: visible;
-    opacity: 1;
-  }
-
-  .dd-inr {
-    ul {
-      padding: 12px 0;
-      min-width: 220px;
-
-      li {
-        padding: 4px 32px 0;
-        line-height: 2.2em;
-        height: 2.8em;
-        position: relative;
-        color: var(--colour-dark);
-        cursor: pointer;
-        transition: all 0.1s linear;
-
-        @extend .disfl, .fldirrow;
-
-        &:hover {
-          background: rgba(230, 129, 152, 0.12);
-        }
-
-        &:active {
-          background: rgba(230, 129, 152, 0.28);
-        }
-
-        &.disabled {
-          color: rgba(0, 0, 0, 0.24);
-
-          &:hover,
-          &:active {
-            cursor: default;
-            background: transparent;
-          }
-        }
-
-        p {
-          &:first-of-type {
-            @extend .mr12;
-            width: 1.2em;
-          }
-        }
-      }
     }
   }
 }

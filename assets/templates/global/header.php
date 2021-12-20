@@ -67,23 +67,23 @@ if (LOGGED) {
         <div class="lt-content">
             <div data-structure="header:base-menu" class="base-menu disfl fldirrow">
 
-                <div class="bm single rd6 <?php if ($page === "index") {
-                                                echo "active";
-                                            } ?>" onclick="window.location.replace('<?php echo $url->main; ?>');">
+                <div class="bm single rounded <?php if ($page === "index") {
+                                                    echo "active";
+                                                } ?>" onclick="window.location.replace('<?php echo $url->main; ?>');">
                     <p>
                         <i class="ri-layout-masonry-fill std"></i>
                     </p>
                 </div>
 
-                <div class="bm single rd6 <?php if ($page === "intern") {
-                                                echo "active";
-                                            } ?>" onclick="window.location.replace('<?php echo $url->intern; ?>');">
+                <div class="bm single rounded <?php if ($page === "intern") {
+                                                    echo "active";
+                                                } ?>" onclick="window.location.replace('<?php echo $url->intern; ?>');">
                     <p>
                         <i class="material-icons std">explore</i>
                     </p>
                 </div>
 
-                <div class="bm single rd6" onclick="window.open('https://www.github.com/brudermusscode/thinkquotes');">
+                <div class="bm single rounded" onclick="window.open('https://www.github.com/brudermusscode/thinkquotes');">
                     <p>
                         <i class="ri-github-fill std"></i>
                     </p>
@@ -109,7 +109,7 @@ if (LOGGED) {
 
                                 <?php } ?>
 
-                                <hellofresh data-action="dropdown:open" class="hellofresh hover-shadow lila dark rounded icon-only">
+                                <hellofresh data-action="dropdown:open" class="hellofresh hover-shadow clean dark rounded icon-only">
                                     <div class="c-ripple js-ripple">
                                         <span class="c-ripple__circle"></span>
                                     </div>
@@ -176,7 +176,7 @@ if (LOGGED) {
                                                     <p>Drafts</p>
                                                 </li>
 
-                                                <li class="trimt disabled">
+                                                <li class="trimt" onclick="window.location.replace('/u/archive/<?php echo UID; ?>');">
                                                     <p>
                                                         <i class="ri-archive-fill small"></i>
                                                     </p>

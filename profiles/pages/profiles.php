@@ -12,9 +12,9 @@ if (isset($subpage) && $subpage == "profile") {
                 <?php
 
                 if (LOGGED && $user->uid == UID) {
-                    echo "Your quotes";
+                    echo "Quotes you posted";
                 } else {
-                    echo "My quotes";
+                    echo "Quotes by $user->username";
                 }
 
                 ?>
