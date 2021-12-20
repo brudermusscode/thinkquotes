@@ -1,87 +1,8 @@
 $(function(){
 
-    // >> quotes, add
-    $(document).on("click", "[data-action='function:quotes,add']", function(){
+    let body = $("body");
 
-        var dataSerialized = $(this).parents(1).find('[data-form="quotes,add"]').serialize() + "&categories=" + categoryArray;
-        let url = dynamicHost + "/dyn/quotes/add";
-
-        $.ajax({
-            
-            url: url,
-            dataType: "text",
-            data: dataSerialized,
-            method: "POST",
-            success: function(data){
-                
-                var dataInt = parseInt(data);
-                var error;
-                var overlay = $('response-overlay');
-                
-                switch(dataInt) {
-                    case 1:
-                        error = "Fill out all forms!";
-                        break;
-                    case 69:
-                        error = "You have no permissions to post new quotes!";
-                        break;
-                    case 88:
-                        error = "You can't add new authors, categories or sources!";
-                        break;
-                    case 100:
-                        error = "You my friend, are truly loved. Your quote has been added!";
-                        closeOverlay();
-                        // empty array of categories
-                        categoryArray = [];
-                        break;
-                    case 101:
-                        
-                        overlay.empty();
-                        url = dynamicHost + "/dyn/popups/quotes-add-updatepermissions";
-
-                        $.ajax({
-
-                            url: url,
-                            dataType: "HTML",
-                            method: "POST",
-                            beforeSend: function(){
-
-                                addLoaderFloat(overlay);
-
-                            },
-                            success: function(data){
-                                
-                                overlay.empty();
-                                overlay.append(data);
-                                fitPopupModule();
-                                
-                            },
-                            error: function(data){
-                                closeOverlay();
-                                showErrorModule("One of your quotes now needs to be upvoted atleast 20 times!");
-                            }
-                            
-                        });
-                        
-                        error = "Your quote has been added! But...";
-                        categoryArray = [];
-                        break;
-                        
-                        
-                    default:
-                        error = randomStringArray(randomErrorTexts);
-                }
-                
-                showErrorModule(error);
-                
-            },
-            error: function(data){
-                showErrorModule('Something weird happened, please try again!');
-            }
-                
-        });
-
-    })
+    $(document)
 
     // >> quotes, edit
     .on("click", "[data-action='function:quotes,edit']", function() {
@@ -278,43 +199,58 @@ $(function(){
     })
 
     // >> quotes, delete
-    .on("click", "[data-action='function:quotes,delete']", function(){
+    .on("submit", "[data-form='quotes:archive']", function(){
 
-        var $t = $(this);
-        let qid = cacheID[0];
-        let $error;
-        let $q = $(document).find('quote[data-quote-id="'+qid+'"]');
-        let url = dynamicHost + "/dyn/quotes/delete";
+        let $t, url, formData, overlay, state;
+
+        $t = $(this);
+        $appendOverlay = $t.find("[data-action='quotes:archive']");
+        formData = new FormData(this);
+        url = dynamicHost + "/dyn/quotes/archive";
+
+        // get quote element to later let it slide out
+        $quote = $(document).find("quote[data-quote-id='"+formData.get("qid")+"']");
 
         $.ajax({
             
             url: url,
-            dataType: "text",
-            data: { qid: qid },
+            data: formData,
+            dataType: "JSON",
             method: "POST",
-            success: function(data){
+            processData: false,
+            contentType: false,
+            success: (data) => {
 
-                if(parseInt(data) !== 0) {
-                    $error = "Your quote has been deleted!";
-                    $q.toggleClass('slideUp tran-all-cubic-imp').css({ "overflow":"hidden", "height":"0px" });
-                    setTimeout(function(){
-                        $q.remove()
+                console.log(data);
+
+                if(data.status) {
+
+                    // set state if archived or unarchived
+                    state = data.state;
+
+                    // add new overlay
+                    overlay = Overlay.add(body, $appendOverlay, false, "1001", "var(--colour-lila-200)");
+
+                    // set a timeout to make everything smooth looking
+                    setTimeout(() => {
+
+                        // add confirmation text to overlay
+                        // TODO: maybe add own file with some script action to let it look even cooler
+                        overlay.overlay.append('<popup-module class="active"><div class="confirmation-text centered"><p>It\'s gone!</p></div></popup-module>');
+
+                        // set another timeout to close the overlay
+                        setTimeout(() => {
+                            $quote.remove();
+                            closeOverlay(body);
+                        }, 1200);
                     }, 600);
-
-
                 } else {
-                    $error = "A wild error appeared! Fight it!";
+
+                    showErrorModule(stdErrorOutput);
                 }
-                
-                showErrorModule($error);
-                closeOverlay();
-
-                // delete cache
-                cacheID = [];
-
             },
-            error: function(data){
-                showErrorModule('Something weird happened, please try again!');
+            error: (data) => {
+                console.error(data);
             }
             
         });

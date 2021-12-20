@@ -354,6 +354,10 @@ hellofresh {
     transform: scale(0.9);
   }
 
+  &.rounded {
+    @extend .rd12;
+  }
+
   // ----------
   // a totally round button (just with an icon ofc)
   // ---------------

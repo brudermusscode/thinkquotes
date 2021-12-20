@@ -12,6 +12,7 @@ if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
 // global
 var categoryArray = [];
 var cacheID = [];
+let stdErrorOutput = "That’s weird…";
 
 // button ripple effect
 $(document).ready(function($, window, document, undefined) {

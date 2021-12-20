@@ -100,28 +100,22 @@ if (
                 </label>
 
                 <div class="input">
-
                     <div class="pulse"></div>
+
                     <input name="qid" type="hidden" value="<?php echo $qid; ?>" />
+
+                    <?php
+
+                    foreach ($stmt->fetchAll() as $elementInclude) {
+
+                        include_once SROOT . "/assets/dynamics/elements/quote.php";
+                    }
+
+                    ?>
                 </div>
-
-                <?php
-
-                foreach ($stmt->fetchAll() as $elementInclude) {
-
-                    include_once SROOT . "/assets/dynamics/elements/quote.php";
-                }
-
-                ?>
 
             </form>
         </div>
-
-        <script class="dno">
-            $(() => {
-
-            });
-        </script>
 
 <?php
 

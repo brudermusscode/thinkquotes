@@ -2,6 +2,8 @@
 
 if (isset($elementInclude)) {
 
+    $pure = $pure ?? false;
+
     // check if is favorite
     if (LOGGED) {
         $getFaved = $pdo->prepare("SELECT * FROM quotes_favorites WHERE qid = ? AND uid = ? AND deleted = '0'");
@@ -39,7 +41,7 @@ if (isset($elementInclude)) {
 
         <div data-append="overlay" class="quote--outer mshd-1">
 
-            <?php if (LOGGED) { ?>
+            <?php if (LOGGED && !$pure) { ?>
 
                 <div data-element="dropdown" class="posrel" travelhereboy data-react="function:quotes,edit,hide">
                     <div class="q-top-tools">
@@ -63,7 +65,7 @@ if (isset($elementInclude)) {
                                             <p>Edit</p>
                                         </li>
 
-                                        <li class="has-icon trimt" data-action="popup:quotes,delete">
+                                        <li class="has-icon trimt" data-action="popups:quotes,delete">
                                             <p>
                                                 <i class="ri-delete-bin-4-fill small"></i>
                                             </p>
@@ -117,7 +119,7 @@ if (isset($elementInclude)) {
                 </div>
             </div>
 
-            <?php if (LOGGED) { ?>
+            <?php if (LOGGED && !$pure) { ?>
 
                 <div class="tools">
                     <div class="disfl fldirrow" style="padding:12px 32px;">
@@ -150,7 +152,10 @@ if (isset($elementInclude)) {
 
         </div>
 
-        <div style="width:100%;height:1.4em;visibility:hidden;"></div>
+        <?php if (!$pure) { ?>
+            <div style="width:100%;height:1.4em;visibility:hidden;"></div>
+        <?php } ?>
+
     </quote>
 
 <?php

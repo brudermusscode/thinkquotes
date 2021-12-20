@@ -39,6 +39,8 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/session/session.inc.php";
 
             </div>
 
+            <div style="height:200px;visibility:hidden;opacity:0;"></div>
+
         </div>
     </form>
 </popup-module>

@@ -173,6 +173,7 @@ class Sign extends Thinkquotes
         setcookie('TOK', '', time() - 1, "/");
         setcookie('SER', '', time() - 1, "/");
 
+        session_unset();
         session_destroy();
     }
 

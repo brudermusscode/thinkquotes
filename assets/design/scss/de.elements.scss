@@ -94,7 +94,8 @@ popup-module {
   transform: translate(-50%, -50%);
   top: 50%;
   left: 50%;
-  width: 900px;
+  max-width: 900px;
+  width: calc(100% - 48px);
 
   .cover-image {
     height: 32em;
@@ -127,7 +128,7 @@ popup-module {
   .inr {
     opacity: 0;
 
-    @extend .posrel, .tran-all-cubic, .pb200;
+    @extend .posrel, .tran-all-cubic;
 
     transition-duration: 1s;
   }
@@ -137,14 +138,14 @@ popup-module {
 
     .pulse {
       position: absolute;
-      background: rgba(255, 255, 255, 0.12);
-      border-radius: 100%;
-      height: 4.2em;
-      width: 4.2em;
+      background: rgba(255, 255, 255, 0.68);
+      border-radius: 12px;
+      height: 100%;
+      width: 100%;
       opacity: 0;
       z-index: -1;
 
-      animation: inputPulsating 12s cubic-bezier(0.1, 0.01, 0.11, 0.98) infinite;
+      animation: inputPulsating 2s cubic-bezier(0.1, 0.01, 0.11, 0.98) infinite;
 
       @extend .alignmiddle;
     }
@@ -152,21 +153,17 @@ popup-module {
 
   @keyframes inputPulsating {
     from {
-      height: 4.2em;
-      width: 4.2em;
-      opacity: 0;
-    }
-
-    50% {
-      height: 62em;
-      width: 62em;
+      height: 100%;
+      width: 100%;
       opacity: 1;
+      border-radius: 12px;
     }
 
     to {
-      height: 4.2em;
-      width: 4.2em;
+      height: calc(100% + 32px);
+      width: calc(100% + 32px);
       opacity: 0;
+      border-radius: 24px;
     }
   }
 

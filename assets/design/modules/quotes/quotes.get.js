@@ -128,91 +128,43 @@
     
     })
 
-    // >> quotes > delete
-    .on('click', '[data-action="popup:quotes,delete"]', function(e) {
+    // >> quotes, archive
+    .on("click", "[data-action='popups:quotes,delete']", function(){
 
-        let $ro;
-        let $t = $(this);
-        let $q = $t.closest('quote');
-        let getData = $q.data("json");
-        let qid = getData[0].qid;
-        let url = dynamicHost + "/dyn/quickies/check-quotes-owner";
+        let $t, qid, url, formData, overlay;
 
-        // get categories first
+        // add new overlay
+        overlay = Overlay.add(body, $(this), false);
+
+        $t = $(this);
+        qid = $t.closest("quote").data("json")[0].qid;
+        formData = { qid: qid };
+        url = dynamicHost + "/dyn/content/quotes/archive";
+
         $.ajax({
-            type: "POST",
-            url: url,
-            data: { qid: qid },
-            dataType: 'HTML',
-            beforeSend: function(){
-
-                addOverlay();
-                togglebody();
-                
-            },
-            success: function(data){
-
-                if(parseInt(data) !== 0) {
-
-                    // pass categories to array
-                    categoryArray = JSON.parse(data);
-
-                    let label = "Delete #" + qid,
-                        icon = "delete",
-                        text = "Are you sure to delete this quote?",
-                        dataAction = "function:quotes,delete",
-                        confirmationText = "Yes, remove it!";
-
-                    // get overlay
-                    $.ajax({
-                        type: "POST",
-                        url: "/dyn/popups/confirmation",
-                        data: { 
-                            a: label, 
-                            b: icon, 
-                            c: text,
-                            d: dataAction,
-                            e: confirmationText
-                        },
-                        dataType: 'HTML',
-                        success: function(data){
-                            
-                            $ro = $('body').find('response-overlay');
-                            let $form = $('[data-form="quotes,add"]');
-                            
-                            if(parseInt(data) === 0){
-                                
-                                showErrorModule("A wild error appeared! Fight it!");
-                                closeOverlay();
-                                
-                            } else {
-                                
-                                $ro.empty();
-                                $ro.append(data);
-                                fitPopupModule();
-                                cacheID.push(qid);
-                                
-                            }
             
-                        },
-                        error: function(response){
-                            showErrorModule("Some randomness just happened, try again!");
-                        }
-                    });
+            url: url,
+            data: formData,
+            dataType: "HTML",
+            method: "POST",
+            success: (data) => {
 
+                console.log(data);
+
+                if(data) {
+
+                    overlay.overlay.prepend(data);
                 } else {
-                    showErrorModule("A wild error appeared! Fight it!");
-                    closeOverlay();
+
+                    showErrorModule(stdErrorOutput);
                 }
-
             },
-            error: function() {
-
+            error: (data) => {
+                showErrorModule(stdErrorOutput);
             }
-
+            
         });
-    
-    })
-
+        
+    });
 
 });

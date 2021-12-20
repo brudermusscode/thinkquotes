@@ -39,16 +39,38 @@ if (LOGGED) {
 
     <div class="inr wpx--main posrel">
 
-        <div class="middle-logo--outer posabs alignmiddle">
-            <div class="lo-sizing">
-                <div class="logo" style="background: transparent url(<?php echo $url->img; ?>/global/newlogo.2.png) center no-repeat;background-size: cover;">
-                    <img src="<?php echo $url->img; ?>/global/newlogo.2.png" style="visibility:hidden;opacity:0;">
+        <div class="middle-logo--outer posabs alignmiddle" style="z-index:100;">
+
+            <?php if (LOGGED) { ?>
+
+                <pulse class="roundedPulse" style="display:block;opacity:1;"></pulse>
+
+                <hellofresh <?php if ($my->post_permissions == "none") { ?>disabled="true" <?php } ?> data-action="popup:quotes,add" class="hellofresh hover-shadow shadowed red rounded icon-only">
+                    <div class="c-ripple js-ripple">
+                        <span class="c-ripple__circle"></span>
+                    </div>
+                    <p class="lt posabs alignmiddle">
+                        <i class="ri-add-line std"></i>
+                    </p>
+
+                    <div class="cl"></div>
+                </hellofresh>
+
+            <?php } else { ?>
+
+                <div class="lo-sizing">
+                    <div class="logo" style="background: transparent url(<?php echo $url->img; ?>/global/newlogo.2.png) center no-repeat;background-size: cover;">
+                        <img src="<?php echo $url->img; ?>/global/newlogo.2.png" style="visibility:hidden;opacity:0;">
+                    </div>
                 </div>
-            </div>
+
+            <?php } ?>
+
         </div>
 
         <div class="lt-content">
             <div data-structure="header:base-menu" class="base-menu disfl fldirrow">
+
                 <div class="bm single rd6 <?php if ($page === "index") {
                                                 echo "active";
                                             } ?>" onclick="window.location.replace('<?php echo $url->main; ?>');">
@@ -71,11 +93,7 @@ if (LOGGED) {
                     </p>
                 </div>
 
-
-
             </div>
-
-
         </div>
 
         <div class="rt-content">
@@ -87,17 +105,6 @@ if (LOGGED) {
                     <usermainmenu>
                         <div class="disfl fldirrow">
 
-                            <hellofresh <?php if ($my->post_permissions == "none") { ?>disabled="true" <?php } ?> data-action="popup:quotes,add" class="hellofresh hover-shadow green rd6 icon-only mr12">
-                                <div class="c-ripple js-ripple">
-                                    <span class="c-ripple__circle"></span>
-                                </div>
-                                <p class="lt posabs alignmiddle">
-                                    <i class="ri-quill-pen-fill std"></i>
-                                </p>
-
-                                <div class="cl"></div>
-                            </hellofresh>
-
                             <div data-react="check:friends,request" class="posrel" style="z-index:2;" travelhereboy>
 
                                 <hellofresh data-action="dropdown:open" class="<?php if ($my->check_friendrequests == "false") {
@@ -108,7 +115,7 @@ if (LOGGED) {
                                     </div>
 
                                     <p class="lt posabs alignmiddle">
-                                        <i class="ri-menu-5-fill std"></i>
+                                        <i class="ri-user-5-fill std"></i>
                                     </p>
 
                                     <div class="cl"></div>
@@ -155,7 +162,7 @@ if (LOGGED) {
 
                                             <div style="border-bottom:1px solid rgba(0,0,0,.06);margin:4px 12px;height:1px;"></div>
 
-                                            <li class="has-icon trimt tac" data-action='popup:signout' style="color:var(--colour-red);">
+                                            <li class="has-icon trimt tac" data-action='users:sign,out' style="color:var(--colour-red);">
                                                 <p>
                                                     <i class="ri-logout-circle-r-fill small"></i>
                                                 </p>

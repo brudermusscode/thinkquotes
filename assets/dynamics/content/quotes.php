@@ -125,6 +125,8 @@ if (isset($_POST["page"], $_POST["order"], $_POST["limit"], $_POST["uid"])) {
             // querry all quotes
             foreach ($getQuotes->fetchAll() as $elementInclude) {
 
+                $pure = false;
+
                 // include quote card
                 include SROOT . "/assets/dynamics/elements/quote.php";
             }

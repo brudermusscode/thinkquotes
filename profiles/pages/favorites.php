@@ -1,23 +1,27 @@
 <?php
 
-if (isset($subpage) && $subpage === "favorites") {
+if (isset($subpage) && $subpage == "favorites") {
 
 ?>
 
-    <label class="posrel mb24">
-        <div class="inr">
+    <label for="quotes" class="posrel mb24">
+        <div class="label-inr">
             <p class="ttup">
+
                 <?php
 
-                if (LOGGED && $user->uid === UID) {
+                if (LOGGED && $user->uid == UID) {
                     echo "Quotes you love";
                 } else {
                     echo "Favorite quotes";
                 }
 
                 ?>
+
             </p>
-            <p class="ttup mr18"><span class="material-icons-round md-24">expand_more</span></p>
+            <p class="ttup mr18">
+                <i class="ri-arrow-down-s-line std"></i>
+            </p>
         </div>
     </label>
 

@@ -168,7 +168,7 @@ $(function(){
     })
 
     // signout
-    .on("click", "[data-action='function:sign,out']", function() {
+    .on("click", "[data-action='users:sign,out']", function() {
 
         let url = dynamicHost + "/dyn/sign/out";
 
@@ -176,29 +176,33 @@ $(function(){
 
             url: url,
             method: "POST",
-            data: { logout: true },
-            dataType: "TEXT",
-            beforeSend: function() {
-                showErrorModule("Requesting logout...");
+            dataType: "JSON",
+            beforeSend: () => {
+
+                showErrorModule("Logging out...");
             },
-            success: function(data) {
+            success: (data) => {
 
-                var pdata = parseInt(data);
+                if(data.status) {
 
-                if(pdata === 1) {
+                    // show error module with error output
+                    showErrorModule(data.message);
 
-                    expandErrorModule('emoji_people', 'Goodbye! (ΘεΘ');
+                    // set timeout to give user time for reading output
+                    // actually just for letting everything look smooth and cool
+                    setTimeout(() => {
 
-                    setTimeout(function(){
-                        window.location.replace("/");
-                    }, 2000);
+                        // reload page
+                        window.location.reload();
+                    }, 800);
+
                 } else {
-                    showErrorModule("The site doesn't want to let you go!");
-                }
 
+                    // should never happen here so 
+                }
             },
-            error: function(data) {
-                showErrorModule("Oh! Something went wrong! Try again!");
+            error: (data) => {
+                console.error(data);
             }
 
             

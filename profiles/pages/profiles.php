@@ -1,21 +1,28 @@
 <?php
 
-if (isset($subpage) && $subpage === "profile") {
+if (isset($subpage) && $subpage == "profile") {
 
 ?>
 
-    <label class="posrel mb24">
-        <div class="inr">
-            <div>
-                <p class="ttup">
-                    <?php if (LOGGED && $user->uid === UID) {
-                        echo "Your quotes";
-                    } else {
-                        echo "My quotes";
-                    } ?>
-                </p>
-                <p class="ttup mr18"><span class="material-icons-round md-24">expand_more</span></p>
-            </div>
+
+    <label for="quotes" class="posrel mb24">
+        <div class="label-inr">
+            <p class="ttup">
+
+                <?php
+
+                if (LOGGED && $user->uid == UID) {
+                    echo "Your quotes";
+                } else {
+                    echo "My quotes";
+                }
+
+                ?>
+
+            </p>
+            <p class="ttup mr18">
+                <i class="ri-arrow-down-s-line std"></i>
+            </p>
         </div>
     </label>
 
