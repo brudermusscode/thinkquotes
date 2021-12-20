@@ -12,13 +12,13 @@ if (!$is_page) {
 
         <div class="bm text rounded <?php if ($subpage === "profile") {
                                         echo "active";
-                                    } ?>" onclick="window.location.replace('/u/profile/<?php echo $user->id; ?>');">
+                                    } ?>" onclick="window.location.replace('/u/profile/<?php echo $user->uid; ?>');">
             <p><?php echo $user->username; ?></p>
         </div>
 
         <div class="bm text rounded <?php if ($subpage === "favorites") {
                                         echo "active";
-                                    } ?>" onclick="window.location.replace('/u/favorites/<?php echo $user->id; ?>');">
+                                    } ?>" onclick="window.location.replace('/u/favorites/<?php echo $user->uid; ?>');">
             <p>Favorites</p>
         </div>
 
@@ -26,7 +26,7 @@ if (!$is_page) {
 
             <div class="bm text rounded <?php if ($subpage === "archive") {
                                             echo "active";
-                                        } ?>" onclick="window.location.replace('/u/archive/<?php echo $user->id; ?>');">
+                                        } ?>" onclick="window.location.replace('/u/archive/<?php echo $user->uid; ?>');">
                 <p>Archive</p>
             </div>
 

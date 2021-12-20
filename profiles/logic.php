@@ -18,7 +18,7 @@ if (isset($_GET["page"], $_GET["userid"], $is_page)) {
     $getUser = $pdo->prepare("
         SELECT *, users.id AS uid, users_settings.id AS usid 
         FROM users, users_settings 
-        WHERE users.id = users_settings.id 
+        WHERE users.id = users_settings.uid 
         AND users.id = ?
     ");
     $getUser->execute([$u]);
@@ -31,6 +31,7 @@ if (isset($_GET["page"], $_GET["userid"], $is_page)) {
                 $itsMe = true;
             }
         }
+
         // fetch user information
         $user = $getUser->fetch();
     } else {
