@@ -4,11 +4,11 @@ $is_page = true;
 $page = "index";
 
 // mysql database
-require_once "./session/session.inc.php";
+require_once "./config/db/connect.php";
 
 // Head section
-include_once "./assets/templates/global/head.php";
-include_once "./assets/templates/global/header.php";
+include_once "./app/templates/global/head.php";
+include_once "./app/templates/global/header.php";
 
 ?>
 
@@ -27,7 +27,7 @@ include_once "./assets/templates/global/header.php";
 
         <div class="actual"></div>
 
-        <?php include_once "./assets/dynamics/content/quotes-loading.php"; ?>
+        <?php include_once "./app/dynamics/content/quotes-loading.php"; ?>
 
     </create-grid>
 
@@ -36,6 +36,6 @@ include_once "./assets/templates/global/header.php";
 <?php
 
 // foot section
-include_once "./assets/templates/global/footer.php";
+include_once "./app/templates/global/footer.php";
 
 ?>

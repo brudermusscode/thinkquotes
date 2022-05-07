@@ -16,7 +16,8 @@ RUN apt-get update && apt-get install -y nodejs mariadb-client apache2 \
 # copy dev conf file to sites-available
 COPY config/server/thinkquotes.de.dev.conf /etc/apache2/sites-available/thinkquotes.de.conf
 
-RUN a2dissite 000-default && \
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf && \
+  a2dissite 000-default && \
   a2ensite thinkquotes.de && \
   a2enmod headers rewrite && \
   service apache2 restart
