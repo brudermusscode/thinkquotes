@@ -1,7 +1,7 @@
 <?php
 
 # require database connection
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/config/db/connect.php";
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/config/init.php";
 
 if (
   !isset($_POST["page"], $_POST["order"], $_POST["limit"], $_POST["uid"]) &&

@@ -1,6 +1,6 @@
 <?php
 
-include_once dirname($_SERVER['DOCUMENT_ROOT']) . "/config/db/definitions.php";
+include_once dirname($_SERVER['DOCUMENT_ROOT']) . "/config/definitions.php";
 
 class Db
 {
