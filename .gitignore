@@ -5,6 +5,8 @@
 /config/db/connection.prod.json
 /config/ftp
 
+/public/app/assets/stylesheets/compiled
+
 composer.lock
 .git-ftp-include
 BACKUP.BAT

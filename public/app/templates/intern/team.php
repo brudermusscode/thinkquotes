@@ -6,17 +6,17 @@ $subPage = "intern:team";
 $pageTitle = "Team of Development";
 
 // mysql database
-require_once $_SERVER['DOCUMENT_ROOT'] . "/session/session.inc.php";
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/config/init.php";
 
 // Head section
-include_once SROOT . "/assets/templates/global/head.php";
-include_once SROOT . "/assets/templates/global/header.php";
+include_once TEMPLATES . "/global/head.php";
+include_once TEMPLATES . "/global/header.php";
 
 ?>
 
-<div id="main" class="wpx--main intern fullpage">
+<div id="main" class="wpx--main">
 
-    <?php include_once SROOT . "./assets/templates/intern/header.tools.php"; ?>
+    <?php include_once TEMPLATES . "/intern/_head_tools.php"; ?>
 
     <div class="intern--outer updates">
 
@@ -28,10 +28,10 @@ include_once SROOT . "/assets/templates/global/header.php";
                     <?php
 
                     $getInternTeamMembers = $pdo->prepare("
-                        SELECT * 
-                        FROM intern_team_members, intern_team_ranks, users 
-                        WHERE intern_team_members.rid = intern_team_ranks.id 
-                        AND intern_team_members.uid = users.id 
+                        SELECT *
+                        FROM intern_team_members, intern_team_ranks, users
+                        WHERE intern_team_members.rid = intern_team_ranks.id
+                        AND intern_team_members.uid = users.id
                         ORDER BY intern_team_members.id
                     ");
                     $getInternTeamMembers->execute();
@@ -72,10 +72,10 @@ include_once SROOT . "/assets/templates/global/header.php";
                                 <?php
 
                                 $getInternTeamSocials = $pdo->prepare("
-                                    SELECT * 
+                                    SELECT *
                                     FROM intern_team_members_social, intern_team_members_social_added
-                                    WHERE intern_team_members_social_added.sid = intern_team_members_social.id 
-                                    AND intern_team_members_social_added.uid = ? 
+                                    WHERE intern_team_members_social_added.sid = intern_team_members_social.id
+                                    AND intern_team_members_social_added.uid = ?
                                     ORDER BY intern_team_members_social.id
                                 ");
                                 $getInternTeamSocials->execute([$member->uid]);
@@ -123,4 +123,4 @@ include_once SROOT . "/assets/templates/global/header.php";
 </div>
 
 
-<?php include_once SROOT . "/assets/templates/global/footer.php"; ?>
+<?php include_once TEMPLATES . "/global/footer.php"; ?>

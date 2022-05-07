@@ -39,7 +39,14 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_URI} /(.*)/$
 RewriteRule ^ /%1 [R=301,L]
 
-# dynamic sites
+# set root path
+RewriteRule ^$ /app/templates/home/index.php [NC,L]
+
+# set intern paths
+RewriteRule ^intern/(.*) /app/templates/intern/$1 [NC,L]
+RewriteRule ^intern(.*) /app/templates/intern/welcome.php [NC,L]
+
+# set dynamic paths
 RewriteRule ^do/(.*) /dynamics/$1 [NC,L]
 RewriteRule ^template/(.*) /app/templates/$1 [NC,L]
 RewriteRule ^m/maintenance(.*) /maintenance/index.php [NC,L]

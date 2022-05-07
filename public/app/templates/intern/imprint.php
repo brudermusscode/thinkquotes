@@ -6,22 +6,22 @@ $subPage = "intern:imprint";
 $pageTitle = "Impurinto";
 
 // mysql database
-require_once "../session/session.inc.php";
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/config/init.php";
 
 // Head section
-include_once "../assets/templates/global/head.php";
-include_once "../assets/templates/global/header.php";
+include_once TEMPLATES . "/global/head.php";
+include_once TEMPLATES . "/global/header.php";
 
 ?>
 
 <div id="main" class="wpx--main">
 
-    <?php include_once "../assets/templates/intern/header.tools.php"; ?>
+    <?php include_once TEMPLATES . "/intern/_head_tools.php"; ?>
 
     <div class="intern--outer">
 
         <div class="rt-content">
-            <?php include_once "../assets/dynamics/content/discord-widget.php"; ?>
+            <?php include_once TEMPLATES . "/widgets/discord.html"; ?>
         </div>
 
         <div class="lt-content posrel">
@@ -149,4 +149,4 @@ include_once "../assets/templates/global/header.php";
 </div>
 
 
-<?php include_once "../assets/templates/global/footer.php"; ?>
+<?php include_once TEMPLATES . "/global/footer.php"; ?>

@@ -7,8 +7,8 @@ $page = "index";
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/config/init.php";
 
 // Head section
-include_once "app/templates/global/head.php";
-include_once "app/templates/global/header.php";
+include_once TEMPLATES . "/global/head.php";
+include_once TEMPLATES . "/global/header.php";
 
 ?>
 
@@ -25,9 +25,9 @@ include_once "app/templates/global/header.php";
 
     <create-grid class="mb32" data-load="content:quotes" data-json='[{"page":"index","limit":"200"}]'>
         <div class="actual"></div>
-        <?php include_once "app/templates/quotes/_loading.php"; ?>
+        <?php include_once TEMPLATES . "/quotes/_loading.php"; ?>
     </create-grid>
 
 </div>
 
-<?php include_once "app/templates/global/footer.php"; ?>
+<?php include_once TEMPLATES . "/global/footer.php"; ?>

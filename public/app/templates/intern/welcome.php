@@ -4,11 +4,11 @@ $is_page = true;
 $page = "intern";
 
 // mysql database
-require_once "../session/session.inc.php";
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/config/init.php";
 
 // Head section
-include_once "../assets/templates/global/head.php";
-include_once "../assets/templates/global/header.php";
+include_once TEMPLATES . "/global/head.php";
+include_once TEMPLATES . "/global/header.php";
 
 ?>
 
@@ -98,6 +98,6 @@ include_once "../assets/templates/global/header.php";
 <?php
 
 // foot section
-include_once "../assets/templates/global/footer.php";
+include_once TEMPLATES . "/global/footer.php";
 
 ?>
