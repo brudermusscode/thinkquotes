@@ -1,6 +1,6 @@
 <?php
 
-class MYSQL
+class Db
 {
 
     public string $inputfile;

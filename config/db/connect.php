@@ -6,13 +6,13 @@ session_start();
 $my = (object) [];
 
 // get database connection class
-include_once "classes/MYSQL.php";
+include_once "../app/models/Db.php";
 
 // setup database connection while using JSON file
 // which has been outsourced for security reasons
 // don't know if that is good style or not, but
 // it seems to work pretty well
-$MYSQL = new MYSQL($_SERVER["DOCUMENT_ROOT"] . "/_SECRET/f93M4t@&p47Rm3r.JSON");
+$MYSQL = new MYSQL("connection.json");
 $MYSQL = $MYSQL->connectDatabase();
 
 // store connection data in $pdo
