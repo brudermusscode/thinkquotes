@@ -40,7 +40,7 @@ $(document).ready(function($, window, document, undefined) {
     $ripple.on('animationend webkitAnimationEnd oanimationend MSAnimationEnd', function(e) {
         $(this).removeClass('is-active');
     });
-    
+
 });
 
 
@@ -82,7 +82,7 @@ $(function(){
 	}, function () {
 		hideErrorResponse();
 	});
-    
+
     // dropdown
     $(document).on("click", '[data-action="dropdown:open"]', function() {
 
@@ -115,7 +115,7 @@ $(function(){
         var $t = $(this);
         var $dataset = $t.parent().find('dataset');
         var ulHeight = $dataset.find('ul').height();
-        
+
         $dataset.css({ "visibility":"visible", "opacity":"1", "height":"calc(" + ulHeight + "px + 24px)" });
 
 
@@ -128,13 +128,13 @@ $(function(){
         var value = $t.find('p').html();
         var changeHTML = $t.closest("[data-structure='select']").find('.show-actual p.lt').html(value).addClass('active');
         var hiddenInput = $t.parents(1).find('input[type="hidden"]').val(cid);
-        
+
         closeDropdown();
 
     });
-    
+
     // close popups
-    $(document).on('click', 'close-overlay', function(e) { 
+    $(document).on('click', 'close-overlay', function(e) {
 
         closeOverlay(body);
     });
@@ -147,7 +147,7 @@ $(function(){
         }
 
     });
-        
+
     var loadQuotes = function() {
 
         var $react = $('[data-load="content:quotes"]');
@@ -159,7 +159,7 @@ $(function(){
         var order = getData[0].order;
         var limit = getData[0].limit;
         var uid = getData[0].uid;
-        let url = dynamicHost + "/dyn/content/quotes";
+        let url = dynamicHost + "/template/quotes/index";
 
         $.ajax({
 
@@ -170,7 +170,7 @@ $(function(){
             success: function(data) {
 
                 var $errCode = parseInt(data);
-                
+
                 switch($errCode){
                     case 0:
                         showErrorModule("Something went wrong...");
@@ -224,7 +224,7 @@ function addLoaderFloat(overlay) {
 
     responseOverlay = $appendTo.find('response-overlay');
     responseOverlay.prepend('<div class="progressbar spinner spinner5 float"></div>');
-    
+
 }
 
 function addDialogue(append, hdr, body) {
@@ -253,13 +253,13 @@ let resizeTextarea = function(elem) {
 var hideErRe;
 function hideErrorResponse() {
 	clearTimeout(hideErRe);
-	hideErRe = setTimeout(function(){ $('#errorResponse').css({ "bottom":"-120px" }); }, 5000);	
+	hideErRe = setTimeout(function(){ $('#errorResponse').css({ "bottom":"-120px" }); }, 5000);
 }
 
 function showErrorModule(error) {
     var $error = error;
     var $errorModule = $('body').find('[data-structure="module:error"]');
-    
+
     hideErrorResponse();
     $errorModule.find('p').html(error);
     $errorModule.css({ "bottom":"24px" });
@@ -279,7 +279,7 @@ function expandErrorModule(icon, text){
             "bottom":"-120px", "left":"0", "height":"calc(100% + 120px)", "width":"100%"
         });
 
-        $errorModule.find('.popper').css({ 
+        $errorModule.find('.popper').css({
             "width":"100%",
             "height":"100%"
         });
@@ -298,7 +298,7 @@ function expandErrorModule(icon, text){
 
 // RETURN JUST TEXT
 jQuery.fn.justtext = function(text) {
-  
+
 	return $(this).clone()
 			.children()
 			.remove()
@@ -306,7 +306,7 @@ jQuery.fn.justtext = function(text) {
 			.text(text);
 
 };
-    
+
 // FADE IN ON LOAD
 function fadeIn(obj) {
     $(obj).fadeIn(250);
@@ -360,7 +360,7 @@ var closeDropdown = function() {
 }
 
 // remove from array
-Array.prototype.removeFromArray = function(x) { 
+Array.prototype.removeFromArray = function(x) {
     var i;
     for(i in this){
         if(this[i].toString() == x.toString()){

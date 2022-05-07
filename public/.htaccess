@@ -40,6 +40,7 @@ RewriteCond %{REQUEST_URI} /(.*)/$
 RewriteRule ^ /%1 [R=301,L]
 
 # dynamic sites
-RewriteRule ^dyn/(.*) /dynamics/$1 [NC,L]
+RewriteRule ^do/(.*) /dynamics/$1 [NC,L]
+RewriteRule ^template/(.*) /app/templates/$1 [NC,L]
 RewriteRule ^m/maintenance(.*) /maintenance/index.php [NC,L]
 RewriteRule ^u/([A-Za-z]+)/([0-9]+) profiles/index.php?page=$1&userid=$2 [NC,L]

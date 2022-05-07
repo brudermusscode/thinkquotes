@@ -1,23 +1,33 @@
 <?php
 
+include_once dirname($_SERVER['DOCUMENT_ROOT']) . "/config/db/definitions.php";
+
 class Db
 {
-
-    public string $inputfile;
 
     // constructor function which will only get the input
     // file which includes the data for connecting to the
     // database.
     // ! Must be JSON format
-    public function __construct(string $inputfile)
+    public function __construct()
     {
-        $this->inputfile = $inputfile;
     }
 
     public function connectDatabase()
     {
+
+        # get environment
+        $environment = file_get_contents(PREROOT . '/config/db/environment');
+
+        # check current environment and get correct connection.json
+        if ($environment == 'dev') {
+            $connection_path = PREROOT . "/config/db/connection.dev.json";
+        } else {
+            $connection_path = PREROOT . "/config/db/connection.prod.json";
+        }
+
         // get login infromation from outsourced file
-        $PDOconfiguration = (object) $this->convertFromFile($this->inputfile)->connect;
+        $PDOconfiguration = (object) $this->convertFromFile($connection_path)->connect;
 
         // try catch database connection
         try {
@@ -56,40 +66,20 @@ class Db
         }
     }
 
-    // check current environment for local or web
-    // public function isLocalhost()
-    // {
-
-    //     $whitelist = [
-    //         '127.0.0.1',
-    //         '::1'
-    //     ];
-
-    // check if the server is in the array
-    //     if (in_array($_SERVER['REMOTE_ADDR'], $whitelist)) {
-
-    // this is a local environment
-    //         return true;
-    //     }
-
-    //     return false;
-    // }
-
     // get information from json file
-    public function getJSONFromFile()
+    public function getJSONFromFile(string $file)
     {
-        $f = $this->inputfile;
-        $JSONData = file_get_contents($f);
+        $JSONData = file_get_contents($file);
         $JSONData = json_decode($JSONData);
 
         // return data from file as json
         return $JSONData;
     }
 
-    public function convertFromFile()
+    public function convertFromFile(string $file)
     {
         // use getFromFile function to return from file values
-        $fileData = $this->getJSONFromFile($this->inputfile);
+        $fileData = $this->getJSONFromFile($file);
 
         // return them
         return (object) $fileData;

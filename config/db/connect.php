@@ -6,25 +6,11 @@ session_start();
 $my = (object) [];
 
 # get database connection class
-include_once "../public/app/models/Db.php";
-
-# setup database connection while using JSON file
-# which has been outsourced for security reasons
-# don't know if that is good style or not, but
-# it seems to work pretty well
-
-# get environment
-$environment = file_get_contents('./../config/db/environment');
-
-# check current environment and get correct connection.json
-if ($environment == 'dev') {
-    $connection_path = "./../config/db/connection.dev.json";
-} else {
-    $connection_path = "./../config/db/connection.prod.json";
-}
+include_once "definitions.php";
+include_once ROOT . "/app/models/Db.php";
 
 # create new dataabase connection
-$db = new Db($connection_path);
+$db = new Db;
 $db = $db->connectDatabase();
 
 # store connection data in $pdo
@@ -57,16 +43,16 @@ $main = (object) [
 ];
 
 $url = (object) [
-    "main" => $systemInformation->url,
-    "maintenance" => $systemInformation->url_maintenance,
-    "intern" => $systemInformation->url_intern,
-    "mobile" => $systemInformation->url_mobile,
-    "error" => $systemInformation->url_error,
-    "css" => $systemInformation->url_css,
-    "js" => $systemInformation->url_js,
-    "img" => $systemInformation->url_img,
-    "icons" => $systemInformation->url_icons,
-    "sounds" => $systemInformation->url_sounds,
+    "main" => $systemInformation->server,
+    "maintenance" => $systemInformation->maintenance,
+    "intern" => $systemInformation->intern,
+    "mobile" => $systemInformation->mobile,
+    "error" => $systemInformation->error,
+    "css" => $systemInformation->css,
+    "js" => $systemInformation->js,
+    "img" => $systemInformation->img,
+    "icons" => $systemInformation->icons,
+    "sounds" => $systemInformation->sounds,
 ];
 
 $sendMail = (object) [
@@ -76,12 +62,12 @@ $sendMail = (object) [
 ];
 
 # include objects/classes
-include_once "app/models/System.php";
-include_once "app/models/Sign.php";
-include_once "app/models/Time.php";
-include_once "app/models/Collection.php";
-include_once "app/models/Friends.php";
-include_once "app/models/User.php";
+include_once $_SERVER['DOCUMENT_ROOT'] . "/app/models/System.php";
+include_once $_SERVER['DOCUMENT_ROOT'] . "/app/models/Sign.php";
+include_once $_SERVER['DOCUMENT_ROOT'] . "/app/models/Time.php";
+include_once $_SERVER['DOCUMENT_ROOT'] . "/app/models/Collection.php";
+include_once $_SERVER['DOCUMENT_ROOT'] . "/app/models/Friends.php";
+include_once $_SERVER['DOCUMENT_ROOT'] . "/app/models/User.php";
 
 # shorten
 $sroot = $_SERVER['DOCUMENT_ROOT'];
