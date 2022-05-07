@@ -1,0 +1,53 @@
+@charset "UTF-8";
+@import "de.normalize.scss";
+@import "de.variables.scss";
+@import "de.classes.scss";
+/* @import "de.gen.scss";
+@import "de.animations.scss";
+@import "de.elements.scss";
+@import "de.hdr.scss";
+@import "de.intern.scss";
+@import "de.maintenance.scss";
+@import "de.profiles.scss";
+@import "elem.quote.scss"; */
+
+// main
+@media screen and (max-width: 600px) {
+  #main {
+    padding: 0px;
+  }
+  quote .quote--outer {
+    border-radius: 0px;
+  }
+}
+
+@media (max-width: 500px) {
+  .error-module .popper {
+    width: calc(100% - 24px);
+    padding: 12px 12px;
+  }
+}
+
+@media (max-width: 1170px) {
+  :root {
+    --masonry-coloumns-index: 2;
+  }
+}
+
+@media (max-width: 800px) {
+  :root {
+    --masonry-coloumns-index: 1;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  steps,
+  popup-module,
+  quote .q-inr,
+  popup-module .input .pulse,
+  popup-module .input input,
+  popup-module .input textarea {
+    width: 100%;
+    border-radius: 0px !important;
+  }
+}

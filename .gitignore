@@ -1,0 +1,11 @@
+# file types
+*.min.js
+.vscode
+
+/config/db/f93M4t@&p47Rm3r.json
+/config/ftp
+
+composer.lock
+.git-ftp-include
+BACKUP.BAT
+TODO
