@@ -6,14 +6,14 @@ session_start();
 $my = (object) [];
 
 // get database connection class
-include_once "../app/models/Db.php";
+include_once "../public/app/models/Db.php";
 
 // setup database connection while using JSON file
 // which has been outsourced for security reasons
 // don't know if that is good style or not, but
 // it seems to work pretty well
-$db = new Db("connection.json");
-$db = $Db->connectDatabase();
+$db = new Db("./../config/db/connection.json");
+$db = $db->connectDatabase();
 
 // store connection data in $pdo
 $pdo = $db->connection;
@@ -64,12 +64,12 @@ $sendMail = (object) [
 ];
 
 // include objects/classes
-include_once "classes/System.php";
-include_once "classes/Sign.php";
-include_once "classes/Time.php";
-include_once "classes/Collection.php";
-include_once "classes/Friends.php";
-include_once "classes/User.php";
+include_once "app/models/System.php";
+include_once "app/models/Sign.php";
+include_once "app/models/Time.php";
+include_once "app/models/Collection.php";
+include_once "app/models/Friends.php";
+include_once "app/models/User.php";
 
 // shorten
 $sroot = $_SERVER['DOCUMENT_ROOT'];

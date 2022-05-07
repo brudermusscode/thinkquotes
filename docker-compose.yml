@@ -6,7 +6,7 @@ networks:
 volumes:
   mysql:
 
-x-STD_APP: &app_base
+# x-STD_APP: &app_base
 
 services:
   app:
@@ -14,7 +14,7 @@ services:
       context: .
       dockerfile: Dockerfile.dev
     volumes:
-      - .:/var/www/thinkquotes.de/public
+      - .:/var/www/thinkquotes.de
     environment:
       MYSQL_HOST: mysql
       MYSQL_ROOT_PASSWORD: secret

@@ -4,11 +4,11 @@ $is_page = true;
 $page = "index";
 
 // mysql database
-require_once "./config/db/connect.php";
+require_once "mysql/connect.php";
 
 // Head section
-include_once "./app/templates/global/head.php";
-include_once "./app/templates/global/header.php";
+include_once "app/templates/global/head.php";
+include_once "app/templates/global/header.php";
 
 ?>
 
@@ -24,18 +24,10 @@ include_once "./app/templates/global/header.php";
     </label>
 
     <create-grid class="mb32" data-load="content:quotes" data-json='[{"page":"index","order":"upvotes","limit":"200","uid":"0"}]'>
-
         <div class="actual"></div>
-
-        <?php include_once "./app/dynamics/content/quotes-loading.php"; ?>
-
+        <?php include_once "app/dynamics/content/quotes-loading.php"; ?>
     </create-grid>
 
 </div>
 
-<?php
-
-// foot section
-include_once "./app/templates/global/footer.php";
-
-?>
+<?php include_once "app/templates/global/footer.php"; ?>
