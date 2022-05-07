@@ -11,7 +11,7 @@ $(function () {
         overlay = Overlay.add(body, $(this), false);
 
         // set url for xhr
-        url = dynamicHost + "/dyn/content/sign/in";
+        url = dynamicHost + "/template/popups/_login";
 
         $.ajax({
             url: url,
@@ -282,14 +282,14 @@ let usersSettingsPage = function(what) {
                         $progressBar.css({ width:percentComplete + "%" });
                     }
             }, false);
-        
+
             xhr.addEventListener("progress", function(evt) {
                 if (evt.lengthComputable) {
                     var percentComplete = (evt.loaded / evt.total) * 100;
                     $progressBar.css({ width:percentComplete + "%" });
                 }
             }, false);
-        
+
             return xhr;
             },
 
@@ -310,7 +310,7 @@ let usersSettingsPage = function(what) {
         });
 
         pageText = $ro.find('[data-react="users:settings,page"]').html(pageText);
-        
+
         return true;
     }
 

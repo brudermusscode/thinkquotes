@@ -3,6 +3,9 @@
 # start new session
 session_start();
 
+# auto load composer libs
+include dirname($_SERVER['DOCUMENT_ROOT']) . "/vendor/autoload.php";
+
 # require new database connection
 require_once "db/connect.php";
 

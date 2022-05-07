@@ -7,15 +7,15 @@ $(function(){
     // login
     .on("submit", '[data-form="sign:in"], [data-form="sign:in,code"]', function() {
 
-        // get correct url for each case of sign up...
+        // get correct url for each case of sign in...
         if ($(this).data("form") == "sign:in") {
 
-            url = dynamicHost + "/dyn/sign/in";
+            url = dynamicHost + "/do/users/login";
             which = "in";
         } else {
 
             // and passing a authentication code
-            url = dynamicHost + "/dyn/sign/code";
+            url = dynamicHost + "/do/users/login_send_code";
             which = "code";
         }
 
@@ -42,7 +42,7 @@ $(function(){
 
                     if(which == "in") {
 
-                        // toggle class visible for both content card, so 
+                        // toggle class visible for both content card, so
                         // passing code will be made possible
                         $contentCard.toggleClass("visible");
                         $nextSibling.toggleClass("visible");
@@ -71,7 +71,7 @@ $(function(){
                 // show responsive error module with error text only
                 // if the message of the response is not NULL
                 if(data.message !== null) {
-                    
+
                     showErrorModule(data.message);
                 }
             },
@@ -108,7 +108,7 @@ $(function(){
 
                 if (data.status) {
 
-                    // toggle class visible for both content card, so 
+                    // toggle class visible for both content card, so
                     // passing code will be made possible
                     $contentCard.toggleClass("visible");
                     $nextSibling.toggleClass("visible");
@@ -198,14 +198,14 @@ $(function(){
 
                 } else {
 
-                    // should never happen here so 
+                    // should never happen here so
                 }
             },
             error: (data) => {
                 console.error(data);
             }
 
-            
+
         });
 
     })
@@ -239,7 +239,7 @@ $(function(){
 
                         let $icon = $nt.find(".material-icons-round");
                         let $text = $nt.find(".text");
-            
+
                         switch(parseInt(data)) {
                             case 1:
                                 error = "You are already friends!";
@@ -273,7 +273,7 @@ $(function(){
                         showErrorModule("A wild error appeared! Fight it!");
 
                     }
-            
+
                 });
                 break;
             case "removeFriendRequest":
@@ -330,7 +330,7 @@ $(function(){
 
     // friendrequests >> accept/decline/ignore
     .on("click", "[data-action='function:friends,request,accept/decline']", function() {
-        
+
         let url = dynamicHost + "/dyn/users/friends-requests-actions.php";
         let $t = $(this);
         let $fr = $t.closest('.fr-inr');

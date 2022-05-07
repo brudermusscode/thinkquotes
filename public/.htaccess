@@ -47,7 +47,7 @@ RewriteRule ^intern/(.*) /app/templates/intern/$1 [NC,L]
 RewriteRule ^intern(.*) /app/templates/intern/welcome.php [NC,L]
 
 # set dynamic paths
-RewriteRule ^do/(.*) /dynamics/$1 [NC,L]
+RewriteRule ^do/(.*) /app/dynamics/$1 [NC,L]
 RewriteRule ^template/(.*) /app/templates/$1 [NC,L]
 RewriteRule ^m/maintenance(.*) /maintenance/index.php [NC,L]
 RewriteRule ^u/([A-Za-z]+)/([0-9]+) profiles/index.php?page=$1&userid=$2 [NC,L]

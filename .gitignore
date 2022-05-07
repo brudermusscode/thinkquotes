@@ -5,6 +5,8 @@
 /config/db/connection.prod.json
 /config/ftp
 
+/vendor
+
 /public/app/assets/stylesheets/compiled
 
 composer.lock
