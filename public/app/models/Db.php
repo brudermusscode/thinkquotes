@@ -17,20 +17,7 @@ class Db
     public function connectDatabase()
     {
         // get login infromation from outsourced file
-        $PDOconfiguration = (object) $this->convertFromFile($this->inputfile);
-
-        // check if current location is localhost and set to
-        // location related database connection information
-        // to that environment
-        if ($this->isLocalhost()) {
-
-            // it's localhost, so get localhost information
-            $PDOconfiguration = $PDOconfiguration->localhost;
-        } else {
-
-            // it's web, so get web's connection information
-            $PDOconfiguration = $PDOconfiguration->web;
-        }
+        $PDOconfiguration = (object) $this->convertFromFile($this->inputfile)->connect;
 
         // try catch database connection
         try {
@@ -70,23 +57,23 @@ class Db
     }
 
     // check current environment for local or web
-    public function isLocalhost()
-    {
+    // public function isLocalhost()
+    // {
 
-        $whitelist = [
-            '127.0.0.1',
-            '::1'
-        ];
+    //     $whitelist = [
+    //         '127.0.0.1',
+    //         '::1'
+    //     ];
 
-        // check if the server is in the array
-        if (in_array($_SERVER['REMOTE_ADDR'], $whitelist)) {
+    // check if the server is in the array
+    //     if (in_array($_SERVER['REMOTE_ADDR'], $whitelist)) {
 
-            // this is a local environment
-            return true;
-        }
+    // this is a local environment
+    //         return true;
+    //     }
 
-        return false;
-    }
+    //     return false;
+    // }
 
     // get information from json file
     public function getJSONFromFile()

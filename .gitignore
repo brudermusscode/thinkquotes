@@ -2,7 +2,7 @@
 *.min.js
 .vscode
 
-/config/db/connection.json
+/config/db/connection.prod.json
 /config/ftp
 
 composer.lock
