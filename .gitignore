@@ -1,15 +1,25 @@
-# file types
+# certain file types
 *.min.js
 .vscode
 
+# configuration files
 /config/db/connection.prod.json
 /config/ftp
+/config/mail/*
 
+# libraries
 /vendor
 
+# public files
 /public/app/assets/stylesheets/compiled
 
+# log files
+/apache/access.log
+
+# preroot files
 composer.lock
 .git-ftp-include
 BACKUP.BAT
 TODO
+
+/test

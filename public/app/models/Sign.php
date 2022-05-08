@@ -7,53 +7,44 @@ $sign = new Sign($pdo, $_SESSION, $_COOKIE);
 class Sign extends Thinkquotes
 {
 
-    public function __construct(object $pdo, array $fromSession, array $fromCookies)
+    public function __construct(object $connection, array $session, array $cookies)
     {
-        $this->pdo = $pdo;
-        $this->fromSession = (object) $fromSession;
-        $this->fromCookies = (object) $fromCookies;
+        $this->pdo = (object) $connection;
+        $this->session = (object) $session;
+        $this->cookies = (object) $cookies;
     }
 
     // check login state for user
     public function isAuthed()
     {
 
-        if (isset($this->fromCookies->TOK) && isset($this->fromCookies->SER) && !empty($this->fromSession)) {
+        // print_r($this->session);
+        // print_r($this->cookies);
 
-            $cookieToken = $this->fromCookies->TOK;
-            $cookieSerial = $this->fromCookies->SER;
-            $sessionToken = $this->fromSession->token;
-            $sessionSerial = $this->fromSession->serial;
-            $sessionId = $this->fromSession->id;
+        if (!isset($this->cookies->TOK, $this->cookies->SER, $this->session->token, $this->session->serial)) return false;
 
-            // check if cookies and serial are same
-            if (
-                $cookieToken == $sessionToken &&
-                $cookieSerial == $sessionSerial
-            ) {
+        $cookie_token = $this->cookies->TOK;
+        $cookie_serial = $this->cookies->SER;
+        $session_token = $this->session->token;
+        $session_serial = $this->session->serial;
+        $session_id = $this->session->id;
 
-                // get session from database
-                $getSession = $this->pdo->prepare("SELECT * FROM users_sessions WHERE uid = ? AND token = ? AND serial = ?");
-                $getSession->execute([$sessionId, $sessionToken, $sessionSerial]);
-
-                if ($getSession->rowCount() > 0) {
-
-                    // everything's fine, user is logged in
-                    return true;
-                } else {
-
-                    $this->logout();
-                    return false;
-                }
-            } else {
-
-                $this->logout();
-                return false;
-            }
-        } else {
-
+        // check if cookies and serial are same
+        if ($cookie_token != $session_token || $cookie_serial != $session_serial) {
+            $this->logout();
             return false;
         }
+
+        // get session from database
+        $query = "SELECT * FROM users_sessions WHERE uid = ? AND token = ? AND serial = ?";
+        $get_session_data = $this->select($this->pdo, $query, [$session_id, $session_token, $session_serial]);
+
+        if (!$get_session_data->stmt->rowCount() > 0) {
+            $this->logout();
+            return false;
+        }
+
+        return true;
     }
 
     // validating email addresses
@@ -83,87 +74,80 @@ class Sign extends Thinkquotes
     }
 
     // create a session to keep user logged in
-    public function createSession(object $fetch, object $serial, bool $reset = false)
+    public function createSession(object $fetch, object $serial, bool $reset = false, bool $commit = false)
     {
 
-        if (isset($serial->token, $serial->serial, $serial->uid) && !$reset) {
+        (object) $fetch;
+        (object) $serial;
+        (bool) $reset;
+        (bool) $commit;
 
-            // insert user session
-            $stmt = $this->pdo->prepare("INSERT INTO users_sessions (uid, token, serial) VALUES (?, ?, ?)");
-            $stmt = $this->execute($stmt, [$serial->uid, $serial->token, $serial->serial], $this->pdo, true);
-
-            if ($stmt->status) {
-
-                // pass serial and token keys to fetch object
-                $fetch->serial = $serial->serial;
-                $fetch->token = $serial->token;
-
-                // loop through fetch object and pass all keys + values
-                // to $SESSION
-                foreach ($fetch as $f => $k) {
-
-                    $_SESSION[$f] = $k;
-                }
-
-                // set cookies to compare session serials
-                setcookie('TOK', $serial->token, time() + (86400) * 30, "/");
-                setcookie('SER', $serial->serial, time() + (86400) * 30, "/");
-
-                // return objectified $SESSION
-                return ($_SESSION);
-            } else {
-
-                return false;
-            }
-        } else {
-
+        # if underneath conditions mathc, jus5t reset the current session
+        if (!isset($serial->token, $serial->serial, $serial->uid) || $reset) {
             // pass serial and token keys to fetch object
             $fetch->serial = $serial->serial;
             $fetch->token = $serial->token;
 
-            // loop through fetch object and pass all keys + values
-            // to $SESSION
-            foreach ($fetch as $f => $k) {
-
-                $_SESSION[$f] = $k;
-            }
-
+            // loop through fetch object and pass all keys + values to $SESSION
+            foreach ($fetch as $f => $k) $_SESSION[$f] = $k;
             return $_SESSION;
         }
 
-        return false;
+        # start a new transaction
+        # $this->pdo->beginTransaction();
+
+        # try to create a new session with serial-data
+        $insert = $this->pdo->prepare("INSERT INTO users_sessions (uid, token, serial) VALUES (?, ?, ?)");
+        $insert = $this->execute($insert, [$serial->uid, $serial->token, $serial->serial], $this->pdo, $commit);
+
+        if (!$insert->status) return false;
+
+        // pass serial and token keys to fetch object
+        $fetch->serial = $serial->serial;
+        $fetch->token = $serial->token;
+
+        // loop through fetch object and pass all keys + values
+        // to $_SESSION
+        foreach ($fetch as $f => $k) {
+            $_SESSION[$f] = $k;
+        }
+
+        // set cookies to compare session serials
+        setcookie('TOK', $serial->token, time() + (86400) * 30, "/");
+        setcookie('SER', $serial->serial, time() + (86400) * 30, "/");
+
+        // return objectified $SESSION
+        return true;
     }
 
     // reset sesson and get new settings
     public function resetSession()
     {
 
-        if ($this->isAuthed()) {
+        # return false if user is not logged in
+        if (!$this->isAuthed()) return false;
 
-            // get user data and compare
-            $stmt = $this->pdo->prepare("
-                SELECT *, users.id AS id 
-                FROM users, users_settings 
-                WHERE users.id = users_settings.uid 
-                AND users.id = ?
-            ");
+        // get user data and compare to current session data
+        $query = "SELECT *, users.id AS id
+            FROM users, users_settings
+            WHERE users.id = users_settings.uid
+            AND users.id = ?";
+        $stmt = $this->select($this->pdo, $query, [$this->session->id]);
 
-            if ($stmt->execute([$this->fromSession->id])) {
+        # return false if statement fails
+        if (!$stmt->status) return false;
 
-                $serial = (object) [
-                    "serial" => $this->fromCookies->SER,
-                    "token" => $this->fromCookies->TOK
-                ];
+        # objectify cookie-session data
+        $serial = (object) [
+            "serial" => $this->cookies->SER,
+            "token" => $this->cookies->TOK
+        ];
 
-                // fetch actual user information
-                $u = $stmt->fetch();
+        // fetch user information
+        $user = $stmt->fetch;
 
-                // return new createSession
-                return $this->createSession($u, $serial, true);
-            }
-        }
-
-        return false;
+        // return new createSession with user-object
+        return $this->createSession($user, $serial, true);
     }
 
     // logout
@@ -207,3 +191,5 @@ class Sign extends Thinkquotes
         return $_SERVER['REMOTE_ADDR'];
     }
 }
+
+echo $sign->isAuthed();

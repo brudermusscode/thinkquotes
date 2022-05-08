@@ -9,6 +9,10 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . "/vendor/autoload.php";
 # require new database connection
 require_once "db/connect.php";
 
+# set dev_env to true, if current environment is development
+(bool) $dev_env = false;
+if ($db->getEnvironment() == 'dev') $dev_env = true;
+
 # include all models
 include_once ROOT . "/app/models/System.php";
 include_once ROOT . "/app/models/Sign.php";
@@ -46,12 +50,6 @@ $url = (object) [
   "sounds" => $systemInformation->sounds,
 ];
 
-$sendMail = (object) [
-  "header"  => 'MIME-Version: 1.0' . "\r\n" .
-    'Content-type: text/html; charset=utf-8' . "\r\n" .
-    'From: ThinkQuotes <noreply@thinkquotes.de>' . "\r\n"
-];
-
 # remove by time
 $sroot = ROOT;
 
@@ -63,8 +61,10 @@ define("LOGGED", $sign->isAuthed());
 $return = (object) [
   "status" => false,
   "message" => "A wild error appeared, fight it!",
-  "REQUEST" => $_REQUEST,
-  "SESSION" => $_SESSION
+  "init" => [
+    "request" => $_REQUEST,
+    "session" => $_SESSION
+  ]
 ];
 
 # handle page behavior if maintenance is turned on

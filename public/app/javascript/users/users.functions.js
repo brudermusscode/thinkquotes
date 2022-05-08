@@ -10,12 +10,12 @@ $(function(){
         // get correct url for each case of sign in...
         if ($(this).data("form") == "sign:in") {
 
-            url = dynamicHost + "/do/users/login";
+            url = dynamicHost + "/do/users/login/request_code";
             which = "in";
         } else {
 
             // and passing a authentication code
-            url = dynamicHost + "/do/users/login_send_code";
+            url = dynamicHost + "/do/users/login/verify_code";
             which = "code";
         }
 

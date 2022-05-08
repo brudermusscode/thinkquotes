@@ -5,26 +5,34 @@ include_once dirname($_SERVER['DOCUMENT_ROOT']) . "/config/definitions.php";
 class Db
 {
 
-    // constructor function which will only get the input
-    // file which includes the data for connecting to the
-    // database.
-    // ! Must be JSON format
-    public function __construct()
+    public function getEnvironment()
     {
+        $environment = file_get_contents(PREROOT . '/config/db/environment');
+
+        $available_environments = (array) ["dev", "test", "prod"];
+
+        if (!in_array($environment, $available_environments))
+            throw new Exception(
+                "***** Unavailable environment set in /config/db/environment! ******"
+            );
+
+        return $environment;
     }
 
     public function connectDatabase()
     {
 
         # get environment
-        $environment = file_get_contents(PREROOT . '/config/db/environment');
+        $environment = $this->getEnvironment();
 
         # check current environment and get correct connection.json
-        if ($environment == 'dev') {
-            $connection_path = PREROOT . "/config/db/connection.dev.json";
-        } else {
-            $connection_path = PREROOT . "/config/db/connection.prod.json";
-        }
+        $connection_path = PREROOT . "/config/db/connection." . $environment . ".json";
+
+        # validate file existence
+        if (!file_exists($connection_path))
+            throw new Exception(
+                "***** Configuration-file in /config/db should match 'connection.*ENVIRONMENT*.json' ******"
+            );
 
         // get login infromation from outsourced file
         $PDOconfiguration = (object) $this->convertFromFile($connection_path)->connect;

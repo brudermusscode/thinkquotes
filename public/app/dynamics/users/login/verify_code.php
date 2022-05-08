@@ -6,9 +6,16 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/config/init.php';
 // exit script by executing the validation function
 exit(validate_sign_in_code($pdo, $return, $sign, $system));
 
-function validate_sign_in_code($pdo, $return, $sign, $system)
+function validate_sign_in_code(object $connection, object $return, object $sign, object $system)
 {
-  if (!is_numeric_request() || LOGGED) {
+
+  (object) $connection;
+  (object) $return;
+  (object) $sign;
+  (object) $system;
+
+  if (!is_numeric_request($_POST) || LOGGED) {
+    $return->requesterino = $_POST;
     $return->message = set_return_message_with(1);
     return json_encode($return);
   }
@@ -33,9 +40,9 @@ function validate_sign_in_code($pdo, $return, $sign, $system)
         AND users_authentications.authCode = ?
         AND users_authentications.used = '0'";
 
-  $stmt = $system->select($pdo, $query, [$uid, $code]);
+  $stmt = $system->select($connection, $query, [$uid, $code]);
 
-  if ($stmt->rowCount() < 1) {
+  if ($stmt->stmt->rowCount() < 1) {
     $return->message = set_return_message_with(2);
     return json_encode($return);
   }
@@ -47,18 +54,20 @@ function validate_sign_in_code($pdo, $return, $sign, $system)
     "uid" => $uid
   ];
 
-  // begin a new mysqwl transaction!!1 ALL OR NOTHING1!!!
-  $pdo->beginTransaction();
+  # start a new pdo transaction
+  $connection->beginTransaction();
 
   // create session with user information
-  if (!$sign->createSession($stmt, $serialArray, false)) {
+  $new_session = $sign->createSession($stmt->fetch, $serialArray, false, false);
+
+  if (!$new_session) {
     $return->message = set_return_message_with(3);
     return json_encode($return);
   }
 
   // update the user_authentication record to 'used', which equals the value of (int) 1
-  $update = $pdo->prepare("UPDATE users_authentications SET used = 1 WHERE uid = ?");
-  $update = $system->execute($update, [$uid], $pdo, true);
+  $update = $connection->prepare("UPDATE users_authentications SET used = 1 WHERE uid = ?");
+  $update = $system->execute($update, [$uid], $connection, true);
 
   if (!$update->status) {
     $return->message = set_return_message_with(4);
@@ -67,19 +76,15 @@ function validate_sign_in_code($pdo, $return, $sign, $system)
 
   // set up all $return values for the request to continue
   $return->status = true;
-  $return->SESSION = $_SESSION;
-  $return->STMT = $stmt;
   $return->message = set_return_message_with(5);
 
   return json_encode($return);
 }
 
-function is_numeric_request()
+function is_numeric_request(array $request)
 {
-  foreach ($_REQUEST as $a => $b) {
-    if (!is_numeric($a)) {
-      return false;
-    }
+  foreach ($request as $a => $b) {
+    if (!is_numeric((int) $a)) return false;
   }
 
   return true;
@@ -87,9 +92,9 @@ function is_numeric_request()
 
 function set_return_message_with($id)
 {
-  if ($id == 1) return "Fill out all forms";
-  if ($id == 2) return "Are you sure you are signed up?";
-  if ($id == 3) return "Couldn't create a session";
+  if ($id == 1) return "Fill out all forms 😭";
+  if ($id == 2) return "This might not be the code we've sent you 🥸";
+  if ($id == 3) return "Couldn't create a session 🤔 Please try again!";
   if ($id == 4) return "Mistakes are, what makes us human. But the system encountered a problem";
   if ($id == 5) return "You've been logged in my friend!";
   return false;

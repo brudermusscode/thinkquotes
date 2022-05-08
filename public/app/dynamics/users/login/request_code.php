@@ -3,9 +3,9 @@
 # require database connection
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/config/init.php';
 
-exit(login($pdo, $sign, $return, $system, $sendMail));
+exit(login($pdo, $sign, $return, $system, $main, $dev_env));
 
-function login($pdo, $sign, $return, $system, $mail_array)
+function login($pdo, $sign, $return, $system, $web_information, $dev_env)
 {
   if (empty($_POST["mail"]) || LOGGED) {
     $return->message = set_return_message_with(1);
@@ -54,9 +54,9 @@ function login($pdo, $sign, $return, $system, $mail_array)
   $mailbody = str_replace('%code%', $code, $mailbody);
 
   # send mail
-  $sendMail = $system->trySendMail($inputmail, "Your authentication code!", $mailbody, $mail_array->header);
+  $sendMail = $system->trySendMail($inputmail, "Your authentication code!", $mailbody, $web_information);
 
-  if (!$sendMail) {
+  if (is_object($sendMail)) {
     $return->message = set_return_message_with(5);
     return json_encode($return);
   }
@@ -65,6 +65,7 @@ function login($pdo, $sign, $return, $system, $mail_array)
   $return->message = set_return_message_with(6, $inputmail);
   $return->status = true;
   $return->uid = $uid;
+  if ($dev_env) $return->code = $code;
 
   return json_encode($return);
 }
