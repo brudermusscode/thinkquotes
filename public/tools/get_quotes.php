@@ -1,12 +1,8 @@
 <?php
 
-require $_SERVER["DOCUMENT_ROOT"] . '/vendor/autoload.php';
-require $_SERVER["DOCUMENT_ROOT"] . "/session/session.inc.php";
+# require database connection
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/config/init.php';
 
-if (!LOGGED || empty($_SESSION) || !$my->admin) {
-
-    exit(header("location: /404"));
-}
 
 use Goutte\Client;
 
@@ -24,7 +20,7 @@ if (isset($_REQUEST["getQuotes"])) {
     $it = 0;
 
     // how many iterations should be done
-    for ($i = 1; $i < 10; $i++) {
+    for ($i = 1; $i < 2; $i++) {
 
         // get the website
         $crawler = $client->request('GET', 'https://www.zitatezumnachdenken.com?page=' . $i);
@@ -46,8 +42,8 @@ if (isset($_REQUEST["getQuotes"])) {
 
                     try {
                         // set up dns string
-                        $dsn = 'mysql:host=127.0.0.1;dbname=@tq_rd7jasuysx2hpu6r';
-                        $pdo = new PDO($dsn, 'root', '');
+                        $dsn = 'mysql:host=mysql;dbname=thinkquotes_dev';
+                        $pdo = new PDO($dsn, 'root', 'secret');
 
                         // preset attributes
                         $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);

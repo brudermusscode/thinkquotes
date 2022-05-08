@@ -161,6 +161,7 @@ class Thinkquotes
 
         try {
 
+            # prepare and execute statement
             $stmt = $connection->prepare($query);
             $stmt->execute($params);
 
@@ -171,13 +172,14 @@ class Thinkquotes
                 $fetch = $stmt->fetch();
             }
 
+            # set up return-object
             $stmt_return = (object) [
                 "status" => true,
                 "stmt" => $stmt,
                 "fetch" => $fetch
             ];
 
-            # return the object
+            # return the return-object
             return $stmt_return;
         } catch (\PDOException $e) {
 
