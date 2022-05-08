@@ -32,18 +32,18 @@ if (!$is_page) {
 
         <?php
 
-        if (!($user->id == UID)) {
+        if (!($user->uid == UID)) {
 
           # check if friendrequest exists
           $getFriendRequest = $pdo->prepare("SELECT * FROM users_friends_requests WHERE (sent = ? AND got = ?) OR (sent = ? AND got = ?)");
-          $getFriendRequest->execute([UID, $user->id, $user->id, UID]);
+          $getFriendRequest->execute([UID, $user->uid, $user->uid, UID]);
 
           # show remove friend button
           if (in_array(UID, $fr)) {
 
         ?>
 
-            <hellofresh data-action='function:friends,request,send/cancel/remove' data-json='[{"uid":"<?php echo $user->id; ?>", "action":"removeFriendRequest"}]' class="rd6 big shadowed light friendrequest deleteFriend">
+            <hellofresh data-action='function:friends,request,send/cancel/remove' data-json='[{"uid":"<?php echo $user->uid; ?>", "action":"removeFriendRequest"}]' class="rd6 big shadowed light friendrequest deleteFriend">
               <div class="c-ripple js-ripple">
                 <span class="c-ripple__circle"></span>
               </div>
@@ -62,7 +62,7 @@ if (!$is_page) {
 
           ?>
 
-            <hellofresh data-action='function:friends,request,send/cancel/remove' data-json='[{"uid":"<?php echo $user->id; ?>", "action":"cancelFriend"}]' class="rd6 big shadowed light friendrequest cancelRequest">
+            <hellofresh data-action='function:friends,request,send/cancel/remove' data-json='[{"uid":"<?php echo $user->uid; ?>", "action":"cancelFriend"}]' class="rd6 big shadowed light friendrequest cancelRequest">
               <div class="c-ripple js-ripple">
                 <span class="c-ripple__circle"></span>
               </div>
@@ -98,7 +98,7 @@ if (!$is_page) {
 
             ?>
 
-              <hellofresh data-action='function:friends,request,send/cancel/remove' data-json='[{"uid":"<?php echo $user->id; ?>", "action":"addFriend"}]' class="rd6 big shadowed light friendrequest addFriend">
+              <hellofresh data-action='function:friends,request,send/cancel/remove' data-json='[{"uid":"<?php echo $user->uid; ?>", "action":"addFriend"}]' class="rd6 big shadowed light friendrequest addFriend">
                 <div class="c-ripple js-ripple">
                   <span class="c-ripple__circle"></span>
                 </div>

@@ -162,7 +162,7 @@ $(function(){
         let url;
 
         switch (page) {
-            case 'index':
+            case 'profiles:index':
                 url = dynamicHost + "/template/quotes/index";
                 break;
             case 'profiles:index':
@@ -170,6 +170,9 @@ $(function(){
                 break;
             case 'profiles:favorites':
                 url = dynamicHost + "/template/quotes/profiles/_favorites";
+                break;
+            case 'profiles:archive':
+                url = dynamicHost + "/template/quotes/profiles/_archive";
         }
 
         $.ajax({

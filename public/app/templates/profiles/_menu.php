@@ -10,19 +10,19 @@ if (!$is_page) {
 
     <div class="inr disfl flCenter">
 
-        <div class="bm text rounded <?php if ($page === "profiles") echo "active"; ?>" onclick="window.location.replace('/u/<?php echo $user->username; ?>');">
+        <div class="bm text rounded <?php if ($page === "profiles:index") echo "active"; ?>" onclick="window.location.replace('/u/<?php echo $user->username; ?>');">
             <p><?php echo $user->username; ?></p>
         </div>
 
-        <div class="bm text rounded <?php if ($page === "favorites") echo "active"; ?>" onclick="window.location.replace('/f/<?php echo $user->username; ?>');">
+        <div class="bm text rounded <?php if ($page === "profiles:favorites") echo "active"; ?>" onclick="window.location.replace('/f/<?php echo $user->username; ?>');">
             <p>Favorites</p>
         </div>
 
-        <?php if ($user->id === UID) { ?>
+        <?php if ($user->uid === UID) { ?>
 
-            <div class="bm text rounded <?php if ($page === "archive") {
+            <div class="bm text rounded <?php if ($page === "profiles:archive") {
                                             echo "active";
-                                        } ?>" onclick="window.location.replace('/u/archive/<?php echo $user->id; ?>');">
+                                        } ?>" onclick="window.location.replace('/a/<?php echo $user->username; ?>');">
                 <p>Archive</p>
             </div>
 

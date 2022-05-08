@@ -49,6 +49,7 @@ RewriteRule ^intern(.*) /app/templates/intern/welcome.php [NC,L]
 # set profile paths
 RewriteRule ^u/([A-Za-z0-9_\-]+) /app/templates/profiles/index.php?username=$1 [NC,L]
 RewriteRule ^f/([A-Za-z0-9_\-]+) /app/templates/profiles/favorites.php?username=$1 [NC,L]
+RewriteRule ^a/([A-Za-z0-9_\-]+) /app/templates/profiles/archive.php?username=$1 [NC,L]
 
 # set dynamic paths
 RewriteRule ^do/(.*) /app/dynamics/$1 [NC,L]
