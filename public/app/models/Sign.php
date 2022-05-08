@@ -18,9 +18,6 @@ class Sign extends Thinkquotes
     public function isAuthed()
     {
 
-        // print_r($this->session);
-        // print_r($this->cookies);
-
         if (!isset($this->cookies->TOK, $this->cookies->SER, $this->session->token, $this->session->serial)) return false;
 
         $cookie_token = $this->cookies->TOK;
@@ -191,5 +188,3 @@ class Sign extends Thinkquotes
         return $_SERVER['REMOTE_ADDR'];
     }
 }
-
-echo $sign->isAuthed();

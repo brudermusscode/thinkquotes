@@ -152,7 +152,7 @@ class Thinkquotes
 
     # converts a simple function into an select statement and returns an object
     # with PDO query functions and records, if any
-    public static function select($connection, $query, $params = null)
+    public static function select($connection, $query, $params = null, $fetch_all = false)
     {
 
         (object) $connection;
@@ -165,7 +165,11 @@ class Thinkquotes
             $stmt->execute($params);
 
             # fetch records
-            $fetch = $stmt->fetch();
+            if ($fetch_all) {
+                $fetch = $stmt->fetchAll();
+            } else {
+                $fetch = $stmt->fetch();
+            }
 
             $stmt_return = (object) [
                 "status" => true,

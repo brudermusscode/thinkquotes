@@ -3,29 +3,20 @@
 # require database connection
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/config/init.php";
 
-if (
-  !isset($_POST["page"], $_POST["order"], $_POST["limit"], $_POST["uid"]) &&
-  !filter_var($_POST["limit"], FILTER_VALIDATE_FLOAT)
-) {
+if (!isset($_POST["page"], $_POST["limit"]))
   exit('0');
-}
+
+# make sure the page is a string which is kind of unnecessary
+(string) $page = $_POST['page'];
+
+# make sure the limit count is an int
+if (!filter_var($_POST['limit'], FILTER_VALIDATE_INT)) return 'Huh?';
 
 # variabilize
 $query_limit = round($_POST["limit"]);
 
-# check user is me
-$itsMe = FALSE;
-
-# if user is logged in, set it's me to true
-if (LOGGED) {
-  if ($uid == UID) {
-    $itsMe = TRUE;
-  }
-}
-
 # get quotes
-$getQuotes = $pdo->prepare(
-  "SELECT *,
+$query = "SELECT *,
       quotes.id AS qid,
       users.id AS uid,
       quotes_authors.id AS aid,
@@ -36,9 +27,8 @@ $getQuotes = $pdo->prepare(
       AND quotes.sid = quotes_sources.id
       AND quotes.deleted = '0'
       ORDER BY quotes.upvotes
-      DESC LIMIT ?"
-);
-$getQuotes->execute([$query_limit]);
+      DESC LIMIT ?";
+$select_quotes = $system->select($pdo, $query, [$query_limit], true);
 
 ?>
 
@@ -47,13 +37,13 @@ $getQuotes->execute([$query_limit]);
   <?php
 
   # no quotes content
-  if ($getQuotes->rowCount() < 1) {
+  if ($select_quotes->stmt->rowCount() < 1) {
 
     include ROOT . "/app/templates/quotes/_empty.php";
   } else {
 
     # querry all quotes
-    foreach ($getQuotes->fetchAll() as $elementInclude) {
+    foreach ($select_quotes->fetch as $elementInclude) {
 
       $pure = false;
 

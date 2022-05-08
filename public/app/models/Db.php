@@ -7,14 +7,20 @@ class Db
 
     public function getEnvironment()
     {
-        $environment = file_get_contents(PREROOT . '/config/db/environment');
 
+        $env_path = PREROOT . '/config/db/environment';
+
+        # check if environment-file exists
+        if (!file_exists($env_path))
+            throw new Exception("💔 File 📄environment is missing in 📂/config/db ❗️");
+
+        $environment = file_get_contents($env_path);
+
+        # set valid environments
         $available_environments = (array) ["dev", "test", "prod"];
 
         if (!in_array($environment, $available_environments))
-            throw new Exception(
-                "***** Unavailable environment set in /config/db/environment! ******"
-            );
+            throw new Exception("💔 Unavailable environment set in 📂/config/db/environment ❗️");
 
         return $environment;
     }
@@ -30,9 +36,7 @@ class Db
 
         # validate file existence
         if (!file_exists($connection_path))
-            throw new Exception(
-                "***** Configuration-file in /config/db should match 'connection.*ENVIRONMENT*.json' ******"
-            );
+            throw new Exception("💔 Configuration-file in 📂/config/db should match 📄connection.*ENVIRONMENT*.json ❗️");
 
         // get login infromation from outsourced file
         $PDOconfiguration = (object) $this->convertFromFile($connection_path)->connect;
