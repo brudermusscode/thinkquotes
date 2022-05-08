@@ -162,8 +162,8 @@ $(function(){
         let url;
 
         switch (page) {
-            case 'profiles:index':
-                url = dynamicHost + "/template/quotes/index";
+            case 'index':
+                url = dynamicHost + "/template/quotes/home/_index";
                 break;
             case 'profiles:index':
                 url = dynamicHost + "/template/quotes/profiles/_index";
