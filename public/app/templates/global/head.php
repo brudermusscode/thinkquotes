@@ -41,14 +41,12 @@ if (!$is_page) {
     <?php if ($page === "maintenance") { ?>
         <link rel="stylesheet" href="<?php echo $url->css; ?>/de.maintenance.css" />
 
-    <?php } else if ($page === "profiles") { ?>
-        <link rel="stylesheet" href="<?php echo $url->css; ?>/de.profiles.css" />
-
     <?php } else if ($page === "intern") { ?>
         <link rel="stylesheet" href="<?php echo $url->css; ?>/de.intern.css" />
 
     <?php } ?>
 
+    <link rel="stylesheet" href="<?php echo $url->css; ?>/de.profiles.css" />
     <link rel="stylesheet" href="<?php echo $url->css; ?>/sign.css" />
 
     <!-- js -->

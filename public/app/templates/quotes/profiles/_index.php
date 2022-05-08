@@ -3,33 +3,37 @@
 # require database connection
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/config/init.php";
 
-if (!isset($_POST["page"], $_POST["limit"]))
-  exit('0');
+if (!isset($_POST["page"], $_POST["limit"], $_POST['uid']))
+  exit('2');
 
 # make sure the page is a string which is kind of unnecessary
 (string) $page = $_POST['page'];
 (int) $limit = $_POST['limit'];
+(int) $userid = $_POST['uid'];
 
 # make sure the limit count is an int
-if (!filter_var($limit, FILTER_VALIDATE_INT)) exit('Huh?');
+if (!is_numeric($limit)) exit('Huh?');
+if (!is_numeric($userid)) exit('Huh?');
 
 # variabilize
 $query_limit = round($limit);
 
 # get quotes
 $query = "SELECT *,
-      quotes.id AS qid,
-      users.id AS uid,
-      quotes_authors.id AS aid,
-      quotes_sources.id AS sid
-      FROM quotes, users, quotes_authors, quotes_sources
-      WHERE quotes.uid = users.id
-      AND quotes.aid = quotes_authors.id
-      AND quotes.sid = quotes_sources.id
-      AND quotes.deleted = '0'
-      ORDER BY quotes.upvotes
-      DESC LIMIT ?";
-$select_quotes = $system->select($pdo, $query, [$query_limit], true);
+  quotes.id AS qid,
+  users.id AS uid,
+  quotes_authors.id AS aid,
+  quotes_sources.id AS sid
+  FROM quotes, users, quotes_authors, quotes_sources
+  WHERE quotes.uid = users.id
+  AND quotes.aid = quotes_authors.id
+  AND quotes.sid = quotes_sources.id
+  AND quotes.uid = ?
+  AND quotes.deleted = '0'
+  ORDER BY quotes.upvotes
+  DESC
+  LIMIT ?";
+$select_quotes = $system->select($pdo, $query, [$userid, $query_limit], true);
 
 ?>
 
@@ -40,7 +44,7 @@ $select_quotes = $system->select($pdo, $query, [$query_limit], true);
   # no quotes content
   if ($select_quotes->stmt->rowCount() < 1) {
 
-    include ROOT . "/app/templates/quotes/_empty.php";
+    include TEMPLATES . "/quotes/_empty.php";
   } else {
 
     # querry all quotes
@@ -49,7 +53,7 @@ $select_quotes = $system->select($pdo, $query, [$query_limit], true);
       $pure = false;
 
       # include quote card
-      include ROOT . "/app/templates/quotes/_quote.php";
+      include TEMPLATES . "/quotes/_quote.php";
     }
   }
 

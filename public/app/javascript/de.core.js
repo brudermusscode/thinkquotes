@@ -148,28 +148,39 @@ $(function(){
 
     });
 
-    var loadQuotes = function() {
+    let loadQuotes = function() {
 
-        var $react = $('[data-load="content:quotes"]');
-        var $append = $react.find('.actual');
-        var $placeholder = $react.find('.quote-placeholder');
-        var getData = $react.data('json');
-        var page = getData[0].page;
-        var subpage = getData[0].subpage;
-        var order = getData[0].order;
-        var limit = getData[0].limit;
-        var uid = getData[0].uid;
-        let url = dynamicHost + "/template/quotes/index";
+        let $react = $('[data-load="content:quotes"]');
+        let $append = $react.find('.actual');
+        let $placeholder = $react.find('.quote-placeholder');
+        let getData = $react.data('json');
+        let page = getData[0].page;
+        let subpage = getData[0].subpage;
+        let order = getData[0].order;
+        let limit = getData[0].limit;
+        let uid = getData[0].uid;
+        let url;
+
+        switch (page) {
+            case 'index':
+                url = dynamicHost + "/template/quotes/index";
+                break;
+            case 'profiles:index':
+                url = dynamicHost + "/template/quotes/profiles/_index";
+                break;
+            case 'profiles:favorites':
+                url = dynamicHost + "/template/quotes/profiles/_favorites";
+        }
 
         $.ajax({
 
             url: url,
             method: "POST",
             dataType: "HTML",
-            data: { page: page, order: order, limit: limit, uid: uid, subpage: subpage },
+            data: { page: page, limit: limit, uid: uid },
             success: function(data) {
 
-                var $errCode = parseInt(data);
+                let $errCode = parseInt(data);
 
                 switch($errCode){
                     case 0:
