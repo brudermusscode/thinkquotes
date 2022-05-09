@@ -210,12 +210,12 @@ class Thinkquotes
         // Server settings
         $mail->isSMTP(); // Send using SMTP
         # $mail->SMTPDebug = PHPMailer::SMTP::DEBUG_SERVER;
-        $mail->Host = 'w01c33b1.kasserver.com';
+        $mail->Host = '';
         $mail->Port = 465;
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
         $mail->SMTPAuth = true;
-        $mail->Username = 'test@thinkquotes.eu';
-        $mail->Password = 'secret123';
+        $mail->Username = '';
+        $mail->Password = '';
         // $mail->AuthType = 'XOAUTH2';
 
         // Create and pass GoogleOauthClient to PHPMailer
