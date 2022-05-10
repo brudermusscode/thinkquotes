@@ -10,3 +10,7 @@
 
 // TODO: #20 give user the option to individually change background colour
 // TODO: #21 read-only mode for quotes home page
+
+// TO THINK OF: Send email to any mail address entered in login form. If mail doesn't exist under users, create a
+// new account as soon as the correct code for that mail gets entered. Shall it be like this?
+// would the sign up be over in this case?

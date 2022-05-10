@@ -1,9 +1,9 @@
  "use strict";
- 
+
  $(function(){
- 
+
     let url, overlay, formData, body = $("body");
-    
+
     $(document)
 
     // >> quotes > report
@@ -12,7 +12,7 @@
         var $t = $(this);
         var getData = $t.closest('quote').data("json");
         var qid = getData[0].qid;
-        let url = dynamicHost + "/dyn/popups/quotes-report";
+        let url = dynamicHost + "/do/quotes/_report";
 
         $.ajax({
             type: "POST",
@@ -23,26 +23,26 @@
 
                 addOverlay();
                 togglebody();
-                
+
             },
             success: function(data){
-                
-                
-                
+
+
+
                 var ro = $('body').find('response-overlay');
                 var form = $('[data-form="quotes,add"]');
-                
+
                 if(parseInt(data) === 0){
-                    
+
                     showErrorModule("You need to have atleast one Quote with 20 upvotes!");
                     closeOverlay();
-                    
+
                 } else {
-                    
+
                     ro.empty();
                     ro.append(data);
                     fitPopupModule();
-                    
+
                 }
 
             },
@@ -50,9 +50,9 @@
                 showErrorModule("Some randomness just happened, try again!");
             }
         });
-    
+
 	})
-    
+
     // >> quotes > edit
     .on('click', '[data-action="popup:quotes,edit"]', function(e) {
 
@@ -74,7 +74,7 @@
 
                 addOverlay();
                 togglebody();
-                
+
             },
             success: function(data){
 
@@ -90,24 +90,24 @@
                         data: { qid: qid },
                         dataType: 'HTML',
                         success: function(data){
-                            
+
                             $ro = $('body').find('response-overlay');
                             let $form = $('[data-form="quotes,add"]');
-                            
+
                             if(parseInt(data) === 0){
-                                
+
                                 showErrorModule("A wild error appeared! Fight it!");
                                 closeOverlay();
-                                
+
                             } else {
-                                
+
                                 $ro.empty();
                                 $ro.append(data);
                                 fitPopupModule();
                                 resizeTextarea('textarea');
-                                
+
                             }
-            
+
                         },
                         error: function(response){
                             showErrorModule("Some randomness just happened, try again!");
@@ -125,7 +125,7 @@
             }
 
         });
-    
+
     })
 
     // >> quotes, archive
@@ -142,7 +142,7 @@
         url = dynamicHost + "/dyn/content/quotes/archive";
 
         $.ajax({
-            
+
             url: url,
             data: formData,
             dataType: "HTML",
@@ -160,9 +160,9 @@
             error: (data) => {
                 showErrorModule(stdErrorOutput);
             }
-            
+
         });
-        
+
     });
 
 });

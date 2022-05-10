@@ -37,7 +37,7 @@ $(function () {
         overlay = Overlay.add(body, $(this), false);
 
         // set url for xhr
-        url = dynamicHost + "/dyn/content/sign/up";
+        url = dynamicHost + "/template/popups/_signup";
 
         $.ajax({
             url: url,

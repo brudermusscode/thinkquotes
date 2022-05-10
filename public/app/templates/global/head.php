@@ -1,10 +1,4 @@
-<?php
-
-if (!$is_page) {
-    header("location: /");
-}
-
-?>
+<?php if (!$is_page) header("location: /"); ?>
 
 <!DOCTYPE html>
 <html lang=en>
@@ -52,7 +46,6 @@ if (!$is_page) {
     <!-- js -->
     <script src="<?php echo $url->js; ?>/thirdparty/de.jquery.3.js"></script>
     <script src="<?php echo $url->js; ?>/thirdparty/de.cookie.min.js"></script>
-    <script src="<?php echo $url->js; ?>/thirdparty/de.masonry.js"></script>
     <script src="<?php echo $url->js; ?>/thirdparty/de.public.suffix.list.js"></script>
     <script src="<?php echo $url->js; ?>/classes/Overlay.js"></script>
     <script src="<?php echo $url->js; ?>/de.core.min.js"></script>
