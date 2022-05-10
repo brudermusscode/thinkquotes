@@ -14,10 +14,10 @@ if (LOGGED) {
 
   # find entry for favorite related to current user and this post
   $query = "SELECT * FROM quotes_favorites WHERE qid = ? AND uid = ? AND deleted = '0'";
-  $get_is_favorizes = $system->select($pdo, $query, [$elementInclude->qid, $my->uid], false);
+  $get_is_favorized = $system->select($pdo, $query, [$elementInclude->qid, $my->uid], false);
 
   # check, if this quote is faved by the current signed in user
-  if ($get_is_favorizes->stmt->rowCount() > 0) $isFavorite = true;
+  if ($get_is_favorized->stmt->rowCount() > 0) $is_favorized = true;
 
   # check if current user is owner of this quote
   if ($elementInclude->uid === $my->uid) $is_my_quote = true;

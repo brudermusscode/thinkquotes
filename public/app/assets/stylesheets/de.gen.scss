@@ -525,7 +525,7 @@ hellofresh {
     &.addFriend {
       .icon i::before {
         display: block;
-        content: "person_add";
+        content: "🤩";
       }
 
       .text::before {
@@ -537,7 +537,7 @@ hellofresh {
     &.cancelRequest {
       .icon i::before {
         display: block;
-        content: "cached";
+        content: "🥲";
       }
 
       .text::before {
@@ -549,7 +549,7 @@ hellofresh {
     &.removeFriend {
       .icon i::before {
         display: block;
-        content: "person_remove";
+        content: "😭";
       }
 
       .text::before {

@@ -91,7 +91,7 @@
                   <span class="c-ripple__circle"></span>
                 </div>
                 <div class="disfl fldirrow">
-                  <div class="mr12 icon">
+                  <div class="mr8 icon">
                     <i class="material-icons small"></i>
                   </div>
                   <p class="text"></p>

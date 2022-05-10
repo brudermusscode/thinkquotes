@@ -763,6 +763,13 @@ page-overlay {
         line-height: 1.8em;
       }
     }
+
+    &[disabled] {
+      opacity:.2;
+      cursor:default;
+      box-shadow:none !important;
+      background:transparent !important;
+    }
   }
 }
 

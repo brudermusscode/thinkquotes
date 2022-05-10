@@ -14,14 +14,14 @@
 
         <?php if ($user->uid === $my->uid) { ?>
 
+            <div class="bm text rounded" disabled>
+                <p>Drafts</p>
+            </div>
+
             <div class="bm text rounded <?php if ($page === "profiles:archive") {
                                             echo "active";
                                         } ?>" onclick="window.location.replace('/a/<?php echo $user->username; ?>');">
                 <p>Archive</p>
-            </div>
-
-            <div class="bm text rounded" onclick="window.open('');">
-                <p>Drafts</p>
             </div>
 
         <?php } ?>

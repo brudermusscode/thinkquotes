@@ -3,9 +3,12 @@
 # require database connection
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/config/init.php';
 
+define("UID", $my->uid);
 
+# webcrawler
 use Goutte\Client;
 
+# new crawler client
 $client = new Client();
 
 // set timelimit to zero
@@ -14,13 +17,16 @@ set_time_limit(0);
 // set a counter to show how many quotes have been inserted
 $counter = 0;
 
+# how many pages should be itered through?
+$iterate_through_pages = 4;
+
 
 if (isset($_REQUEST["getQuotes"])) {
 
     $it = 0;
 
     // how many iterations should be done
-    for ($i = 1; $i < 2; $i++) {
+    for ($i = 1; $i <= $iterate_through_pages; $i++) {
 
         // get the website
         $crawler = $client->request('GET', 'https://www.zitatezumnachdenken.com?page=' . $i);
@@ -59,20 +65,16 @@ if (isset($_REQUEST["getQuotes"])) {
                     $author = htmlspecialchars($n->children('.author')->text());
                     $categories = htmlspecialchars($n->children('.view-tags')->text());
 
-                    if (empty($categories)) {
+                    // format categories to array
+                    $categories = preg_replace("/Themen: /", "", $categories);
+                    $categories = preg_replace("/, /", ",", $categories);
+                    $categories = explode(",", $categories);
 
-                        $categories = (object) [];
-                    } else {
-
-                        // format categories to array
-                        $categories = preg_replace("/Themen: /", "", $categories);
-                        $categories = preg_replace("/, /", ",", $categories);
-                        $categories = explode(",", $categories);
-                    }
+                    if (empty($categories)) (object) $categories = [];
 
                     // **** START INSERTING AUTHOR
                     $stmt = $pdo->prepare("INSERT INTO quotes_authors (uid, author_name) VALUES (?, ?)");
-                    $stmt = $system->execute($stmt, [$my->uid, $author], $pdo, false);
+                    $stmt = $system->execute($stmt, [UID, $author], $pdo, false);
 
                     if ($stmt->status) {
 
@@ -103,7 +105,7 @@ if (isset($_REQUEST["getQuotes"])) {
 
                     // *** START INSERTING QUOTE
                     $stmt = $pdo->prepare("INSERT INTO quotes (uid, aid, sid, quote_text, upvotes, isDraft) VALUES (?, ?, '1', ?, ?, '0')");
-                    $stmt = $system->execute($stmt, [$my->uid, $aid, $quote, $upvotes], $pdo, false);
+                    $stmt = $system->execute($stmt, [UID, $aid, $quote, $upvotes], $pdo, false);
 
                     if ($stmt->status) {
 
@@ -122,7 +124,7 @@ if (isset($_REQUEST["getQuotes"])) {
                             }
 
                             $stmt = $pdo->prepare("INSERT INTO quotes_categories (uid, category_name) VALUES (?, ?)");
-                            $stmt = $system->execute($stmt, [$my->uid, $c], $pdo, $commit);
+                            $stmt = $system->execute($stmt, [UID, $c], $pdo, $commit);
 
                             if ($stmt->status) {
 
