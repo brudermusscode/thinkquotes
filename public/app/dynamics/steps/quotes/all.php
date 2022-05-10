@@ -24,7 +24,7 @@ if (
     // insert the author
     // TODO: make multiple categories adding possible
     $stmt = $pdo->prepare("INSERT INTO quotes_categories (uid, category_name) VALUES (?, ?)");
-    $stmt = $system->execute($stmt, [UID, $category], $pdo, false);
+    $stmt = $system->execute($stmt, [$my->uid, $category], $pdo, false);
 
     if ($stmt->status) {
 
@@ -73,17 +73,17 @@ if (
 
         // get current quote and show on process
         $stmt = $pdo->prepare("
-            SELECT *, 
-            quotes.id AS qid, 
-            users.id AS uid, 
-            quotes_authors.id AS aid,  
-            quotes_sources.id AS sid  
-            FROM quotes, users, quotes_authors, quotes_sources 
+            SELECT *,
+            quotes.id AS qid,
+            users.id AS uid,
+            quotes_authors.id AS aid,
+            quotes_sources.id AS sid
+            FROM quotes, users, quotes_authors, quotes_sources
             WHERE quotes.uid = users.id
-            AND quotes.aid = quotes_authors.id 
-            AND quotes.sid = quotes_sources.id 
+            AND quotes.aid = quotes_authors.id
+            AND quotes.sid = quotes_sources.id
             AND quotes.id = ?
-            AND quotes.deleted = '0' 
+            AND quotes.deleted = '0'
             LIMIT 1
         ");
         $stmt->execute([$qid]);

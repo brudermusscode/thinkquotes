@@ -72,7 +72,7 @@ if (isset($_REQUEST["getQuotes"])) {
 
                     // **** START INSERTING AUTHOR
                     $stmt = $pdo->prepare("INSERT INTO quotes_authors (uid, author_name) VALUES (?, ?)");
-                    $stmt = $system->execute($stmt, [UID, $author], $pdo, false);
+                    $stmt = $system->execute($stmt, [$my->uid, $author], $pdo, false);
 
                     if ($stmt->status) {
 
@@ -103,7 +103,7 @@ if (isset($_REQUEST["getQuotes"])) {
 
                     // *** START INSERTING QUOTE
                     $stmt = $pdo->prepare("INSERT INTO quotes (uid, aid, sid, quote_text, upvotes, isDraft) VALUES (?, ?, '1', ?, ?, '0')");
-                    $stmt = $system->execute($stmt, [UID, $aid, $quote, $upvotes], $pdo, false);
+                    $stmt = $system->execute($stmt, [$my->uid, $aid, $quote, $upvotes], $pdo, false);
 
                     if ($stmt->status) {
 
@@ -122,7 +122,7 @@ if (isset($_REQUEST["getQuotes"])) {
                             }
 
                             $stmt = $pdo->prepare("INSERT INTO quotes_categories (uid, category_name) VALUES (?, ?)");
-                            $stmt = $system->execute($stmt, [UID, $c], $pdo, $commit);
+                            $stmt = $system->execute($stmt, [$my->uid, $c], $pdo, $commit);
 
                             if ($stmt->status) {
 

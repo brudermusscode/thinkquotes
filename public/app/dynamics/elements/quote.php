@@ -7,7 +7,7 @@ if (isset($elementInclude)) {
     // check if is favorite
     if (LOGGED) {
         $getFaved = $pdo->prepare("SELECT * FROM quotes_favorites WHERE qid = ? AND uid = ? AND deleted = '0'");
-        $getFaved->execute([$elementInclude->qid, UID]);
+        $getFaved->execute([$elementInclude->qid, $my->uid]);
 
         $isFavorite = FALSE;
         if ($getFaved->rowCount() > 0) {
@@ -15,7 +15,7 @@ if (isset($elementInclude)) {
         }
 
         $myQuote = false;
-        if ($elementInclude->uid === UID) {
+        if ($elementInclude->uid === $my->uid) {
             $myQuote = true;
         }
     }
@@ -26,11 +26,11 @@ if (isset($elementInclude)) {
 
     // get categories
     $getCategories = $pdo->prepare("
-        SELECT * 
-        FROM quotes_categories_used, quotes_categories 
+        SELECT *
+        FROM quotes_categories_used, quotes_categories
         WHERE quotes_categories_used.cid = quotes_categories.id
         AND quotes_categories_used.qid = ?
-        ORDER BY quotes_categories_used.id 
+        ORDER BY quotes_categories_used.id
         DESC LIMIT 3
     ");
     $getCategories->execute([$elementInclude->qid]);
@@ -44,7 +44,7 @@ if (isset($elementInclude)) {
             <?php
 
             // quote heading tools should just be shown when user is logged in
-            // and the pure mode is not enabled    
+            // and the pure mode is not enabled
             if (LOGGED && !$pure) {
 
             ?>

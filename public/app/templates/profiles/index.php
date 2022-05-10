@@ -31,7 +31,7 @@ include_once TEMPLATES . "/profiles/_menu.php";
 
         <?php
 
-        if (LOGGED && $user->uid == UID) {
+        if (LOGGED && $user->uid == $my->uid) {
           echo "Quotes you posted";
         } else {
           echo "Quotes by $user->username";

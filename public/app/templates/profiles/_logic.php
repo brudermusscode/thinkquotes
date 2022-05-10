@@ -24,7 +24,7 @@ if ($get_user->stmt->rowCount() < 1) header('location: /404');
 $user = $get_user->fetch;
 
 # tell php its profile of current_user, if it is
-if ($user->uid == UID) $its_me = true;
+if ($my->uid && $user->uid == $my->uid) $its_me = true;
 
 # nobody should be able to visit the archive of another user. They are only permitted
 # to the owner. Check for that

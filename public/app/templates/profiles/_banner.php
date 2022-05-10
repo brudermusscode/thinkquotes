@@ -32,14 +32,14 @@ if (!$is_page) {
 
         <?php
 
-        if (!($user->uid == UID)) {
+        if (!($user->uid == $my->uid)) {
 
           # check if friendrequest exists
           $getFriendRequest = $pdo->prepare("SELECT * FROM users_friends_requests WHERE (sent = ? AND got = ?) OR (sent = ? AND got = ?)");
-          $getFriendRequest->execute([UID, $user->uid, $user->uid, UID]);
+          $getFriendRequest->execute([$my->uid, $user->uid, $user->uid, $my->uid]);
 
           # show remove friend button
-          if (in_array(UID, $fr)) {
+          if (in_array($my->uid, $fr)) {
 
         ?>
 
@@ -84,7 +84,7 @@ if (!$is_page) {
                 $canSend = true;
                 break;
               case "friendsoffriends":
-                if (!in_array(UID, $frofr)) {
+                if (!in_array($my->uid, $frofr)) {
                   $canSend = false;
                 } else {
                   $canSend = true;

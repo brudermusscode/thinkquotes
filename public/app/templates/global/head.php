@@ -123,9 +123,9 @@ if (!$is_page) {
         <?php if (!isset($_COOKIE["leckercoronabier"])) { ?>
 
             <div class="cookiezi-banner mshd-3">
-                <p class="lt isDark inr trimt">We use cookies! Read more about it <a href="<?php echo $url->intern; ?>/privacy#m6">here</a>...</p>
-                <div class="align-mid-vert posabs cb-close" data-action="cookie:cookies,accept">
-                    <span class="material-icons-round md-24">close</span>
+                <p class="lt isDark inr trimt">We use cookies! You can read more about it <a href="<?php echo $url->intern; ?>/privacy#m6" style="color:var(--colour-red);">here</a>!</p>
+                <div class="align-mid-vert posabs cb-close mt4" data-action="cookie:cookies,accept">
+                    <span class="material-icons md-24">close</span>
                 </div>
             </div>
 

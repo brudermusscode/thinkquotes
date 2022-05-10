@@ -20,7 +20,7 @@ if (
 
     // insert the author
     $stmt = $pdo->prepare("INSERT INTO quotes_authors (uid, author_name) VALUES (?, ?)");
-    $stmt = $system->execute($stmt, [UID, $author], $pdo, false);
+    $stmt = $system->execute($stmt, [$my->uid, $author], $pdo, false);
 
     if ($stmt->status) {
 

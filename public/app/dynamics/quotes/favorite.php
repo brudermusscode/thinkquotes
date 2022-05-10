@@ -6,7 +6,7 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/config/init.php';
 if (empty($_POST["qid"]) || !LOGGED) exit(json_encode($return));
 
 (int) $qid = $_POST["qid"];
-(int) $user_id = UID;
+(int) $user_id = $my->uid;
 
 // get quote by qid
 $query = "SELECT * FROM quotes WHERE id = ?";
@@ -35,7 +35,7 @@ if ($get_quote_favorized->stmt->rowCount() < 1) {
 
     # insert new favorite entry for current user
     $query = "INSERT INTO quotes_favorites (qid, uid) VALUES (?,?)";
-    $insert_quote_favorite = $system->insert($pdo, $query, [$qid, UID], false);
+    $insert_quote_favorite = $system->insert($pdo, $query, [$qid, $my->uid], false);
 
     # validate successful query execution
     if (!$insert_quote_favorite->status) exit(json_encode($return));
@@ -55,7 +55,7 @@ if ($get_quote_favorized->stmt->rowCount() < 1) {
 
     # update quote favorized set deleted to either 0 or 1, depending on the previous state
     $query = "UPDATE quotes_favorites SET deleted = CASE WHEN deleted = true THEN false ELSE true END WHERE qid = ? AND uid = ?";
-    $discard_quote_favorite = $system->update($pdo, $query, [$qid, UID], false);
+    $discard_quote_favorite = $system->update($pdo, $query, [$qid, $my->uid], false);
 
     # validate successful query execution
     if (!$discard_quote_favorite->status) exit(json_encode($return));
@@ -63,7 +63,7 @@ if ($get_quote_favorized->stmt->rowCount() < 1) {
 
 # update quote's upvotes
 $query = "UPDATE quotes SET upvotes = ? WHERE id = ? AND uid = ?";
-$update_quote = $system->update($pdo, $query, [$quote_upvotes, $qid, UID], true);
+$update_quote = $system->update($pdo, $query, [$quote_upvotes, $qid, $my->uid], true);
 
 if (!$update_quote->status) exit(json_encode($return));
 

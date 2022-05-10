@@ -22,7 +22,7 @@ if (
 
         // insert quote
         $stmt = $pdo->prepare("UPDATE quotes SET isDraft = '0' WHERE id = ? AND uid = ?");
-        $stmt = $system->execute($stmt, [$qid, UID], $pdo, true);
+        $stmt = $system->execute($stmt, [$qid, $my->uid], $pdo, true);
 
         // there was an error inserting
         if ($stmt->status) {

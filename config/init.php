@@ -99,9 +99,11 @@ if (isset($is_page) && $is_page) {
   }
 }
 
-if (LOGGED) {
+$my = (object) [
+  "uid" => 0
+];
 
-  $my = (object) [];
+if (LOGGED) {
 
   # reset session and get new settings
   $my = $sign->resetSession();
@@ -110,7 +112,7 @@ if (LOGGED) {
   $my = (object) $_SESSION;
 
   # define UID for short use
-  define("UID", $my->uid);
+  # define("UID", $my->uid);
   define("ADMIN", $my->admin);
   define("0", false);
   define("1", true);

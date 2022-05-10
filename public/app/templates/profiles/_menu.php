@@ -18,7 +18,7 @@ if (!$is_page) {
             <p>Favorites</p>
         </div>
 
-        <?php if ($user->uid === UID) { ?>
+        <?php if ($user->uid === $my->uid) { ?>
 
             <div class="bm text rounded <?php if ($page === "profiles:archive") {
                                             echo "active";

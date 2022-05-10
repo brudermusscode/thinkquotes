@@ -7,7 +7,7 @@ $pure = $pure ?? false;
 // check if is favorite
 if (LOGGED) {
   $getFaved = $pdo->prepare("SELECT * FROM quotes_favorites WHERE qid = ? AND uid = ? AND deleted = '0'");
-  $getFaved->execute([$elementInclude->qid, UID]);
+  $getFaved->execute([$elementInclude->qid, $my->uid]);
 
   $isFavorite = FALSE;
   if ($getFaved->rowCount() > 0) {
@@ -15,7 +15,7 @@ if (LOGGED) {
   }
 
   $myQuote = false;
-  if ($elementInclude->uid === UID) {
+  if ($elementInclude->uid === $my->uid) {
     $myQuote = true;
   }
 }
