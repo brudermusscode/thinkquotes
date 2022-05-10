@@ -1,10 +1,4 @@
-<?php
-
-if (!$is_page) {
-    header("location: /404");
-}
-
-?>
+<?php if (!$is_page) header(NOT_FOUND); ?>
 
 <div class="base-menu fullpage">
 

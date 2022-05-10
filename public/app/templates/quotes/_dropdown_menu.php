@@ -1,4 +1,4 @@
-<?php if (!isset($elementInclude)) header('location: /404'); ?>
+<?php if (!isset($elementInclude)) header(NOT_FOUND); ?>
 
 <div data-element="dropdown" class="posrel" travelhereboy data-react="function:quotes,edit,hide">
   <div class="q-top-tools">

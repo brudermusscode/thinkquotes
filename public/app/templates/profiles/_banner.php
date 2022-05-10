@@ -1,10 +1,4 @@
-<?php
-
-if (!$is_page) {
-  header("location: /404");
-}
-
-?>
+<?php if (!$is_page) header(NOT_FOUND); ?>
 
 <div class="u-hdr mshd-1 mb32">
   <div class="u-hdr-inr posrel">
@@ -39,9 +33,7 @@ if (!$is_page) {
           $getFriendRequest->execute([$my->uid, $user->uid, $user->uid, $my->uid]);
 
           # show remove friend button
-          if (in_array($my->uid, $fr)) {
-
-        ?>
+          if (in_array($my->uid, $fr)) { ?>
 
             <hellofresh data-action='function:friends,request,send/cancel/remove' data-json='[{"uid":"<?php echo $user->uid; ?>", "action":"removeFriendRequest"}]' class="rd6 big shadowed light friendrequest deleteFriend">
               <div class="c-ripple js-ripple">
@@ -58,9 +50,7 @@ if (!$is_page) {
           <?php
 
             # show cancel friendrequest button
-          } else if ($getFriendRequest->rowCount() > 0) {
-
-          ?>
+          } else if ($getFriendRequest->rowCount() > 0) {  ?>
 
             <hellofresh data-action='function:friends,request,send/cancel/remove' data-json='[{"uid":"<?php echo $user->uid; ?>", "action":"cancelFriend"}]' class="rd6 big shadowed light friendrequest cancelRequest">
               <div class="c-ripple js-ripple">
@@ -94,9 +84,7 @@ if (!$is_page) {
                 $canSend = false;
             }
 
-            if ($canSend) {
-
-            ?>
+            if ($canSend) { ?>
 
               <hellofresh data-action='function:friends,request,send/cancel/remove' data-json='[{"uid":"<?php echo $user->uid; ?>", "action":"addFriend"}]' class="rd6 big shadowed light friendrequest addFriend">
                 <div class="c-ripple js-ripple">
@@ -114,9 +102,7 @@ if (!$is_page) {
 
             }
           }
-        } else {
-
-          ?>
+        } else { ?>
 
           <hellofresh data-action="popup:profile,edit" class="rd6 big shadowed fw7 blue">
             <div class="c-ripple js-ripple">
@@ -130,11 +116,7 @@ if (!$is_page) {
             </div>
           </hellofresh>
 
-        <?php
-
-        }
-
-        ?>
+        <?php } ?>
 
       </div>
     <?php } ?>
