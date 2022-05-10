@@ -1,5 +1,5 @@
 # certain file types
-*.min.js
+# *.min.js
 .vscode
 
 # configuration files

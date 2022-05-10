@@ -4,40 +4,37 @@ if (!isset($elementInclude)) exit('Nothing here but us chickens');
 
 $pure = $pure ?? false;
 
-// check if is favorite
+$is_favorized = false;
+$is_my_quote = false;
+
+# anything that happens, if a user is signed in
 if (LOGGED) {
-  $getFaved = $pdo->prepare("SELECT * FROM quotes_favorites WHERE qid = ? AND uid = ? AND deleted = '0'");
-  $getFaved->execute([$elementInclude->qid, $my->uid]);
 
-  $isFavorite = FALSE;
-  if ($getFaved->rowCount() > 0) {
-    $isFavorite = TRUE;
-  }
+  # find entry for favorite related to current user and this post
+  $query = "SELECT * FROM quotes_favorites WHERE qid = ? AND uid = ? AND deleted = '0'";
+  $get_is_favorizes = $system->select($pdo, $query, [$elementInclude->qid, $my->uid], false);
 
-  $myQuote = false;
-  if ($elementInclude->uid === $my->uid) {
-    $myQuote = true;
-  }
+  # check, if this quote is faved by the current signed in user
+  if ($get_is_favorizes->fetch->rowCount() > 0) $isFavorite = true;
+
+  # check if current user is owner of this quote
+  if ($elementInclude->uid === $my->uid) $is_my_quote = true;
 }
-
-// get fave count
-$getAllFaves = $pdo->prepare("SELECT * FROM quotes_favorites WHERE qid = ? AND deleted = '0'");
-$getAllFaves->execute([$elementInclude->qid]);
 
 // get categories
 $getCategories = $pdo->prepare("
-        SELECT *
-        FROM quotes_categories_used, quotes_categories
-        WHERE quotes_categories_used.cid = quotes_categories.id
-        AND quotes_categories_used.qid = ?
-        ORDER BY quotes_categories_used.id
-        DESC LIMIT 3
-    ");
+    SELECT *
+    FROM quotes_categories_used, quotes_categories
+    WHERE quotes_categories_used.cid = quotes_categories.id
+    AND quotes_categories_used.qid = ?
+    ORDER BY quotes_categories_used.id
+    DESC LIMIT 3
+");
 $getCategories->execute([$elementInclude->qid]);
 
 ?>
 
-<quote data-element="quote" data-quote-id="<?php echo $elementInclude->qid; ?>" data-json='[{"qid":"<?php echo $elementInclude->qid; ?>"}]' class="fade-in <?php if ($isFavorite) { ?>loved<?php } ?>" <?php if ($elementInclude->deleted) echo "archived"; ?>>
+<quote data-element="quote" data-quote-id="<?php echo $elementInclude->qid; ?>" data-json='[{"qid":"<?php echo $elementInclude->qid; ?>"}]' class="fade-in <?php if ($is_favorized) echo 'loved'; ?>" <?php if ($elementInclude->deleted) echo "archived"; ?>>
 
   <div data-append="overlay" class="quote--outer mshd-1">
 
@@ -89,7 +86,7 @@ $getCategories->execute([$elementInclude->qid]);
 
                   // those tools should be shown if the quote belongs to
                   // the viewing user
-                  if ($myQuote) { ?>
+                  if ($is_my_quote) { ?>
 
                     <li class="has-icon trimt" data-action="popup:quotes,edit">
                       <p>
@@ -204,15 +201,5 @@ $getCategories->execute([$elementInclude->qid]);
 
   </div>
 
-  <?php
-
-  // just show bottom distance if pure mode is not enabled
-  if (!$pure) {
-
-  ?>
-
-    <div style="width:100%;height:1.4em;visibility:hidden;"></div>
-
-  <?php } ?>
-
+  <?php if (!$pure) echo '<div style="width:100%;height:1.4em;visibility:hidden;"></div>'; ?>
 </quote>
