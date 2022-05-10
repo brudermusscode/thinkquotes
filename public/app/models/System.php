@@ -6,10 +6,12 @@ use PHPMailer\PHPMailer\PHPMailer;
 
 # auto load composer libs
 include dirname($_SERVER['DOCUMENT_ROOT']) . "/vendor/autoload.php";
+include_once dirname($_SERVER['DOCUMENT_ROOT']) . "/config/definitions.php";
+
 
 $system = new Thinkquotes;
 
-class Thinkquotes
+class Thinkquotes extends Db
 {
 
     public static function execute(object $stmt, array $params, object $connection, bool $commit = false)
@@ -197,8 +199,21 @@ class Thinkquotes
         return false;
     }
 
-    public static function trySendMail($address, $subject, $body, $web_information)
+    public function trySendMail($address, $subject, $body, $web_information)
     {
+
+        # get environment
+        $environment = $this->getEnvironment();
+
+        # check current environment and get correct connection.json
+        $smtp_connection_file = PREROOT . "/config/mail/smtp.connection." . $environment . ".json";
+
+        # validate file existence
+        if (!file_exists($smtp_connection_file))
+            throw new Exception("💔 Configuration-file in 📂/config/mail should match 📄smtp.connection.*ENVIRONMENT*.json ❗️");
+
+        // get login infromation from outsourced file
+        $mail_config = (object) $this->convertFromFile($smtp_connection_file)->connect;
 
         //Create an instance; passing `true` enables exceptions
         $mail = new PHPMailer(true);
@@ -210,12 +225,12 @@ class Thinkquotes
         // Server settings
         $mail->isSMTP(); // Send using SMTP
         # $mail->SMTPDebug = PHPMailer::SMTP::DEBUG_SERVER;
-        $mail->Host = '';
+        $mail->Host = $mail_config->smtp->host;
         $mail->Port = 465;
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
         $mail->SMTPAuth = true;
-        $mail->Username = '';
-        $mail->Password = '';
+        $mail->Username = $mail_config->smtp->username;
+        $mail->Password = $mail_config->smtp->password;
         // $mail->AuthType = 'XOAUTH2';
 
         // Create and pass GoogleOauthClient to PHPMailer

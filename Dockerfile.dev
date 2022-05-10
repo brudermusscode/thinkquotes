@@ -8,8 +8,8 @@ WORKDIR /var/www/thinkquotes.de
 COPY . .
 
 # install dependencies packages
-RUN apt-get update && apt-get install -y nodejs mariadb-client apache2 \
-  && docker-php-ext-install pdo_mysql
+RUN apt-get clean && apt-get update -qq && apt-get install -y nodejs mariadb-client apache2 && \
+  docker-php-ext-install pdo_mysql
 
 # copy dev conf file to sites-available
 COPY config/server/thinkquotes.de.dev.conf /etc/apache2/sites-available/thinkquotes.de.conf
