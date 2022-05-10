@@ -85,8 +85,7 @@ $(function(){
     // signup
     .on("submit", '[data-form="sign:up"]', function() {
 
-        url = dynamicHost + "/dyn/sign/up";
-
+        url = dynamicHost + "/do/users/register/signup";
         // get formdata
         formData = new FormData(this);
 
@@ -105,6 +104,8 @@ $(function(){
             contentType: false,
             processData: false,
             success: function(data) {
+
+                console.log(data);
 
                 if (data.status) {
 
@@ -167,10 +168,10 @@ $(function(){
         return false;
     })
 
-    // signout
+    // logout
     .on("click", "[data-action='users:sign,out']", function() {
 
-        let url = dynamicHost + "/dyn/sign/out";
+        let url = dynamicHost + "/do/users/logout";
 
         $.ajax({
 
@@ -198,7 +199,7 @@ $(function(){
 
                 } else {
 
-                    // should never happen here so
+                    // should never happen here so...
                 }
             },
             error: (data) => {

@@ -1,50 +1,41 @@
 <?php
 
-// require mysql connection and session data
-require_once $_SERVER["DOCUMENT_ROOT"] . "/session/session.inc.php";
+# require database connection
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/config/init.php';
 
 // set JSON content type
-header('Content-Type: application/json; charset=utf-8');
+header(JSON_RESPONSE_FORMAT);
 
-if (!empty($_POST["qid"])) {
 
-    $qid = (int) $_POST["qid"];
+if (empty($_POST["qid"])) exit(json_encode($return));
 
-    // set fckn transaction man
-    // stahp forgetting
-    $pdo->beginTransaction();
+(int) $qid = $_POST["qid"];
 
-    // update quote
-    $stmt = $pdo->prepare("UPDATE quotes SET deleted = CASE WHEN deleted = '1' THEN '0' ELSE '1' END WHERE id = ?");
-    $stmt = $system->execute($stmt, [$qid], $pdo, true);
+// set fckn transaction man
+// stahp forgetting
+$pdo->beginTransaction();
 
-    if ($stmt->status) {
+// update quote
+$query = "UPDATE quotes SET deleted = CASE WHEN deleted = '1' THEN '0' ELSE '1' END WHERE id = ?";
+$archive_quote = $system->update($pdo, $query, [$qid], true);
 
-        // get current state
-        $stmt = $pdo->prepare("SELECT deleted FROM quotes WHERE id = ? LIMIT 1");
-        $stmt->execute([$qid]);
+if (!$archive_quote->status) exit(json_encode($return));
 
-        // fetch
-        $stmt = $stmt->fetch()->deleted;
+// get current state
+$stmt = $pdo->prepare("SELECT deleted FROM quotes WHERE id = ? LIMIT 1");
+$stmt->execute([$qid]);
 
-        $return->status = true;
-        $return->state = $stmt;
+// fetch
+$stmt = $stmt->fetch()->deleted;
 
-        // set return message for archived or unarchived
-        if ($return->state) {
+$return->status = true;
+$return->state = $stmt;
 
-            $return->message = "Your quote has been archived";
-        } else {
+// set return message for archived or unarchived
+$return->message = "Your quote has been archived";
+if (!$return->state) $return->message = "Your quote has been unarchived";
 
-            $return->message = "Your quote has been unarchived";
-        }
+# this should be done in everry script actually. May train on to add it
+$pdo = NULL;
 
-        $pdo = NULL;
-
-        exit(json_encode($return));
-    } else {
-        exit(json_encode($return));
-    }
-} else {
-    exit(json_encode($return));
-}
+exit(json_encode($return));

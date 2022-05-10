@@ -1,5 +1,7 @@
 <?php
 
+use Google\Service\Analytics\IncludeConditions;
+
 if (!isset($elementInclude)) exit('Nothing here but us chickens');
 
 $pure = $pure ?? false;
@@ -15,7 +17,7 @@ if (LOGGED) {
   $get_is_favorizes = $system->select($pdo, $query, [$elementInclude->qid, $my->uid], false);
 
   # check, if this quote is faved by the current signed in user
-  if ($get_is_favorizes->fetch->rowCount() > 0) $isFavorite = true;
+  if ($get_is_favorizes->stmt->rowCount() > 0) $isFavorite = true;
 
   # check if current user is owner of this quote
   if ($elementInclude->uid === $my->uid) $is_my_quote = true;
@@ -42,93 +44,7 @@ $getCategories->execute([$elementInclude->qid]);
 
     // quote heading tools should just be shown when user is logged in
     // and the pure mode is not enabled
-    if (LOGGED && !$pure) {
-
-    ?>
-
-      <div data-element="dropdown" class="posrel" travelhereboy data-react="function:quotes,edit,hide">
-        <div class="q-top-tools">
-
-          <?php
-
-          // in addition, if the quote is archived, show special button
-          // instead of the dropdown menu
-          if ($elementInclude->deleted) {
-
-          ?>
-
-            <div class="sizing unarchive disfl fldirrow" data-action="popups:quotes,delete">
-              <p class="pt4 mr4">
-                <i class="material-icons small">unarchive</i>
-              </p>
-              <p>Unarchive</p>
-            </div>
-
-          <?php
-
-            // if it's not archived, show the dropdown menu with dynamic
-            // content specified for each user
-          } else {
-
-          ?>
-
-            <div class="sizing" data-action="dropdown:open">
-              <p>
-                <i class="ri-arrow-down-s-line std"></i>
-              </p>
-            </div>
-
-            <dropdown data-dropdown="header,usermenu" data-react="dropdown:open" class="mshd-2">
-              <div class="dd-inr">
-                <ul>
-
-                  <?php
-
-                  // those tools should be shown if the quote belongs to
-                  // the viewing user
-                  if ($is_my_quote) { ?>
-
-                    <li class="has-icon trimt" data-action="popup:quotes,edit">
-                      <p>
-                        <i class="ri-edit-circle-fill small"></i>
-                      </p>
-                      <p>Edit</p>
-                    </li>
-
-                    <li class="has-icon trimt archive" data-action="popups:quotes,delete">
-                      <p class="icon">
-                        <i class="material-icons small"></i>
-                      </p>
-                      <p class="text"></p>
-                    </li>
-
-                  <?php
-
-                    // if it's not the quote of the viewing user, show the options
-                    // beneath
-                  } else {
-
-                  ?>
-
-                    <li class="has-icon trimt" data-action="popup:quotes,report">
-                      <p>
-                        <i class="ri-flag-2-fill small"></i>
-                      </p>
-                      <p>Report</p>
-                    </li>
-
-                  <?php } ?>
-
-                </ul>
-              </div>
-            </dropdown>
-
-          <?php } ?>
-
-        </div>
-      </div>
-
-    <?php } ?>
+    if (LOGGED && !$pure) include TEMPLATES . "/quotes/_dropdown_menu.php"; ?>
 
     <div class="q-inr">
       <div data-react="function:quotes,edit,hide">
@@ -174,7 +90,7 @@ $getCategories->execute([$elementInclude->qid]);
         <div class="disfl fldirrow" style="padding:12px 32px;">
 
           <div style="margin-right:auto;" class="disfl fldirrow">
-            <a href="/u/profile/<?php echo $elementInclude->uid; ?>">
+            <a href="/u/<?php echo $elementInclude->username; ?>">
               <div class="to-profile">
                 <p><?php echo $elementInclude->username; ?></p>
               </div>

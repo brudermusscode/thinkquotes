@@ -139,7 +139,7 @@
         $t = $(this);
         qid = $t.closest("quote").data("json")[0].qid;
         formData = { qid: qid };
-        url = dynamicHost + "/dyn/content/quotes/archive";
+        url = dynamicHost + "/template/quotes/_archive";
 
         $.ajax({
 

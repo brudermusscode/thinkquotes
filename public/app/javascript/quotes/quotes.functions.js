@@ -190,7 +190,7 @@ $(function(){
 
     })
 
-    // >> quotes, delete
+    // >> quotes, archive
     .on("submit", "[data-form='quotes:archive']", function(){
 
         let $t, url, formData, overlay, state;
@@ -198,7 +198,7 @@ $(function(){
         $t = $(this);
         $appendOverlay = $t.find("[data-action='quotes:archive']");
         formData = new FormData(this);
-        url = dynamicHost + "/dyn/quotes/archive";
+        url = dynamicHost + "/do/quotes/archive";
 
         // get quote element to later let it slide out
         $quote = $(document).find("quote[data-quote-id='"+formData.get("qid")+"']");
@@ -252,6 +252,7 @@ $(function(){
         });
 
     })
+
     .on("click", '[data-action="quotes:archive"]', function() {
 
         $(this).closest("[data-form='quotes:archive']").submit();

@@ -65,6 +65,8 @@ function login($pdo, $sign, $return, $system, $web_information, $dev_env)
   $return->message = set_return_message_with(6, $inputmail);
   $return->status = true;
   $return->uid = $uid;
+
+  # return the code if its dev env currently
   if ($dev_env) $return->code = $code;
 
   return json_encode($return);
