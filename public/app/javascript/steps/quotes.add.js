@@ -1,7 +1,7 @@
 $(() => {
 
     // TODO: go back and edit previous step
-    // TODO: 
+    // TODO:
 
     let url, formData, $t, body, $popupModule, $overlay, $steps, draftObject;
 
@@ -51,15 +51,15 @@ $(() => {
         // valid search strings
         switch (what) {
             case "author":
-                url = dynamicHost + "/dyn/content/search-authors";
+                url = dynamicHost + "/do/content/search-authors";
                 break;
 
             case "source":
-                url = dynamicHost + "/dyn/content/search-sources";
+                url = dynamicHost + "/do/content/search-sources";
                 break;
 
             case "category":
-                url = dynamicHost + "/dyn/content/search-categories";
+                url = dynamicHost + "/do/content/search-categories";
                 break;
 
             default:
@@ -100,7 +100,7 @@ $(() => {
     // ! add quote has been clicked!
     .on("click", '[data-action="popup:quotes,add"]', function() {
 
-        url = dynamicHost + "/dyn/steps/quotes/author";
+        url = dynamicHost + "/do/steps/quotes/author";
 
         // add new overlay
         overlay = Overlay.add(body, $(this), false);
@@ -123,20 +123,20 @@ $(() => {
 
                     // set timeout for fading content in
                     setTimeout(() => {
-    
+
                         // add class active to popup module so it gets visible
                         // after x amounts of seconds
                         toggleActive([
                             $popupModule,
                             $steps
                         ], true);
-                
+
                         // add slideUp animations to all cards with recommendations
                         $popupModule.find("card").addClass("slideUpSlow");
-                
+
                         // focus input on load
                         $(document).find("input[type='text']").focus();
-                
+
                     }, 600);
                 }
             },
@@ -149,7 +149,7 @@ $(() => {
     // ? step 1: add the author
     .on("submit", "[data-form='quotes:add,author']", function() {
 
-        url = dynamicHost + "/dyn/steps/quotes/quote";
+        url = dynamicHost + "/do/steps/quotes/quote";
         formData = new FormData(this);
 
         // check if author input s empty and return false
@@ -209,7 +209,7 @@ $(() => {
     // ? step 2: add the quote
     .on("submit", "[data-form='quotes:add,quote']", function() {
 
-        url = dynamicHost + "/dyn/steps/quotes/source";
+        url = dynamicHost + "/do/steps/quotes/source";
         formData = new FormData(this);
 
         // append the aid to the formData and be sure to check in PHP
@@ -281,7 +281,7 @@ $(() => {
     // ? step 3: add the source
     .on("submit", "[data-form='quotes:add,source']", function() {
 
-        url = dynamicHost + "/dyn/steps/quotes/categories";
+        url = dynamicHost + "/do/steps/quotes/categories";
         formData = new FormData(this);
 
         // append new values to formData and make sure to
@@ -352,7 +352,7 @@ $(() => {
     // ? step 4: add the category
     .on("submit", "[data-form='quotes:add,category']", function() {
 
-        url = dynamicHost + "/dyn/steps/quotes/all";
+        url = dynamicHost + "/do/steps/quotes/all";
         formData = new FormData(this);
 
         // append evertyhing to formData
@@ -378,7 +378,7 @@ $(() => {
             contentType: false,
             processData: false,
             success: (data) => {
-                
+
                 if (data) {
 
                     // make popup module hide
@@ -422,7 +422,7 @@ $(() => {
     .on("click", "[data-action='quotes:add,all,submit']", function() {
 
         // reassign url for xhr request
-        url = dynamicHost + "/dyn/steps/quotes/_submit";
+        url = dynamicHost + "/do/steps/quotes/_submit";
 
         // select form
         let form = document.querySelector('[data-form="quotes:add,all"]');

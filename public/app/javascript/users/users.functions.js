@@ -194,8 +194,7 @@ $(function(){
                     setTimeout(() => {
 
                         // reload page
-                        window.location.reload();
-                    }, 800);
+                        window.location.replace('/');
 
                 } else {
 

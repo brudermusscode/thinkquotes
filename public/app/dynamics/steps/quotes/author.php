@@ -1,29 +1,23 @@
 <?php
 
-// require mysql connection and session data
-require_once $_SERVER["DOCUMENT_ROOT"] . "/session/session.inc.php";
+# require database connection
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/config/init.php';
 
 // set JSON content type
-header('Content-Type: application/json; charset=utf-8');
+header(JSON_RESPONSE_FORMAT);
 
-if (isset($_POST) && LOGGED) {
-    if ($my->post_permissions !== "none") {
+if (!isset($_POST) && !LOGGED) exit(json_encode($return));
 
-        // get the content for adding sources
-        // TODO: find better method to include the file
-        $content = file_get_contents($url->main . "/assets/dynamics/steps/quotes/elements/author.php");
+if ($my->post_permissions == "none") exit(json_encode($return));
 
-        // set the status for return to true
-        $return->status = true;
+// get the content for adding sources
+$content = file_get_contents(DYNAMICS . "/steps/quotes/elements/author.php");
 
-        // pass the content from the PHP file to the return message
-        $return->message = $content;
+// set the status for return to true
+$return->status = true;
 
-        // exit the script with encoding the return array to JSON
-        exit(json_encode($return));
-    } else {
-        exit(json_encode($return));
-    }
-} else {
-    exit(json_encode($return));
-}
+// pass the content from the PHP file to the return message
+$return->message = $content;
+
+// exit the script with encoding the return array to JSON
+exit(json_encode($return));

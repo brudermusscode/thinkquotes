@@ -17,18 +17,15 @@ if (!is_numeric($limit)) exit('Huh?');
 $query_limit = round($limit);
 
 # get quotes
-$query = "SELECT *,
-      quotes.id AS qid,
-      users.id AS uid,
-      quotes_authors.id AS aid,
-      quotes_sources.id AS sid
-      FROM quotes, users, quotes_authors, quotes_sources
-      WHERE quotes.uid = users.id
-      AND quotes.aid = quotes_authors.id
-      AND quotes.sid = quotes_sources.id
-      AND quotes.deleted = '0'
-      ORDER BY quotes.upvotes
-      DESC LIMIT ?";
+$query =
+  "SELECT *, q.id qid, u.id uid, qa.id aid, qs.id sid
+  FROM quotes q
+    JOIN users u on u.id = q.uid
+    JOIN quotes_authors qa on qa.id = q.aid
+    JOIN quotes_sources qs on qs.id = q.sid
+  WHERE q.deleted = false
+  ORDER BY q.upvotes
+  DESC LIMIT ?";
 $select_quotes = $system->select($pdo, $query, [$query_limit], true);
 
 ?>

@@ -19,20 +19,26 @@ if (!is_numeric($userid)) exit('Huh?');
 $query_limit = round($limit);
 
 # get quotes
-$query = "SELECT *,
-  quotes.id AS qid,
-  users.id AS uid,
-  quotes_authors.id AS aid,
-  quotes_sources.id AS sid
-  FROM quotes, users, quotes_authors, quotes_sources
-  WHERE quotes.uid = users.id
-  AND quotes.aid = quotes_authors.id
-  AND quotes.sid = quotes_sources.id
-  AND quotes.uid = ?
-  AND quotes.deleted = '0'
-  ORDER BY quotes.upvotes
-  DESC
-  LIMIT ?";
+$query =
+  # select * and rewrite id's of each join
+  # TODO: consider changing foreign_key to actual names of tables for better readability
+  "SELECT *, q.id qid, u.id uid, qa.id aid, qs.id sid
+  -- basics from quotes
+  FROM quotes q
+  -- we need user information
+    JOIN users u on u.id = q.uid
+  -- we need quotes author
+    JOIN quotes_authors qa on qa.id = q.aid
+  -- we need quotes sources
+    JOIN quotes_sources qs on qs.id = q.sid
+  -- quotes should not be archived
+  WHERE q.deleted = false
+  -- select current profile's user
+  AND u.id = ?
+  -- order by the timestamp, no need for upvotes
+  ORDER BY q.timestamp
+  -- limitting through value from html attribute data-json
+  DESC LIMIT ?";
 $select_quotes = $system->select($pdo, $query, [$userid, $query_limit], true);
 
 ?>

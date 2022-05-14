@@ -19,25 +19,50 @@ if (!is_numeric($userid)) exit('Huh?');
 $query_limit = round($limit);
 
 # get quotes
-$query = "SELECT *,
-  quotes_favorites.id AS fid,
-  quotes.id AS qid,
-  quotes_sources.id AS sid,
-  quotes_authors.id AS auid,
-  users.id AS uid,
-  users_settings.id AS usid
-  FROM quotes_favorites, quotes, quotes_sources, quotes_authors, users, users_settings
-  WHERE quotes_favorites.qid = quotes.id
-  AND quotes.sid = quotes_sources.id
-  AND quotes.aid = quotes_authors.id
-  AND quotes.uid = users.id
-  AND quotes.uid = users_settings.id
-  AND quotes_favorites.uid = ?
-  AND quotes_favorites.deleted = '0'
-  AND quotes.deleted = '0'
-  ORDER BY quotes.upvotes
-  DESC
-  LIMIT ?";
+$query =
+  # select * and rewrite id's of each join
+  # TODO: consider changing foreign_key to actual names of tables for better readability
+  "SELECT *, q.id qid, u.id uid, qa.id aid, qs.id sid, qf.id fid
+  -- basics from quotes
+  FROM quotes q
+  -- we need user information
+    JOIN users u on u.id = q.uid
+  -- we need quotes author
+    JOIN quotes_authors qa on qa.id = q.aid
+  -- we need quotes sources
+    JOIN quotes_sources qs on qs.id = q.sid
+  -- join quotes favorites
+    JOIN quotes_favorites qf on qf.qid = q.id
+  -- quotes should not be archived
+  WHERE q.deleted = false
+  -- quote favorite should not be in deleted state
+  AND qf.deleted = false
+  -- select current profile's user
+  AND qf.uid = ?
+  -- order by the timestamp, no need for upvotes
+  ORDER BY q.upvotes
+  -- limitting through value from html attribute data-json
+  DESC LIMIT ?";
+
+// $query = "SELECT *,
+//   quotes_favorites.id AS fid,
+//   quotes.id AS qid,
+//   quotes_sources.id AS sid,
+//   quotes_authors.id AS auid,
+//   users.id AS uid,
+//   users_settings.id AS usid
+//   FROM quotes_favorites, quotes, quotes_sources, quotes_authors, users, users_settings
+//   WHERE quotes_favorites.qid = quotes.id
+//   AND quotes.sid = quotes_sources.id
+//   AND quotes.aid = quotes_authors.id
+//   AND quotes.uid = users.id
+//   AND quotes.uid = users_settings.id
+//   AND quotes_favorites.uid = ?
+//   AND quotes_favorites.deleted = '0'
+//   AND quotes.deleted = '0'
+//   ORDER BY quotes.upvotes
+//   DESC
+//   LIMIT ?";
 $select_quotes = $system->select($pdo, $query, [$userid, $query_limit], true);
 
 ?>
