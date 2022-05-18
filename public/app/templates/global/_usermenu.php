@@ -77,7 +77,7 @@ if (!$is_page) {
                 <p>Favorite quotes</p>
               </li>
 
-              <li class="trimt disabled">
+              <li class="trimt" onclick="window.location.replace('/d/<?php echo $my->username; ?>');">
                 <p>
                   <i class="ri-eye-off-fill small"></i>
                 </p>

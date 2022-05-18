@@ -48,7 +48,7 @@
     <script src="<?php echo $url->js; ?>/thirdparty/de.cookie.min.js"></script>
     <script src="<?php echo $url->js; ?>/thirdparty/de.public.suffix.list.js"></script>
     <script src="<?php echo $url->js; ?>/classes/Overlay.js"></script>
-    <script src="<?php echo $url->js; ?>/de.core.js"></script>
+    <script src="<?php echo $url->js; ?>/de.core.min.js"></script>
     <script src="<?php echo $url->js; ?>/users/users.functions.min.js"></script>
     <script src="<?php echo $url->js; ?>/users/users.get.min.js"></script>
     <script src="<?php echo $url->js; ?>/quotes/quotes.get.min.js"></script>
