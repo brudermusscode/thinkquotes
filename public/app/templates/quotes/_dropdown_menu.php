@@ -1,4 +1,10 @@
-<?php if (!isset($elementInclude)) header(NOT_FOUND); ?>
+<?php
+
+if (!isset($elementInclude)) header(NOT_FOUND);
+
+$draft = $draft ?? false;
+
+?>
 
 <div data-element="dropdown" class="posrel" travelhereboy data-react="function:quotes,edit,hide">
   <div class="q-top-tools">
@@ -32,39 +38,58 @@
         <div class="dd-inr">
           <ul>
 
-            <?php
-
-            // those tools should be shown if the quote belongs to
-            // the viewing user
-            if ($is_my_quote) { ?>
+            <?php if ($draft) { ?>
 
               <li class="has-icon trimt disabled" data-action="popup:quotes,edit">
                 <p>
-                  <i class="ri-edit-circle-fill small"></i>
+                  <i class="ri-scissors-fill small"></i>
                 </p>
-                <p>Edit</p>
+                <p>Resume</p>
               </li>
 
-              <li class="has-icon trimt archive" data-action="popups:quotes,delete">
-                <p class="icon">
-                  <i class="material-icons small"></i>
-                </p>
-                <p class="text"></p>
-              </li>
-
-            <?php
-
-              // if it's not the quote of the viewing user, show the options
-              // beneath
-            } else { ?>
-
-              <li class="has-icon trimt" data-action="popup:quotes,report">
+              <li class="has-icon trimt disabled" data-action="popup:quotes,edit">
                 <p>
-                  <i class="ri-flag-2-fill small"></i>
+                  <i class="ri-delete-bin-2-fill small"></i>
                 </p>
-                <p>Report</p>
+                <p>Delete</p>
               </li>
 
+            <?php } else { ?>
+
+              <?php
+
+              // those tools should be shown if the quote belongs to
+              // the viewing user
+              if ($is_my_quote) { ?>
+
+                <li class="has-icon trimt disabled" data-action="popup:quotes,edit">
+                  <p>
+                    <i class="ri-edit-circle-fill small"></i>
+                  </p>
+                  <p>Edit</p>
+                </li>
+
+                <li class="has-icon trimt archive" data-action="popups:quotes,delete">
+                  <p class="icon">
+                    <i class="material-icons small"></i>
+                  </p>
+                  <p class="text"></p>
+                </li>
+
+              <?php
+
+                // if it's not the quote of the viewing user, show the options
+                // beneath
+              } else { ?>
+
+                <li class="has-icon trimt" data-action="popup:quotes,report">
+                  <p>
+                    <i class="ri-flag-2-fill small"></i>
+                  </p>
+                  <p>Report</p>
+                </li>
+
+              <?php } ?>
             <?php } ?>
 
           </ul>

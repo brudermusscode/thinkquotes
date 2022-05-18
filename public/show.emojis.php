@@ -2,20 +2,21 @@
 $is_page = true;
 $page = "index";
 
-// mysql database
-require_once "./session/session.inc.php";
+# require database connection
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/config/init.php';
 
 // Head section
-include_once "./assets/templates/global/head.php";
-include_once "./assets/templates/global/header.php";
+include_once TEMPLATES . "/global/head.php";
+include_once TEMPLATES . "/global/header.php";
 
 ?>
 <div id="main" class="wpx--main">
 
     <label class="posrel mb24">
         <div class="inr">
-            <p class="ttup">Choose your Emoji!</p>
-            <p class="ttup mr18"><span class="material-icons-round md-24">expand_more</span></p>
+            <p class="ttup lt">Choose your Emoji!</p>
+            <p class="ttup mr18 lt"><span class="material-icons md-24">expand_more</span></p>
+            <div class="cl"></div>
         </div>
     </label>
 
@@ -23,18 +24,15 @@ include_once "./assets/templates/global/header.php";
 
         <?php
 
-        $files = scandir('https://icons.thinkquotes.de/openmoji/');
-        foreach ($files as $file) {
+        $files = scandir(ROOT . '/app/assets/icons/openmoji/');
+        foreach ($files as $file) { ?>
 
-        ?>
+            <div style="float:left;width:100px;text-align:center;background:white;margin:6px;border-radius:12px;padding:12px 1em;">
+                <img style="height:32px;" src="<?php echo '/app/assets/icons/openmoji/' . $file; ?>">
+                <p class="trimt"><?php echo $file; ?></p>
+            </div>
 
-            <img src="https://icons.thinkquotes.de/openmoji/<?php echo $file; ?>">
-
-        <?php
-
-        }
-
-        ?>
+        <?php } ?>
 
     </div>
 
@@ -45,6 +43,6 @@ include_once "./assets/templates/global/header.php";
 <?php
 
 // foot section
-include_once "./assets/templates/global/footer.php";
+include_once TEMPLATES . "/global/footer.php";
 
 ?>

@@ -11,7 +11,7 @@ if (empty($_POST['quote_id']) || empty($_POST['quote_text']) || !LOGGED) exit(js
 (string) $quote_text = $_POST['quote_text'];
 (int) $quote_id = $_POST['quote_id'];
 
-# get quote author
+# get quote
 $q =
   "SELECT q.*
     FROM quotes q
