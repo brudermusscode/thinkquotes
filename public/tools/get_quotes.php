@@ -104,7 +104,7 @@ if (isset($_REQUEST["getQuotes"])) {
                     // *** DONE INSERTING AUTHOR
 
                     // *** START INSERTING QUOTE
-                    $stmt = $pdo->prepare("INSERT INTO quotes (uid, aid, sid, quote_text, upvotes, isDraft) VALUES (?, ?, '1', ?, ?, '0')");
+                    $stmt = $pdo->prepare("INSERT INTO quotes (uid, aid, sid, quote_text, upvotes, is_draft) VALUES (?, ?, '1', ?, ?, '0')");
                     $stmt = $system->execute($stmt, [UID, $aid, $quote, $upvotes], $pdo, false);
 
                     if ($stmt->status) {
