@@ -24,6 +24,7 @@ $query =
     JOIN quotes_authors qa on qa.id = q.aid
     JOIN quotes_sources qs on qs.id = q.sid
   WHERE q.deleted = false
+  AND is_draft = false
   ORDER BY q.upvotes
   DESC LIMIT ?";
 $select_quotes = $THQ->select($pdo, $query, [$query_limit], true);

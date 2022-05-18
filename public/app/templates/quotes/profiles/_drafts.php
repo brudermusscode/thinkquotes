@@ -31,12 +31,11 @@ $query =
     JOIN quotes_authors qa on qa.id = q.aid
   -- we need quotes sources
     JOIN quotes_sources qs on qs.id = q.sid
-  -- quotes should not be archived
   WHERE q.deleted = false
   -- select current profile's user
   AND u.id = ?
   -- shouldn't be draft
-  AND q.is_draft = false
+  AND q.is_draft = true
   -- order by the timestamp, no need for upvotes
   ORDER BY q.timestamp
   -- limitting through value from html attribute data-json

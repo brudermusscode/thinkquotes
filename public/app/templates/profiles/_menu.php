@@ -14,7 +14,9 @@
 
         <?php if ($user->uid === $my->uid) { ?>
 
-            <div class="bm text rounded" disabled>
+            <div class="bm text rounded <?php if ($page === "profiles:drafts") {
+                                            echo "active";
+                                        } ?>" onclick="window.location.replace('/d/<?php echo $user->username; ?>');">
                 <p>Drafts</p>
             </div>
 

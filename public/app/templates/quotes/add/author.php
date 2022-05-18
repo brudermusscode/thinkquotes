@@ -31,9 +31,7 @@ if ($my->post_permissions == "none") exit(null);
         $query = "SELECT author_name FROM quotes_authors ORDER BY RAND() LIMIT 12";
         $get_authors = $THQ->select($pdo, $query, [], true);
 
-        foreach ($get_authors->fetch as $s) {
-
-        ?>
+        foreach ($get_authors->fetch as $s) { ?>
 
           <card>
             <p><?php echo $s->author_name; ?></p>
@@ -56,7 +54,7 @@ if ($my->post_permissions == "none") exit(null);
       <p class="mr12">
         <i class="ri-information-fill small"></i>
       </p>
-      <p class="trimt" here>Choose the author</p>
+      <p class="trimt" here>Choose the originator (author)</p>
 
       <div class="cl"></div>
     </div>

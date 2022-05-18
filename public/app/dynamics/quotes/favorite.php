@@ -35,7 +35,7 @@ if ($get_quote_favorized->stmt->rowCount() < 1) {
 
     # insert new favorite entry for current user
     $query = "INSERT INTO quotes_favorites (qid, uid) VALUES (?,?)";
-    $insert_quote_favorite = $THQ->insert(, $query, [$qid, $my->uid], false);
+    $insert_quote_favorite = $THQ->insert($query, [$qid, $my->uid], false);
 
     # validate successful query execution
     if (!$insert_quote_favorite->status) exit(json_encode($return));

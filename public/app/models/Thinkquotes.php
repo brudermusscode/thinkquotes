@@ -126,13 +126,19 @@ class Thinkquotes extends Db
 
             # set up new query for updating one or more records
             $stmt = $connection->prepare($query);
-            $stmt = self::execute($stmt, $params, $connection, $commit);
+            $stmt->execute($params);
 
-            # validate trueness of given query and return false, if it is
-            if (!$stmt) return false;
+            if ($commit) $connection->commit();
+
+            # prepare return object
+            $r = (object) [];
+            $r->status = true;
+            $r->commit = true;
+            $r->stmt = $stmt;
+            $r->connection = $connection;
 
             # otherwise return the statement's response object
-            return (object) $stmt;
+            return $r;
         } catch (\PDOException $e) {
 
             if ($commit) $connection->rollback();

@@ -10,7 +10,9 @@ $(() => {
     // draft object for keeping last inserted values if the add overlay
     // will be closed before actually submitting the quote
     // TODO: do exactly that
-    draftObject = [];
+    draftObject = {
+        quote_id: 0
+    };
 
     // set document for every function
     $(document)
@@ -100,10 +102,14 @@ $(() => {
     // ! add quote has been clicked!
     .on("click", '[data-action="popup:quotes,add"]', function() {
 
+        console.log('Adding quote initialized: quote_id is', draftObject.quote_id);
+
         url = dynamicHost + "/template/quotes/add/author";
 
         // add new overlay
         overlay = Overlay.add(body, $(this), false);
+
+        console.log('Loading start template...');
 
         $.ajax({
             url: url,
@@ -116,6 +122,8 @@ $(() => {
                     // append the data which came from the xhr request
                     // to the overlay
                     overlay.overlay.append(data);
+
+                    console.log('Done!');
 
                     // assign popup module and steps layer
                     $popupModule = overlay.overlay.find("popup-module");
@@ -147,9 +155,11 @@ $(() => {
     })
 
     // ? step 1: add the author
-    .on("submit", "[data-form='quotes:add,author']", function() {
+    .on("submit", "[data-form='quotes:add,author']", function () {
 
-        url = dynamicHost + "/templates/quotes/add/quote";
+        console.log('Step', 1, 'initilized: quote_id is', draftObject.quote_id);
+
+        url = dynamicHost + "/do/quotes/add/author";
         formData = new FormData(this);
 
         // check if author input s empty and return false
@@ -167,10 +177,14 @@ $(() => {
             processData: false,
             success: (data) => {
 
+                console.log('Step', 1, 'ajax done: quote_id is', data.quote_id);
+
                 if (data.status) {
 
-                    // add the author id to the draft object
-                    draftObject.aid = data.aid;
+                    // reset draftObject
+                    draftObject = {};
+
+                    console.log('Step', 1, 'draftObject:', draftObject);
 
                     // toggle off steps and hide
                     toggleActive([
@@ -180,14 +194,23 @@ $(() => {
 
                     setTimeout(() => {
 
-                        $popupModule.empty()
-                            .prepend(data.message);
+                        // add the quote id to the draft object
+                        draftObject.quote_id = data.quote_id;
+
+                        console.log('Step', 1, 'quote_id updated: is', draftObject.quote_id);
+
+                        // prepare url for getting new template
+                        url = dynamicHost + '/template/quotes/add/quote';
+
+                        // TODO: add something to show when getting template fails
+                        // get new template and add it up
+                        getTemplate(url, $popupModule, draftObject);
 
                         setTimeout(() => {
 
                             // update the steps layer
                             $steps.find(".description p[here]")
-                                .html("Write down the actual quote by " + formData.get("author"));
+                                  .html("Write down the quote");
 
                             // make popup module visible
                             toggleActive([
@@ -209,12 +232,14 @@ $(() => {
     // ? step 2: add the quote
     .on("submit", "[data-form='quotes:add,quote']", function() {
 
-        url = dynamicHost + "/do/steps/quotes/source";
-        formData = new FormData(this);
+        console.log('Step', 2, 'initilized: quote_id is', draftObject.quote_id);
 
-        // append the aid to the formData and be sure to check in PHP
-        // if the aid was submitted
-        formData.append("aid", draftObject.aid);
+        // prepare ajax url
+        url = dynamicHost + "/do/quotes/add/quote";
+
+        // prepare form data sent with ajax request
+        formData = new FormData(this);
+        formData.append("quote_id", draftObject.quote_id);
 
         // check if the inputs are empty
         for (let values of formData.entries()) {
@@ -233,11 +258,14 @@ $(() => {
             processData: false,
             success: (data) => {
 
+                console.log('Step', 2, 'ajax done: quote_id is', draftObject.quote_id);
+
                 if (data.status) {
 
-                    // add the quote text to the draftObject
-                    draftObject.quote = data.quote;
-                    draftObject.qid = data.qid;
+                    // reset draft object
+                    draftObject = {};
+
+                    console.log('Step', 2, 'draftObject:', draftObject);
 
                     // make popup module hide
                     toggleActive([
@@ -248,11 +276,17 @@ $(() => {
                     // set timeout for updating whole content of popup module
                     setTimeout(() => {
 
-                        // clear the popup module's content
-                        $popupModule.empty()
+                        // add the quote id to the draft object
+                        draftObject.quote_id = data.quote_id;
 
-                        // and append the new
-                        .prepend(data.message);
+                        console.log('Step', 2, 'quote_id updated: is', draftObject.quote_id);
+
+                        // prepare url for getting new template
+                        url = dynamicHost + '/template/quotes/add/source';
+
+                        // TODO: add something to show when getting template fails
+                        // get new template and add it up
+                        getTemplate(url, $popupModule, draftObject);
 
                         // set timeout for updating the step layer and sliding it in
                         setTimeout(() => {
@@ -281,18 +315,14 @@ $(() => {
     // ? step 3: add the source
     .on("submit", "[data-form='quotes:add,source']", function() {
 
-        url = dynamicHost + "/do/steps/quotes/categories";
-        formData = new FormData(this);
+        console.log('Step', 3, 'initilized: quote_id is', draftObject.quote_id);
 
-        // append new values to formData and make sure to
-        // verify those in PHP script
-        formData.append("aid", draftObject.aid);
-        formData.append("quote", draftObject.quote);
-        formData.append("qid", draftObject.qid);
+        url = dynamicHost + "/do/quotes/add/source";
+        formData = new FormData(this);
+        formData.append("quote_id", draftObject.quote_id);
 
         // check if the inputs are empty
         for (let values of formData.entries()) {
-
             if (isEmpty(values[1])) {
                 return false;
             }
@@ -308,12 +338,14 @@ $(() => {
             processData: false,
             success: (data) => {
 
+                console.log('Step', 3, 'ajax done: quote_id is', draftObject.quote_id);
+
                 if (data.status) {
 
-                    // add source id to draftObject
-                    draftObject.sid = data.sid;
+                    // reset draft object
+                    draftObject = {};
 
-                    console.log(draftObject);
+                    console.log('Step', 3, 'draftObject:', draftObject);
 
                     // make popup module hide
                     toggleActive([
@@ -323,8 +355,17 @@ $(() => {
 
                     setTimeout(() => {
 
-                        $popupModule.empty()
-                            .prepend(data.message);
+                        // add the quote id to the draft object
+                        draftObject.quote_id = data.quote_id;
+
+                        console.log('Step', 3, 'quote_id updated: is', draftObject.quote_id);
+
+                        // prepare url for getting new template
+                        url = dynamicHost + '/template/quotes/add/categories';
+
+                        // TODO: add something to show when getting template fails
+                        // get new template and add it up
+                        getTemplate(url, $popupModule, draftObject);
 
                         setTimeout(() => {
 
@@ -352,14 +393,11 @@ $(() => {
     // ? step 4: add the category
     .on("submit", "[data-form='quotes:add,category']", function() {
 
-        url = dynamicHost + "/do/steps/quotes/all";
-        formData = new FormData(this);
+        console.log('Step', 4, 'initilized: quote_id is', draftObject.quote_id);
 
-        // append evertyhing to formData
-        formData.append("aid", draftObject.aid);
-        formData.append("quote", draftObject.quote);
-        formData.append("qid", draftObject.qid);
-        formData.append("sid", draftObject.sid);
+        url = dynamicHost + "/do/quotes/add/categories";
+        formData = new FormData(this);
+        formData.append("quote_id", draftObject.quote_id);
 
         // check if the inputs are empty
         for (let values of formData.entries()) {
@@ -374,12 +412,21 @@ $(() => {
             url: url,
             data: formData,
             method: this.method,
-            dataType: "HTML",
+            dataType: "JSON",
             contentType: false,
             processData: false,
             success: (data) => {
 
-                if (data) {
+                console.log('data:', data);
+
+                console.log('Step', 4, 'ajax done: quote_id is', draftObject.quote_id);
+
+                if (data.status) {
+
+                    // reset draft object
+                    draftObject = {};
+
+                    console.log('Step', 4, 'draftObject:', draftObject);
 
                     // make popup module hide
                     toggleActive([
@@ -389,14 +436,23 @@ $(() => {
 
                     setTimeout(() => {
 
-                        $popupModule.empty()
-                            .prepend(data);
+                        // add the quote id to the draft object
+                        draftObject.quote_id = data.quote_id;
+
+                        console.log('Step', 4, 'quote_id updated: is', draftObject.quote_id);
+
+                        // prepare url for getting new template
+                        url = dynamicHost + '/template/quotes/add/review';
+
+                        // TODO: add something to show when getting template fails
+                        // get new template and add it up
+                        getTemplate(url, $popupModule, draftObject);
 
                         setTimeout(() => {
 
                             // change steps description text
                             $steps.find(".description p[here]")
-                                .html("That's how your quote will look like");
+                                .html("That's how your quote will look like!");
                             $steps.find("hellofresh")
                                 .attr("data-action", "quotes:add,all,submit")
                                 .html('<i class="ri-check-line std"></i>');
@@ -421,79 +477,56 @@ $(() => {
     // ? step 5: submit everything
     .on("click", "[data-action='quotes:add,all,submit']", function() {
 
+        console.log('Step', 5, 'initilized: quote_id is', draftObject.quote_id);
+
         // reassign url for xhr request
-        url = dynamicHost + "/do/steps/quotes/_submit";
+        url = dynamicHost + "/do/quotes/add/publish";
 
-        // select form
-        let form = document.querySelector('[data-form="quotes:add,all"]');
+        console.log('Submission started...');
 
-        // submit all to function and store result in variable
-        submitAllResult = submitAll(form, url);
-
-        // submit all
-        if (submitAllResult) {
-
-            // add new overlay
-            overlay = Overlay.add(body, $(this), false, "1001", "var(--colour-lila-200)");
-
-            // set a timeout to make everything smooth looking
-            setTimeout(() => {
-
-                // add confirmation text to overlay
-                // TODO: maybe add own file with some script action to let it look even cooler
-                overlay.overlay.append('<popup-module class="active"><div class="confirmation-text centered"><p>Lovely!</p></div></popup-module>');
-
-                // set another timeout to close the overlay
-                setTimeout(() => {
-                    closeOverlay(body);
-                }, 1800);
-            }, 600);
-        } else {
-            showErrorModule("A wild error appeared, fight it!");
-        }
-    });
-
-    // submit everything
-    let submitAll = (form, url) => {
-
-        let ajax = true;
-
-        // construct formdata
-        formData = new FormData(form);
-
-        // check if the inputs are empty
-        for (let values of formData.entries()) {
-
-            if (isEmpty(values[1])) {
-                return false;
-            }
-        }
-
-        ajax = $.ajax({
+        $.ajax({
 
             url: url,
-            data: formData,
+            data: { quote_id: draftObject.quote_id },
             method: "POST",
             dataType: "JSON",
-            contentType: false,
-            processData: false,
             success: (data) => {
 
-                if (!data.status) {
-                    return false;
+                console.log('Step', 5, 'submission successful...');
+                console.log('Data:', data);
+
+                if (data.status) {
+
+                    console.log('Step', 5, 'quote', draftObject.quote_id, 'published successfully!');
+
+                    // add new overlay
+                    overlay = Overlay.add(body, $(this), false, "1001", "var(--colour-lila-200)");
+
+                    // set a timeout to make everything smooth looking
+                    setTimeout(() => {
+
+                        // add confirmation text to overlay
+                        // TODO: maybe add own file with some script action to let it look even cooler
+                        overlay.overlay.append('<popup-module class="active"><div class="confirmation-text centered"><p>Lovely!</p></div></popup-module>');
+
+                        // set another timeout to close the overlay
+                        setTimeout(() => {
+                            closeOverlay(body);
+                        }, 1800);
+                    }, 600);
+
+                } else {
+
+                    console.error('Step', 5, 'quote', draftObject.quote_id, 'publishing failed!');
+
+                    showErrorModule("A wild error appeared, fight it!");
                 }
             },
             error: (data) => {
                 console.error(data);
             }
-        })
-        // .responseJSON
-        ;
-
-
-
-        return ajax;
-    }
+        });
+    });
 
     // create function to use again for checking emty input/textarea strings
     const isEmpty = (str) => {
@@ -516,7 +549,6 @@ $(() => {
 
     }
 
-    // TODO: use toggleClass now that I found the error
     const toggleActive = (container, active = true) => {
 
         for (let i = 0; i < container.length; i++) {
@@ -528,5 +560,39 @@ $(() => {
         }
 
         return true;
+    }
+
+    let getTemplate = (url, fillModule, dataObject = {}) => {
+
+        console.log('Getting template...');
+
+        let u = url;
+        let m = fillModule;
+        let d = dataObject;
+
+        // TODO: validate if dataObject is an object
+
+        $.ajax({
+
+            url: u,
+            data: d,
+            method: 'POST',
+            dataType: "HTML",
+            success: (data) => {
+
+                m.empty().prepend(data);
+
+                console.log('New template loaded!');
+
+                return true;
+            },
+            error: (data) => {
+                console.error(data);
+
+                return false;
+            }
+        });
+
+        return false;
     }
 });

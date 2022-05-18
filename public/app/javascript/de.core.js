@@ -148,7 +148,9 @@ $(function(){
 
     });
 
-    let loadQuotes = function() {
+    let loadQuotes = function () {
+
+        console.log('Getting quotes...');
 
         let $react = $('[data-load="content:quotes"]');
         let $append = $react.find('.actual');
@@ -170,6 +172,10 @@ $(function(){
                 break;
             case 'profiles:favorites':
                 url = dynamicHost + "/template/quotes/profiles/_favorites";
+                break;
+            case 'profiles:drafts':
+                url = dynamicHost + "/template/quotes/profiles/_drafts";
+                console.log('Hit quotes for drafts...');
                 break;
             case 'profiles:archive':
                 url = dynamicHost + "/template/quotes/profiles/_archive";

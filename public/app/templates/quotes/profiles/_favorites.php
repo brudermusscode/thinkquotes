@@ -39,6 +39,8 @@ $query =
   AND qf.deleted = false
   -- select current profile's user
   AND qf.uid = ?
+  -- shouldn't be draft
+  AND q.is_draft = false
   -- order by the timestamp, no need for upvotes
   ORDER BY q.upvotes
   -- limitting through value from html attribute data-json
