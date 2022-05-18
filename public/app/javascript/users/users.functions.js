@@ -195,6 +195,7 @@ $(function(){
 
                         // reload page
                         window.location.replace('/');
+                    }, 1200);
 
                 } else {
 

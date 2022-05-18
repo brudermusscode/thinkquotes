@@ -43,27 +43,7 @@ $query =
   ORDER BY q.upvotes
   -- limitting through value from html attribute data-json
   DESC LIMIT ?";
-
-// $query = "SELECT *,
-//   quotes_favorites.id AS fid,
-//   quotes.id AS qid,
-//   quotes_sources.id AS sid,
-//   quotes_authors.id AS auid,
-//   users.id AS uid,
-//   users_settings.id AS usid
-//   FROM quotes_favorites, quotes, quotes_sources, quotes_authors, users, users_settings
-//   WHERE quotes_favorites.qid = quotes.id
-//   AND quotes.sid = quotes_sources.id
-//   AND quotes.aid = quotes_authors.id
-//   AND quotes.uid = users.id
-//   AND quotes.uid = users_settings.id
-//   AND quotes_favorites.uid = ?
-//   AND quotes_favorites.deleted = '0'
-//   AND quotes.deleted = '0'
-//   ORDER BY quotes.upvotes
-//   DESC
-//   LIMIT ?";
-$select_quotes = $system->select($pdo, $query, [$userid, $query_limit], true);
+$select_quotes = $THQ->select($pdo, $query, [$userid, $query_limit], true);
 
 ?>
 

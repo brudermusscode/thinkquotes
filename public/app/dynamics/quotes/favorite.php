@@ -10,7 +10,7 @@ if (empty($_POST["qid"]) || !LOGGED) exit(json_encode($return));
 
 // get quote by qid
 $query = "SELECT * FROM quotes WHERE id = ?";
-$get_quote = $system->select($pdo, $query, [$qid], false);
+$get_quote = $THQ->select($pdo, $query, [$qid], false);
 
 if ($get_quote->stmt->rowCount() < 1) return json_encode($return);
 
@@ -22,7 +22,7 @@ $pdo->beginTransaction();
 
 // check if faved
 $query = "SELECT * FROM quotes_favorites WHERE qid = ? AND uid = ?";
-$get_quote_favorized = $system->select($pdo, $query, [$qid, $user_id], false);
+$get_quote_favorized = $THQ->select($pdo, $query, [$qid, $user_id], false);
 
 
 if ($get_quote_favorized->stmt->rowCount() < 1) {
@@ -35,7 +35,7 @@ if ($get_quote_favorized->stmt->rowCount() < 1) {
 
     # insert new favorite entry for current user
     $query = "INSERT INTO quotes_favorites (qid, uid) VALUES (?,?)";
-    $insert_quote_favorite = $system->insert($pdo, $query, [$qid, $my->uid], false);
+    $insert_quote_favorite = $THQ->insert(, $query, [$qid, $my->uid], false);
 
     # validate successful query execution
     if (!$insert_quote_favorite->status) exit(json_encode($return));
@@ -55,7 +55,7 @@ if ($get_quote_favorized->stmt->rowCount() < 1) {
 
     # update quote favorized set deleted to either 0 or 1, depending on the previous state
     $query = "UPDATE quotes_favorites SET deleted = CASE WHEN deleted = true THEN false ELSE true END WHERE qid = ? AND uid = ?";
-    $discard_quote_favorite = $system->update($pdo, $query, [$qid, $my->uid], false);
+    $discard_quote_favorite = $THQ->update($pdo, $query, [$qid, $my->uid], false);
 
     # validate successful query execution
     if (!$discard_quote_favorite->status) exit(json_encode($return));
@@ -63,7 +63,7 @@ if ($get_quote_favorized->stmt->rowCount() < 1) {
 
 # update quote's upvotes
 $query = "UPDATE quotes SET upvotes = ? WHERE id = ? AND uid = ?";
-$update_quote = $system->update($pdo, $query, [$quote_upvotes, $qid, $my->uid], true);
+$update_quote = $THQ->update($pdo, $query, [$quote_upvotes, $qid, $my->uid], true);
 
 if (!$update_quote->status) exit(json_encode($return));
 

@@ -17,8 +17,18 @@ include_once TEMPLATES . "/global/header.php";
 
     <div class="intern--outer">
 
-        <div class="pb32 section-label">
-            <p class="tac mt32 mb12" style="font-size:4em;">How to help you?</p>
+        <div class="section-label mt12">
+            <p class="tac">How to help you?</p>
+        </div>
+
+        <div class="search-bar">
+            <div class="sb-inr">
+                <div class="icon has-bg left">🍃</div>
+                <div class="input">
+                    <input type="text" placeholder="Searching for help will soon be implemented!" />
+                </div>
+                <div class="icon right clickable">➜</div>
+            </div>
         </div>
 
         <?php
@@ -57,7 +67,7 @@ include_once TEMPLATES . "/global/header.php";
                         <div class="ud-inr">
                             <div class="inr-outer">
                                 <div class="tar">
-                                    <p class="tac rd6" style="background:<?php echo $card->icon_color; ?>;position:absolute;top:12px;right:12px;height:48px;width:48px;">
+                                    <p class="tac" style="background:<?php echo $card->icon_color; ?>;position:absolute;top:-1px;right:-1px;height:52px;width:52px;border-radius: 0 0 0 12px;">
                                         <i class="material-icons std align-mid-vert"><?php echo $card->icon; ?></i>
                                     </p>
 

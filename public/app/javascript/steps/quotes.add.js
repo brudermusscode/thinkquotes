@@ -100,7 +100,7 @@ $(() => {
     // ! add quote has been clicked!
     .on("click", '[data-action="popup:quotes,add"]', function() {
 
-        url = dynamicHost + "/do/steps/quotes/author";
+        url = dynamicHost + "/template/quotes/add/author";
 
         // add new overlay
         overlay = Overlay.add(body, $(this), false);
@@ -108,14 +108,14 @@ $(() => {
         $.ajax({
             url: url,
             type: "POST",
-            dataType: 'JSON',
+            dataType: 'HTML',
             success: function(data){
 
-                if(data.status) {
+                if(data) {
 
                     // append the data which came from the xhr request
                     // to the overlay
-                    overlay.overlay.append(data.message);
+                    overlay.overlay.append(data);
 
                     // assign popup module and steps layer
                     $popupModule = overlay.overlay.find("popup-module");
@@ -149,7 +149,7 @@ $(() => {
     // ? step 1: add the author
     .on("submit", "[data-form='quotes:add,author']", function() {
 
-        url = dynamicHost + "/do/steps/quotes/quote";
+        url = dynamicHost + "/templates/quotes/add/quote";
         formData = new FormData(this);
 
         // check if author input s empty and return false

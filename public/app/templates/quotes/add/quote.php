@@ -1,16 +1,9 @@
 <?php
 
-// require mysql connection and session data
-require_once $_SERVER["DOCUMENT_ROOT"] . "/session/session.inc.php";
+# require database connection
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/config/init.php';
 
-// set JSON content type
-header('Content-Type: application/json; charset=utf-8');
-
-if (
-    isset($_REQUEST["author"]) &&
-    !empty($_REQUEST["author"]) &&
-    LOGGED
-) {
+if (empty($_REQUEST["author"]) || !LOGGED) {
 
     // variablize
     $author = htmlspecialchars($_REQUEST["author"]);
@@ -20,7 +13,7 @@ if (
 
     // insert the author
     $stmt = $pdo->prepare("INSERT INTO quotes_authors (uid, author_name) VALUES (?, ?)");
-    $stmt = $system->execute($stmt, [$my->uid, $author], $pdo, false);
+    $stmt = $THQ->execute($stmt, [$my->uid, $author], $pdo, false);
 
     if ($stmt->status) {
 
@@ -88,3 +81,31 @@ if (
 } else {
     exit(json_encode($return));
 }
+
+?>
+
+<form data-form="quotes:add,quote" method="POST" action>
+    <div class="inr">
+
+        <label for="popup-module" class="mb32">
+            <div class="label-inr light">
+                <p><strong style="display:inline;">%author%</strong> said</p>
+            </div>
+        </label>
+
+        <div class="input">
+            <div class="pulse"></div>
+
+            <textarea name="quote" placeholder="Love the whole world, as a mother loves her only child..." autofocus="true"></textarea>
+        </div>
+
+    </div>
+</form>
+
+<script class="dno">
+    $(() => {
+
+        // focus textarea on load
+        $(document).find("textarea[name='quote']").focus();
+    });
+</script>

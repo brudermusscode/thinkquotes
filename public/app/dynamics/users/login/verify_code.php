@@ -4,7 +4,7 @@
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/config/init.php';
 
 // exit script by executing the validation function
-exit(validate_sign_in_code($pdo, $return, $sign, $system));
+exit(validate_sign_in_code($pdo, $return, $sign, $THQ));
 
 function validate_sign_in_code(object $connection, object $return, object $sign, object $system)
 {

@@ -11,3 +11,4 @@
 [Sun May 08 18:59:55.331930 2022] [core:alert] [pid 665] [client 192.168.0.1:35000] /var/www/thinkquotes.de/public/.htaccess: RewriteRule: cannot compile regular expression '^u/(*)'
 [Sun May 08 19:01:14.468327 2022] [core:alert] [pid 634] [client 192.168.0.1:35006] /var/www/thinkquotes.de/public/.htaccess: RewriteRule: cannot compile regular expression '^u/(*)'
 [Sun May 08 19:40:37.921301 2022] [php:error] [pid 834] [client 192.168.0.1:36020] script '/var/www/thinkquotes.de/public/app/templates/quotes/profiless.php' not found or unable to stat, referer: http://localhost/u/Hurensohn
+[Sat May 14 11:22:58.712974 2022] [php:error] [pid 97] [client 172.18.0.1:44828] script '/var/www/thinkquotes.de/public/app/dynamics/quotes/_report.php' not found or unable to stat, referer: http://localhost/

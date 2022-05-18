@@ -5,15 +5,18 @@
 
 // sidemenu for showing dumps
 #adminDump {
+  $dump-width: 500px;
   position: fixed;
   z-index: 200;
-  left: -370px;
+  left: -$dump-width + 20px;
   top: 0;
   height: 100vh;
   overflow: hidden;
-  width: 400px;
-  background: var(--colour-red);
-  transition: all 0.2s ease-out;
+  width: $dump-width;
+  background: rgba(255, 255, 255, 0.24);
+  padding: 24px 0;
+
+  @extend .tran-all-cubic;
 
   &:hover {
     left: 0px;
@@ -24,13 +27,18 @@
     background: white;
     border-radius: 12px;
     padding: 8px 24px 24px;
-    margin: 12px;
+    margin: 12px 32px;
     line-height: 1.2;
     letter-spacing: -0.01em;
     font-size: 0.8em;
     font-weight: 700;
     color: #333;
     overflow: hidden;
+
+    pre {
+      word-wrap: break-word;
+      word-break: break-all;
+    }
 
     .title {
       font-weight: 700;
@@ -765,10 +773,10 @@ page-overlay {
     }
 
     &[disabled] {
-      opacity:.2;
-      cursor:default;
-      box-shadow:none !important;
-      background:transparent !important;
+      opacity: 0.2;
+      cursor: default;
+      box-shadow: none !important;
+      background: transparent !important;
     }
   }
 }

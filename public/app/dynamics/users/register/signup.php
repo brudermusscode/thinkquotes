@@ -7,7 +7,10 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/config/init.php';
 header(JSON_RESPONSE_FORMAT);
 
 # start validation process
-if (empty($_POST['mail']) || LOGGED) exit(null);
+if (empty($_POST['mail']) || LOGGED) {
+  $return->message = error_response_with(0);
+  exit(json_encode($return));
+}
 
 # variablize
 $mail = $_REQUEST["mail"];
@@ -21,14 +24,16 @@ if (!$sign->validateMail($mail)) {
 # get remoteaddr and httpx
 $httpx = $sign->getRemoteAddress();
 $remoteaddr = $_SERVER['REMOTE_ADDR'];
+# maximum of 24 chars for username allowed from database side
+$username = "#%THQ%#-" . $collection->getToken(16);
 
-# start mysql transaction
+# ! start mysql transaction
 $pdo->beginTransaction();
 
 # insert new user
 # insert users settings
-$query = "INSERT INTO users (mail, remoteaddr, httpx) VALUES (?, ?, ?)";
-$insert_user = $system->insert($pdo, $query, [$mail, $remoteaddr, $httpx], false);
+$query = "INSERT INTO users (username, mail, remoteaddr, httpx) VALUES (?, ?, ?, ?)";
+$insert_user = $THQ->insert($query, [$username, $mail, $remoteaddr, $httpx], false);
 
 if (!$insert_user->status) {
   if ($insert_user->code == '23000') $return->message = error_response_with(2);
@@ -41,7 +46,7 @@ $id = $insert_user->connection->lastInsertId();
 
 # insert users settings
 $query = "INSERT INTO users_settings (uid) VALUES (?)";
-$insert_users_settings = $system->insert($pdo, $query, [$id], false);
+$insert_users_settings = $THQ->insert($query, [$id], false);
 
 if (!$insert_users_settings->status) {
   $return->message = error_response_with(3);
@@ -53,7 +58,7 @@ $auth_code = $sign->createCode(4);
 
 # insert authentication
 $query = "INSERT INTO users_authentications (uid, authCode) VALUES (?, ?)";
-$insert_auth_code = $system->insert($pdo, $query, [$id, $auth_code], false);
+$insert_auth_code = $THQ->insert($query, [$id, $auth_code], false);
 
 if (!$insert_auth_code->status) {
   $return->message = error_response_with(4);
@@ -65,7 +70,7 @@ $mailbody = file_get_contents(ROOT . '/app/templates/mails/signup.html');
 $mailbody = str_replace('%code%', $auth_code, $mailbody);
 
 # send mail
-$sendMail = $system->trySendMail($mail, "Welcome to ThinkQuotes!", $mailbody, $main);
+$sendMail = $THQ->trySendMail($mail, "Welcome to ThinkQuotes!", $mailbody, $main);
 
 if (is_object($sendMail)) {
 
@@ -94,6 +99,7 @@ exit(json_encode($return));
 function error_response_with(int $message_code, string $email_address = null)
 {
 
+  if ($message_code == 0) $message = 'Use your mail address to sign up';
   if ($message_code == 1) $message = 'Your mail address is invalid';
   if ($message_code == 2) $message = 'Your mail address is in use already. If this is your account, sign in';
   if ($message_code == 3) $message = 'There seems to be something sqishy. We recommend, to try again!';

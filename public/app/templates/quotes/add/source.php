@@ -30,7 +30,7 @@ if (
 
         // insert the quote as a draft at first
         $stmt = $pdo->prepare("INSERT INTO quotes (uid, aid, quote_text) VALUES (?, ?, ?)");
-        $stmt = $system->execute($stmt, [$my->uid, $aid, $quote], $pdo, true);
+        $stmt = $THQ->execute($stmt, [$my->uid, $aid, $quote], $pdo, true);
 
         if ($stmt->status) {
 

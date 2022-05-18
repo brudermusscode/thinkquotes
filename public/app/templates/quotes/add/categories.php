@@ -33,7 +33,7 @@ if (
 
     // insert the author
     $stmt = $pdo->prepare("INSERT INTO quotes_sources (uid, source_name) VALUES (?, ?)");
-    $stmt = $system->execute($stmt, [$my->uid, $source], $pdo, false);
+    $stmt = $THQ->execute($stmt, [$my->uid, $source], $pdo, false);
 
     if ($stmt->status) {
 
@@ -77,7 +77,7 @@ if (
 
     // update quote and set category
     $stmt = $pdo->prepare("UPDATE quotes SET sid = ? WHERE id = ? AND uid = ?");
-    $stmt = $system->execute($stmt, [$sid, $qid, $my->uid], $pdo, true);
+    $stmt = $THQ->execute($stmt, [$sid, $qid, $my->uid], $pdo, true);
 
     if ($stmt->status) {
 

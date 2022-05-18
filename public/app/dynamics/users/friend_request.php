@@ -35,7 +35,7 @@ $query = "SELECT *, users.id AS uid, users_settings.id AS usid
     WHERE users.id = users_settings.uid
     AND users.id = ?
     LIMIT 1";
-$get_user = $system->select($pdo, $query, [$uid], false);
+$get_user = $THQ->select($pdo, $query, [$uid], false);
 
 # ! exit if no user can be found
 if ($get_user->stmt->rowCount() > 0) exit(null);
@@ -53,7 +53,7 @@ switch ($action) {
             WHERE (uid1 = ? AND uid2 = ?)
             OR (uid1 = ? AND uid2 = ?)
             LIMIT 1";
-        $get_friendship = $system->select($pdo, $query, [$uid, $my->uid, $my->uid, $uid], false);
+        $get_friendship = $THQ->select($pdo, $query, [$uid, $my->uid, $my->uid, $uid], false);
 
         # ! exit out if friends already
         if (!$get_friendship->stmt->rowCount() < 1) exit(null);

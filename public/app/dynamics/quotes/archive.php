@@ -17,7 +17,7 @@ $pdo->beginTransaction();
 
 // update quote
 $query = "UPDATE quotes SET deleted = CASE WHEN deleted = '1' THEN '0' ELSE '1' END WHERE id = ?";
-$archive_quote = $system->update($pdo, $query, [$qid], true);
+$archive_quote = $THQ->update($pdo, $query, [$qid], true);
 
 if (!$archive_quote->status) exit(json_encode($return));
 

@@ -9,28 +9,23 @@
     // >> quotes > report
 	.on('click', '[data-action="popup:quotes,report"]', function(e) {
 
-        var $t = $(this);
-        var getData = $t.closest('quote').data("json");
-        var qid = getData[0].qid;
-        let url = dynamicHost + "/do/quotes/_report";
+        let $t = $(this);
+        let getData = $t.closest('quote').data("json");
+        let qid = getData[0].qid;
+        let url = dynamicHost + "/template/quotes/_report";
+
+        // add new overlay
+        overlay = Overlay.add(body, $(this), false);
 
         $.ajax({
             type: "POST",
             url: url,
             dataType: 'HTML',
             data: { qid: qid },
-            beforeSend: function(){
-
-                addOverlay();
-                togglebody();
-
-            },
             success: function(data){
 
-
-
-                var ro = $('body').find('response-overlay');
-                var form = $('[data-form="quotes,add"]');
+                let ro = $('body').find('response-overlay');
+                let form = $('[data-form="quotes,add"]');
 
                 if(parseInt(data) === 0){
 
@@ -39,9 +34,10 @@
 
                 } else {
 
-                    ro.empty();
-                    ro.append(data);
-                    fitPopupModule();
+                    setTimeout(() => {
+                        overlay.overlay.append(data);
+                        fitPopupModule();
+                    }, 400)
 
                 }
 

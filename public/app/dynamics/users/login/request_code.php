@@ -3,9 +3,9 @@
 # require database connection
 require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/config/init.php';
 
-exit(login($pdo, $sign, $return, $system, $main, $dev_env));
+exit(login($pdo, $sign, $return, $THQ, $main, $dev_env));
 
-function login($pdo, $sign, $return, $system, $web_information, $dev_env)
+function login($pdo, $sign, $return, $THQ, $web_information, $dev_env)
 {
   if (empty($_POST["mail"]) || LOGGED) {
     $return->message = set_return_message_with(1);
@@ -42,7 +42,7 @@ function login($pdo, $sign, $return, $system, $web_information, $dev_env)
 
   # send the created code to the given mail address
   $stmt = $pdo->prepare("INSERT INTO users_authentications (uid, authCode) VALUES (?, ?)");
-  $stmt = $system->execute($stmt, [$uid, $code], $pdo, true);
+  $stmt = $THQ->execute($stmt, [$uid, $code], $pdo, true);
 
   if (!$stmt->status) {
     $return->message = set_return_message_with(4);
@@ -54,7 +54,7 @@ function login($pdo, $sign, $return, $system, $web_information, $dev_env)
   $mailbody = str_replace('%code%', $code, $mailbody);
 
   # send mail
-  $sendMail = $system->trySendMail($inputmail, "Your authentication code!", $mailbody, $web_information);
+  $sendMail = $THQ->trySendMail($inputmail, "Your authentication code!", $mailbody, $web_information);
 
   if (is_object($sendMail)) {
     $return->message = set_return_message_with(5);

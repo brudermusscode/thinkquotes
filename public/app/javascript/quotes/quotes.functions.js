@@ -149,7 +149,7 @@ $(function(){
         var formSerialized = $t.closest('form[data-form="quotes,report"]').serialize();
         var getData = $t.closest('form[data-form="quotes,report"]').data("json");
         var qid = getData[0].qid;
-        let url = dynamicHost + "/dyn/quotes/report";
+        let url = dynamicHost + "/do/quotes/report";
 
         var serializedData = formSerialized + "&qid=" + qid;
 

@@ -56,7 +56,7 @@
 
     <!--- js > steps --->
     <?php if (LOGGED) { ?>
-        <script src="<?php echo $url->js; ?>/steps/quotes.add.min.js"></script>
+        <script src="<?php echo $url->js; ?>/steps/quotes.add.js"></script>
     <?php } ?>
 
 </head>

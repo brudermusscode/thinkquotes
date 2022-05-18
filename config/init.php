@@ -14,7 +14,7 @@ require_once "db/connect.php";
 if ($db->getEnvironment() == 'dev') $dev_env = true;
 
 # include all models
-include_once ROOT . "/app/models/System.php";
+include_once ROOT . "/app/models/Thinkquotes.php";
 include_once ROOT . "/app/models/Sign.php";
 include_once ROOT . "/app/models/Time.php";
 include_once ROOT . "/app/models/Collection.php";
@@ -114,6 +114,6 @@ if (LOGGED) {
   # define UID for short use
   # define("UID", $my->uid);
   define("ADMIN", $my->admin);
-  define("0", false);
-  define("1", true);
+  # define("0", false);
+  # define("1", true);
 }

@@ -38,7 +38,7 @@ $query =
   ORDER BY q.timestamp
   -- limitting through value from html attribute data-json
   DESC LIMIT ?";
-$select_quotes = $system->select($pdo, $query, [$userid, $query_limit], true);
+$select_quotes = $THQ->select($pdo, $query, [$userid, $query_limit], true);
 
 ?>
 

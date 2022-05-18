@@ -1,38 +1,34 @@
 <?php
 
-use Google\Service\Analytics\IncludeConditions;
-
 if (!isset($elementInclude)) exit('Nothing here but us chickens');
 
 $pure = $pure ?? false;
 
-$is_favorized = false;
-$is_my_quote = false;
+(bool) $is_favorized = false;
+(bool) $is_my_quote = false;
 
 # anything that happens, if a user is signed in
 if (LOGGED) {
 
   # find entry for favorite related to current user and this post
-  $query = "SELECT * FROM quotes_favorites WHERE qid = ? AND uid = ? AND deleted = '0'";
-  $get_is_favorized = $system->select($pdo, $query, [$elementInclude->qid, $my->uid], false);
+  $query = "SELECT * FROM quotes_favorites WHERE qid = ? AND uid = ? AND deleted = false";
+  $get_is_favorized = $THQ->select($pdo, $query, [$elementInclude->qid, $my->uid], false);
 
   # check, if this quote is faved by the current signed in user
   if ($get_is_favorized->stmt->rowCount() > 0) $is_favorized = true;
 
   # check if current user is owner of this quote
-  if ($elementInclude->uid === $my->uid) $is_my_quote = true;
+  if ($elementInclude->uid == $my->uid) $is_my_quote = true;
 }
 
 // get categories
-$getCategories = $pdo->prepare("
-    SELECT *
-    FROM quotes_categories_used, quotes_categories
-    WHERE quotes_categories_used.cid = quotes_categories.id
-    AND quotes_categories_used.qid = ?
-    ORDER BY quotes_categories_used.id
-    DESC LIMIT 3
-");
-$getCategories->execute([$elementInclude->qid]);
+$query = "SELECT category_name
+  FROM quotes_categories qc
+    JOIN quotes_categories_used qcu ON qcu.cid = qc.id
+  WHERE qcu.qid = ?
+  ORDER BY qcu.id
+  DESC LIMIT 3";
+$get_quotes_categories = $THQ->select($pdo, $query, [$elementInclude->qid], true);
 
 ?>
 
@@ -59,7 +55,7 @@ $getCategories->execute([$elementInclude->qid]);
 
         <div class="q-categories">
 
-          <?php foreach ($getCategories->fetchAll() as $cat) { ?>
+          <?php foreach ($get_quotes_categories->fetch as $cat) { ?>
 
             <div class="category-banner lt mt4" data-quote-category-id="<?php echo $cat->id; ?>" data-json='[{"cid","<?php echo $cat->id; ?>"}]'>
               <?php echo ucfirst($cat->category_name); ?>

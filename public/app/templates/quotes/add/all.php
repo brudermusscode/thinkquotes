@@ -1,7 +1,7 @@
 <?php
 
-// require mysql connection and session data
-require_once $_SERVER["DOCUMENT_ROOT"] . "/session/session.inc.php";
+# require database connection
+require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/config/init.php';
 
 if (
     isset(
@@ -24,7 +24,7 @@ if (
     // insert the author
     // TODO: make multiple categories adding possible
     $stmt = $pdo->prepare("INSERT INTO quotes_categories (uid, category_name) VALUES (?, ?)");
-    $stmt = $system->execute($stmt, [$my->uid, $category], $pdo, false);
+    $stmt = $THQ->execute($stmt, [$my->uid, $category], $pdo, false);
 
     if ($stmt->status) {
 
@@ -67,7 +67,7 @@ if (
 
     // insert into categories used for relation between quote and category
     $stmt = $pdo->prepare("INSERT INTO quotes_categories_used (qid, cid) VALUES (?, ?)");
-    $stmt = $system->execute($stmt, [$qid, $cid], $pdo, true);
+    $stmt = $THQ->execute($stmt, [$qid, $cid], $pdo, true);
 
     if ($stmt->status) {
 

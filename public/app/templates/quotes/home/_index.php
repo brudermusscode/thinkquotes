@@ -18,7 +18,7 @@ $query_limit = round($limit);
 
 # get quotes
 $query =
-  "SELECT *, q.id qid, u.id uid, qa.id aid, qs.id sid
+  "SELECT *, q.id qid, q.uid uid
   FROM quotes q
     JOIN users u on u.id = q.uid
     JOIN quotes_authors qa on qa.id = q.aid
@@ -26,7 +26,7 @@ $query =
   WHERE q.deleted = false
   ORDER BY q.upvotes
   DESC LIMIT ?";
-$select_quotes = $system->select($pdo, $query, [$query_limit], true);
+$select_quotes = $THQ->select($pdo, $query, [$query_limit], true);
 
 ?>
 

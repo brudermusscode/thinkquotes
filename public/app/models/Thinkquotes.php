@@ -9,10 +9,15 @@ include dirname($_SERVER['DOCUMENT_ROOT']) . "/vendor/autoload.php";
 include_once dirname($_SERVER['DOCUMENT_ROOT']) . "/config/definitions.php";
 
 
-$system = new Thinkquotes;
+$THQ = new Thinkquotes($pdo);
 
 class Thinkquotes extends Db
 {
+
+    public function __construct(object $connection)
+    {
+        $this->pdo = (object) $connection;
+    }
 
     public static function execute(object $stmt, array $params, object $connection, bool $commit = false)
     {
@@ -59,12 +64,8 @@ class Thinkquotes extends Db
         return false;
     }
 
-    public static function insert(object $connection, string $query, array $params, bool $commit = false)
+    public function insert(string $query, array $params, bool $commit = false)
     {
-        (object) $connection;
-        (string) $query;
-        (array) $params;
-        (bool) $commit;
 
         try {
 
@@ -73,36 +74,34 @@ class Thinkquotes extends Db
             if (!is_array($params)) self::amk('Given query parameters have to be of type (array)');
             if (!is_bool($commit)) self::amk("Commit value has to be of type (bool)");
 
-            $stmt = $connection->prepare($query);
-            $stmt = self::execute($stmt, $params, $connection, $commit);
+            $stmt = $this->pdo->prepare($query);
+            $stmt->execute($params);
 
             // commit changes if true
-            if ($commit) $connection->commit();
+            if ($commit) $this->pdo->commit();
 
             // store error information
-            $return = (object) [
-                "status" => true,
-                "commit" => $commit,
-                "stmt" => $stmt,
-                "connection" => $connection
-            ];
+            $r = (object) [];
+            $r->status = true;
+            $r->commit = $commit;
+            $r->stmt = $stmt;
+            $r->connection = $this->pdo;
 
             // return the object back to the script
-            return $return;
+            return $r;
         } catch (\PDOException $e) {
 
             // rollback data and return error information
-            if ($commit) $connection->rollback();
+            if ($commit) $this->pdo->rollback();
 
             // catch error information
-            $return = (object) [
-                "status" => false,
-                "exception" => $e,
-                "message" => $e->getMessage(),
-                "code" => $e->getCode()
-            ];
+            $r = (object) [];
+            $r->status = 0;
+            $r->exception = $e;
+            $r->message = $e->getMessage();
+            $r->code = $e->getCode();
 
-            return $return;
+            return $r;
         }
 
         return false;

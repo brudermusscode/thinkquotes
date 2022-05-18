@@ -46,7 +46,6 @@ $(function () {
             success: function (data) {
 
                 setTimeout(function() {
-
                     overlay.overlay.append(data);
                 }, 700);
             },

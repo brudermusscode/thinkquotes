@@ -8,18 +8,15 @@ if (empty($_REQUEST["qid"])) exit(false);
 (int) $qid = $_REQUEST["qid"];
 
 // get quote
-$query = "SELECT *,
-  quotes.id AS qid,
-  users.id AS uid,
-  quotes_authors.id AS aid,
-  quotes_sources.id AS sid
-  FROM quotes, users, quotes_authors, quotes_sources
-  WHERE quotes.uid = users.id
-  AND quotes.aid = quotes_authors.id
-  AND quotes.sid = quotes_sources.id
-  AND quotes.id = ?
+$query =
+  "SELECT *, q.id qid
+  FROM quotes q
+    JOIN users u ON q.uid = u.id
+    JOIN quotes_authors qa ON q.aid = qa.id
+    JOIN quotes_sources qs ON q.sid = qs.id
+  WHERE q.id = ?
   LIMIT 1";
-$get_quote = $system->select($pdo, $query, [$qid], false);
+$get_quote = $THQ->select($pdo, $query, [$qid], false);
 
 // fetch quote
 $elementInclude = $get_quote->fetch;

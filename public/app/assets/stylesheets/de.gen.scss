@@ -769,3 +769,14 @@ hellofresh {
     }
   }
 }
+
+
+@media screen and (max-width: 600px) {
+  #main {
+    padding: 0px !important;
+  }
+
+  quote .quote--outer {
+    border-radius: 0px;
+  }
+}

@@ -13,7 +13,7 @@ if (!preg_match("/^[a-zA-Z0-9_\-]+$/", $_GET['username'])) header(NOT_FOUND);
 
 # select current user for profile
 $query = "SELECT *, users.id AS uid, users_settings.id AS usid FROM users, users_settings WHERE users.id = users_settings.uid AND BINARY users.username = ? LIMIT 1";
-$get_user = $system->select($pdo, $query, [$username], false);
+$get_user = $THQ->select($pdo, $query, [$username], false);
 
 # validate user exists
 if ($get_user->stmt->rowCount() < 1) header(NOT_FOUND);
