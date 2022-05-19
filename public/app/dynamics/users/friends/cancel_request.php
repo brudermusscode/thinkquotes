@@ -109,7 +109,7 @@ exit(json_encode($return));
 function get_return_message_with(int $code)
 {
   if ($code == 1) return 'You already sent a request to that user!';
-  if ($code == 2) return 'You are already firneds with that user!';
+  if ($code == 2) return 'You are already friends with that user!';
   if ($code == 3) return 'This user does not exist!';
   if ($code == 4) return 'This user does not want to receive friend-requests!';
   if ($code == 5) return 'Friendrequest could not been sent, try again!';
