@@ -212,7 +212,97 @@ $(function(){
     })
 
 
-    // friendsrequests >> send/cancel/delete
+    // friendsrequests >> send
+    .on("click", "[data-action='function:friends,request,actions']", function () {
+        let $t = $(this);
+        let getData = $t.data("json");
+        let uid = parseInt(getData[0].uid);
+        let action = $t.data().do;
+        let dataObject = { uid: uid };
+
+        console.log('Requesting friendship: user_id:', uid);
+
+        let url;
+
+        switch (action) {
+            case 'request':
+                url = dynamicHost + '/do/users/friends/request';
+                break;
+            case 'cancel_request':
+                url = dynamicHost + '/do/users/friends/cancel_request'
+                break;
+        }
+
+        $.ajax({
+            url: url,
+            method: "POST",
+            data: dataObject,
+            dataType: "JSON",
+            success: function (data) {
+
+                if (data.status) {
+
+                    switch (data.action) {
+                        case 'request':
+                            $t.removeClass('request');
+                            $t.addClass("cancel_request");
+
+                            // set new action
+                            $t.data('do', 'cancel_request');
+
+                            console.log('Friendrequest has been sent!');
+
+                            break;
+                        case 'cancel_request':
+                            $t.removeClass('cancel_request');
+                            $t.addClass("request");
+
+                            // set new action
+                            $t.data('do', 'request');
+
+                            console.log('Friendrequest has been canceled!');
+
+                            break;
+                    }
+
+                    return;
+                }
+
+                console.log('Request could not been sent: user_id:', uid);
+
+                // switch(parseInt(data)) {
+                //     case 1:
+                //         error = "You are already friends!";
+                //         break;
+                //     case 2:
+                //         error = "You can't be friends with that user!";
+                //         break;
+                //     case 3:
+                //         error = "Friendrequest canceled!";
+                //         $t.addClass("addFriend");
+                //         break;
+                //     case 4:
+                //         error = "Friendrequest sent!";
+                //         $t.addClass("cancelRequest");
+                //         break;
+                //     case 5:
+                //         error = "You are no longer friends! Too bad!";
+                //         $t.addClass("removeFriend");
+                //         closeOverlay();
+                //         togglebody();
+                //         break;
+                //     default:
+                //         error = "A wild error appeared! Fight it!";
+                // }
+
+                showErrorModule(data.message);
+            },
+            error: function(data) {
+                showErrorModule("A wild error appeared! Fight it!");
+            }
+        });
+    })
+
     .on("click", "[data-action='function:friends,request,send/cancel/remove']", function() {
 
         let $t = $(this);

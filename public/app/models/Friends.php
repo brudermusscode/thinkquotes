@@ -1,6 +1,6 @@
 <?php
 
-$friends = new Friends;
+$Friends = new Friends;
 
 class Friends
 {
@@ -46,7 +46,7 @@ class Friends
     {
 
         global $pdo;
-        $acfr = [];
+        $acfr = (array) [];
 
         $getAllFriendsofFriends = $pdo->prepare("SELECT CASE WHEN uid1 = ? THEN uid2 ELSE uid1 END AS uid FROM users_friends WHERE uid1 = ? OR uid2 = ?");
         $getAllFriendsofFriends->execute([$someid, $someid, $someid]);
@@ -57,7 +57,7 @@ class Friends
             $acfr[] = $fruid;
         }
 
-        $fr = [];
+        $fr = (array) [];
         foreach ($acfr as $friendID) {
             $getAllFriendsofFriends->execute([$friendID, $friendID, $friendID]);
             foreach ($getAllFriendsofFriends->fetchAll() as $frofr) {
@@ -67,9 +67,9 @@ class Friends
         }
 
         if (empty($fr)) {
-            return $fr;
+            return (array) $fr;
         } else {
-            $f = array_unique($fr);
+            (array) $f = array_unique($fr);
             return $f;
         }
 

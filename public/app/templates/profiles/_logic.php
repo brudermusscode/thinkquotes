@@ -12,7 +12,12 @@ if (!preg_match("/^[a-zA-Z0-9_\-]+$/", $_GET['username'])) header(NOT_FOUND);
 (string) $username = $_GET['username'];
 
 # select current user for profile
-$query = "SELECT *, users.id AS uid, users_settings.id AS usid FROM users, users_settings WHERE users.id = users_settings.uid AND BINARY users.username = ? LIMIT 1";
+$query =
+  "SELECT *, users.id uid, users_settings.id usid
+  FROM users, users_settings
+  WHERE users.id = users_settings.uid
+  AND BINARY users.username = ?
+  LIMIT 1";
 $get_user = $THQ->select($pdo, $query, [$username], false);
 
 # validate user exists
@@ -26,8 +31,8 @@ if ($my->uid && $user->uid == $my->uid) $its_me = true;
 
 # nobody should be able to visit the archive of another user. They are only permitted
 # to the owner. Check for that
-if ($page == "profiles:archive" && !$its_me) header(NOT_FOUND);
+if (($page == "profiles:archive" || $page == "profiles:drafts") && !$its_me) header(NOT_FOUND);
 
 # friends
-$fr = $friends->getFriends($user->id);
-$frofr = $friends->getFriendsOfFriends($user->id);
+$fr = $Friends->getFriends($user->id);
+$frofr = $Friends->getFriendsOfFriends($user->id);

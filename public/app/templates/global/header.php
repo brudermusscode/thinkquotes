@@ -7,7 +7,7 @@ if (!$is_page) {
 if (LOGGED) {
 
     // check for friendrequests
-    $hasFriendsRequests = $friends->getFriendrequests($my->uid);
+    $hasFriendsRequests = $Friends->getFriendrequests($my->uid);
 
     // get count of friendrequests
     $frcount = $hasFriendsRequests;
