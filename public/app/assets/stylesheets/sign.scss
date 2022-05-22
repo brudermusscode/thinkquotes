@@ -1,7 +1,7 @@
 @charset "UTF-8";
-@import "de.variables.scss";
-@import "de.classes.scss";
-@import "de.animations.scss";
+@import "variables.scss";
+@import "classes.scss";
+@import "animations.scss";
 
 .signup-logo {
   line-height: 1;
@@ -76,7 +76,7 @@
       .in,
       .out {
         p {
-          padding: 0 .2em .2em;
+          padding: 0 0.2em 0.2em;
           line-height: 1;
           font-size: 2em;
           font-weight: 700;

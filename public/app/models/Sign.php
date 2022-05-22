@@ -125,10 +125,11 @@ class Sign extends Thinkquotes
         if (!$this->isAuthed()) return false;
 
         // get user data and compare to current session data
-        $query = "SELECT *, users.id AS id
-            FROM users, users_settings
-            WHERE users.id = users_settings.uid
-            AND users.id = ?";
+        $query =
+            "SELECT *, users.id AS id
+            FROM users u
+            JOIN users_settings us ON u.id = us.uid
+            WHERE u.id = ?";
         $stmt = $this->select($this->pdo, $query, [$this->session->id]);
 
         # return false if statement fails

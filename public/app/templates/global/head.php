@@ -23,24 +23,20 @@
     <!-- scss -->
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="<?php echo $url->css; ?>/de.normalize.css" />
-    <link rel="stylesheet" href="<?php echo $url->css; ?>/de.gen.css" />
-    <link rel="stylesheet" href="<?php echo $url->css; ?>/elem.quote.css" />
-    <link rel="stylesheet" href="<?php echo $url->css; ?>/de.animations.css" />
-    <link rel="stylesheet" href="<?php echo $url->css; ?>/de.elements.css" />
-    <link rel="stylesheet" href="<?php echo $url->css; ?>/de.hdr.css" />
-    <link rel="stylesheet" href="<?php echo $url->css; ?>/de.classes.css" />
-    <link rel="stylesheet" href="<?php echo $url->css; ?>/de.responsiveness.css" />
+    <link rel="stylesheet" href="<?php echo $url->css; ?>/classes.css" />
+    <link rel="stylesheet" href="<?php echo $url->css; ?>/application.css" />
+    <link rel="stylesheet" href="<?php echo $url->css; ?>/elem-quote.css" />
+    <link rel="stylesheet" href="<?php echo $url->css; ?>/elements.css" />
+    <link rel="stylesheet" href="<?php echo $url->css; ?>/hdr.css" />
+    <link rel="stylesheet" href="<?php echo $url->css; ?>/responsiveness.css" />
 
     <?php if ($page === "maintenance") { ?>
-        <link rel="stylesheet" href="<?php echo $url->css; ?>/de.maintenance.css" />
-
+        <link rel="stylesheet" href="<?php echo $url->css; ?>/maintenance.css" />
     <?php } else if ($page === "intern") { ?>
-        <link rel="stylesheet" href="<?php echo $url->css; ?>/de.intern.css" />
-
+        <link rel="stylesheet" href="<?php echo $url->css; ?>/intern.css" />
     <?php } ?>
 
-    <link rel="stylesheet" href="<?php echo $url->css; ?>/de.profiles.css" />
+    <link rel="stylesheet" href="<?php echo $url->css; ?>/profiles.css" />
     <link rel="stylesheet" href="<?php echo $url->css; ?>/sign.css" />
 
     <!-- js -->

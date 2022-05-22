@@ -1,4 +1,4 @@
-@import "de.classes.scss";
+@import "classes.scss";
 
 /* GEN ANIMATIONS */
 .pulsating {
@@ -521,27 +521,35 @@
 
 .roundedPulse {
   &.small {
-    animation: roundedPulseSmall 2s cubic-bezier(0.1, 0.01, 0.11, 0.98) infinite;
+    animation: roundedPulseSmall 12s cubic-bezier(0.1, 0.01, 0.11, 0.98)
+      infinite;
   }
 
   &.large {
-    animation: roundedPulseLarge 2s cubic-bezier(0.1, 0.01, 0.11, 0.98) infinite;
+    animation: roundedPulseSmall 2s cubic-bezier(0.1, 0.01, 0.11, 0.98) infinite;
   }
 }
 
 @keyframes roundedPulseSmall {
-  from {
+  0% {
+    opacity: 0;
     height: 100%;
-    width: 100%;
-    opacity: 1;
-    border-radius: 12px;
   }
 
-  to {
-    height: calc(100% + 18px);
-    width: calc(100% + 18px);
+  50% {
+    opacity: 1;
+    height: calc(100% + 20px);
+    width: calc(100% + 20px);
+    top: -10px;
+    left: -10px;
+  }
+
+  100% {
     opacity: 0;
-    border-radius: 18px;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
   }
 }
 

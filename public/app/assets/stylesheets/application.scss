@@ -14,9 +14,10 @@
 }
 
 // scss files
-@import "de.variables.scss";
-@import "de.classes.scss";
-@import "de.animations.scss";
+@import "normalize.scss";
+@import "variables.scss";
+@import "classes.scss";
+@import "animations.scss";
 
 :root {
   --image-url: "https://images.thinkquotes.de";
@@ -522,12 +523,16 @@ hellofresh {
     color: white;
   }
 
+  .icon i::before {
+    margin-top: 12px;
+  }
+
   // friendship system buttons
   &.friendrequest {
     &.request {
       .icon i::before {
         display: block;
-        content: "🤩";
+        content: "🌖";
       }
 
       .text::before {
@@ -539,19 +544,31 @@ hellofresh {
     &.cancel_request {
       .icon i::before {
         display: block;
-        content: "🥲";
+        content: "🌘";
       }
 
       .text::before {
         display: block;
         content: "Cancel friendrequest";
       }
+
+      &.am-receiver {
+        .icon i::before {
+          display: block;
+          content: "🌒";
+        }
+
+        .text::before {
+          display: block;
+          content: "Decline friendrequest";
+        }
+      }
     }
 
     &.remove {
       .icon i::before {
         display: block;
-        content: "😭";
+        content: "🌑";
       }
 
       .text::before {

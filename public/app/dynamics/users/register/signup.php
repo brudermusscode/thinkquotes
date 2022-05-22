@@ -25,7 +25,7 @@ if (!$sign->validateMail($mail)) {
 $httpx = $sign->getRemoteAddress();
 $remoteaddr = $_SERVER['REMOTE_ADDR'];
 # maximum of 24 chars for username allowed from database side
-$username = "#%THQ%#-" . $collection->getToken(16);
+$username = "THQ-" . $collection->getToken(16);
 
 # ! start mysql transaction
 $pdo->beginTransaction();

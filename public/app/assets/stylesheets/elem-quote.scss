@@ -1,6 +1,6 @@
 @charset "UTF-8";
-@import "de.variables.scss";
-@import "de.classes.scss";
+@import "variables.scss";
+@import "classes.scss";
 
 create-grid {
   .grid {
@@ -33,7 +33,7 @@ quote {
 
       &::before {
         display: block;
-        content: "favorite_border";
+        content: "favorite_outline";
         color: var(--colour-dark);
       }
 

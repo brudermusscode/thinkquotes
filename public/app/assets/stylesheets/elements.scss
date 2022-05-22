@@ -1,7 +1,7 @@
 @charset "UTF-8";
-@import "de.variables.scss";
-@import "de.classes.scss";
-@import "de.animations.scss";
+@import "variables.scss";
+@import "classes.scss";
+@import "animations.scss";
 
 // sidemenu for showing dumps
 #adminDump {
@@ -97,12 +97,39 @@
 // animation elements
 pulse {
   display: block;
-  background: var(--colour-red);
+  background: rgba(255, 255, 255, 0.12);
   border-radius: 12px;
   height: 100%;
   width: 100%;
+  top: 0;
+  left: 0;
 
-  @extend .alignmiddle, .posabs;
+  @extend .posabs;
+}
+
+.notify-dot {
+  z-index: 0.5;
+  $sizing: 1.6em;
+  border-radius: 50%;
+  background: var(--colour-orange);
+  height: $sizing;
+  line-height: $sizing;
+  width: $sizing;
+  color: var(--colour-light);
+
+  @extend .tac;
+
+  &.absolute {
+    @extend .posabs;
+
+    &.right {
+      right: -1em;
+    }
+
+    &.left {
+      left: 0;
+    }
+  }
 }
 
 // popups
