@@ -107,6 +107,49 @@ class Thinkquotes extends Db
         return false;
     }
 
+    public function delete(string $query, array $params, bool $commit = false)
+    {
+
+        try {
+
+            # validate given parameters' types
+            if (!is_string($query)) self::amk('Query has to be of type (string)');
+            if (!is_array($params)) self::amk('Given query parameters have to be of type (array)');
+            if (!is_bool($commit)) self::amk("Commit value has to be of type (bool)");
+
+            $stmt = $this->pdo->prepare($query);
+            $stmt->execute($params);
+
+            // commit changes if true
+            if ($commit) $this->pdo->commit();
+
+            // store error information
+            $r = (object) [];
+            $r->status = true;
+            $r->commit = $commit;
+            $r->stmt = $stmt;
+            $r->connection = $this->pdo;
+
+            // return the object back to the script
+            return $r;
+        } catch (\PDOException $e) {
+
+            // rollback data and return error information
+            if ($commit) $this->pdo->rollback();
+
+            // catch error information
+            $r = (object) [];
+            $r->status = 0;
+            $r->exception = $e;
+            $r->message = $e->getMessage();
+            $r->code = $e->getCode();
+
+            return $r;
+        }
+
+        return false;
+    }
+
     # converts a simple function into an prepared update statement using
     # PDO, taking in commitment true/false, returning the statements object
     public static function update(object $connection, string $query, array $params, bool $commit = false)
@@ -159,7 +202,7 @@ class Thinkquotes extends Db
 
     # converts a simple function into an select statement and returns an object
     # with PDO query functions and records, if any
-    public static function select($connection, $query, $params = null, $fetch_all = false)
+    public static function select(object $connection, string $query,  array $params = null, bool $fetch_all = false)
     {
 
         (object) $connection;

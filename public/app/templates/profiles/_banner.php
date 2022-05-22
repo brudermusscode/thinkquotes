@@ -11,13 +11,26 @@ if (!$is_page) header(NOT_FOUND);
 if (!($user->uid == $my->uid)) {
 
   # check if friendrequest exists
+  $am_sender = false;
+  $am_receiver = false;
+
   $q =
-    "SELECT *
-    FROM users_friends_requests ufr
-    WHERE (ufr.sent = ? AND ufr.got = ?)
-    OR (ufr.sent = ? AND ufr.got = ?)
-    LIMIT 1";
+    "SELECT (
+      SELECT COUNT(*)
+      FROM users_friends_requests
+      WHERE sent = ? AND got = ?
+      LIMIT 1
+    ) sender,
+    (
+      SELECT COUNT(*)
+      FROM users_friends_requests
+      WHERE sent = ? AND got = ?
+      LIMIT 1
+    ) receiver";
   $get_friend_request = $THQ->select($pdo, $q, [$my->uid, $user->uid, $user->uid, $my->uid], false);
+
+  if ($get_friend_request->fetch->sender) $am_sender = true;
+  if ($get_friend_request->fetch->receiver) $am_receiver = true;
 
   # raise NOT_FOUND if query fails
   if (!$get_friend_request->status) header(NOT_FOUND);
@@ -40,8 +53,10 @@ if (!($user->uid == $my->uid)) {
       $allow_request = false;
   }
 
-  if ($get_friend_request->stmt->rowCount() > 0) $action = 'cancel_request';
-  if ($get_friend_request->stmt->rowCount() < 1) $action = 'request';
+  $action = 'request';
+
+  if ($am_sender || $am_receiver) $action = 'cancel_request';
+
   if (in_array($my->uid, $fr)) {
     $action = 'remove';
     $is_friend = true;
@@ -73,8 +88,8 @@ if (!($user->uid == $my->uid)) {
       <div class="posabs" style="right:32px;">
 
         <?php if (!($user->uid == $my->uid)) { ?>
-          <?php if ($allow_request || $is_friend) { ?>
-            <hellofresh data-action='function:friends,request,actions' data-json='[{"uid":"<?php echo $user->uid; ?>"}]' data-do="<?php echo $action; ?>" class="rd6 big shadowed light friendrequest <?php echo $action; ?>">
+          <?php if ($allow_request || !$is_friend) { ?>
+            <hellofresh data-action='function:friends,request,actions' data-json='[{"uid":"<?php echo $user->uid; ?>"}]' data-do="<?php echo $action; ?>" class="rd6 big shadowed light friendrequest <?php if ($am_receiver) echo "am-receiver "; ?><?php echo $action; ?>">
               <div class="c-ripple js-ripple">
                 <span class="c-ripple__circle"></span>
               </div>

@@ -1,25 +1,18 @@
 <?php
 
-$Friends = new Friends;
+$Friends = new Friends($pdo);
 
-class Friends
+class Friends extends Thinkquotes
 {
 
     // check for friendrequests
-    public static function getFriendrequests($someid)
+    public function getFriendRequests($someid)
     {
 
-        global $pdo;
+        $q = "SELECT * FROM users_friends_requests WHERE got = ?";
+        $stmt = $this->select($this->pdo, $q, [$someid], false);
 
-        $getRequests = $pdo->prepare("SELECT * FROM users_friends_requests WHERE got = ?");
-        $getRequests->execute([$someid]);
-        $rowCount = $getRequests->rowCount();
-
-        if ($rowCount > 0) {
-            return $rowCount;
-        } else {
-            return false;
-        }
+        return $stmt;
     }
 
     // get all friends array

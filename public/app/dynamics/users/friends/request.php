@@ -92,13 +92,24 @@ $pdo->beginTransaction();
 # ----------------------------------------------------------------
 # insert new request
 $q = "INSERT INTO users_friends_requests (sent, got) VALUES (?, ?)";
-$insert_friend_request = $THQ->insert($q, [$my->uid, $user_id], true);
+$insert_friend_request = $THQ->insert($q, [$my->uid, $user_id], false);
 
 if (!$insert_friend_request->status) {
   $return->message = get_return_message_with(5);
   exit(json_encode($return));
 }
 
+# ----------------------------------------------------------------
+# update and uncheck users settings friend requests
+$q = "UPDATE users_settings SET checked_friend_requests = false WHERE uid = ?";
+$update_users_settings = $THQ->insert($q, [$user_id], true);
+
+if (!$update_users_settings->status) {
+  $return->message = get_return_message_with(5);
+  exit(json_encode($return));
+}
+
+# ----------------------------------------------------------------
 $return->status = true;
 $return->action = 'request';
 $return->message = get_return_message_with(6);

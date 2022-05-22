@@ -7,10 +7,10 @@ if (!$is_page) {
 if (LOGGED) {
 
     // check for friendrequests
-    $hasFriendsRequests = $Friends->getFriendrequests($my->uid);
+    $has_friend_requests = false;
+    $get_friend_requests = $Friends->getFriendRequests($my->uid);
 
-    // get count of friendrequests
-    $frcount = $hasFriendsRequests;
+    if ($get_friend_requests->status) $has_friend_requests = true;
 }
 
 ?>

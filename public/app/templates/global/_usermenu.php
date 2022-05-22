@@ -11,10 +11,10 @@ if (!$is_page) {
 
     <div data-react="check:friends,request" class="posrel" style="z-index:2;" travelhereboy>
 
-      <?php if (!$my->check_friendrequests) { ?>
-
-        <pulse class="roundedPulse small"></pulse>
-
+      <?php if (!$my->checked_friend_requests) { ?>
+        <div class="notify-dot absolute right">
+          <?php echo $get_friend_requests->stmt->rowCount(); ?>
+        </div>
       <?php } ?>
 
       <hellofresh data-action="dropdown:open" class="hellofresh hover-shadow clean dark rounded icon-only">
@@ -40,19 +40,15 @@ if (!$is_page) {
               <p>Profile</p>
             </li>
 
-            <?php if ($hasFriendsRequests) { ?>
+            <?php if ($has_friend_requests) { ?>
 
               <div data-react="remove:friendrequest,container">
-                <div style="border-bottom:1px solid rgba(0,0,0,.06);margin:4px 12px;height:1px;"></div>
-
-                <li data-action="popup:users,friendrequests" class="friendrequest <?php if (!$my->check_friendrequests) echo "hasRequest "; ?> trimt">
-                  <p class="align-mid-vert">
-                    <span class="material-icons-round md-18">emoji_people</span>
+                <li data-action="popup:users,friendrequests" class="friendrequest trimt <?php if (!$my->checked_friend_requests) echo "has-requests"; ?>">
+                  <p>
+                    <i class="ri-user-received-fill small"></i>
                   </p>
-                  Friendrequests
+                  <p>Friendrequests</p>
                 </li>
-
-                <div style="border-bottom:1px solid rgba(0,0,0,.06);margin:4px 12px;height:1px;"></div>
               </div>
 
             <?php } ?>
