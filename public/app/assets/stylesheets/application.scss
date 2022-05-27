@@ -61,8 +61,10 @@
   --colour-yellow-500: #fbc02d;
   --colour-yellow-600: #f9a825;
 
-  --masonry-spacer-index: 1rem;
-  --masonry-coloumns-index: 3;
+  --quote-max-spacing: 1rem;
+  --quote-max-columns: 4;
+
+  --intern-max-columns: 3;
 }
 
 .isDark {
@@ -133,6 +135,10 @@ app {
   margin: 0 auto;
   width: 100%;
   max-width: $main-main-width;
+
+  &.wpx--intern {
+    max-width: $main-intern-width;
+  }
 }
 
 .toggleBody {
@@ -252,8 +258,8 @@ create-grid {
   width: 100%;
 
   .grid {
-    --gap: 1em;
-    --columns: var(--masonry-coloumns-index);
+    --columns: var(--quote-max-columns);
+    --gap: var(--quote-max-spacing);
     width: 100%;
     display: column;
     columns: var(--columns);

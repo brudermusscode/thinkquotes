@@ -12,19 +12,37 @@
   }
 }
 
+@media (max-width: 1540px) {
+  :root {
+    --quote-max-columns: 3;
+  }
+}
+
 @media (max-width: 1170px) {
   :root {
-    --masonry-coloumns-index: 2;
+    --quote-max-columns: 2;
+    --intern-max-columns: 2;
   }
 }
 
 @media (max-width: 800px) {
   :root {
-    --masonry-coloumns-index: 1;
+    --quote-max-columns: 1;
+    --intern-max-columns: 1;
   }
 }
 
 @media screen and (max-width: 600px) {
+  quote .tools {
+    border-radius: 0 !important;
+  }
+
+  box-model {
+    &.rounded {
+      border-radius: 0;
+    }
+  }
+
   steps,
   popup-module,
   quote .q-inr,
@@ -33,5 +51,14 @@
   popup-module .input textarea {
     width: 100%;
     border-radius: 0px !important;
+  }
+
+  // intern
+  .rank-card {
+    border-radius: 0 !important;
+
+    .social-media {
+      border-radius: 0 !important;
+    }
   }
 }

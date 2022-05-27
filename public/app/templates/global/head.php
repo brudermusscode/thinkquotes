@@ -47,7 +47,7 @@
     <script src="<?php echo $url->js; ?>/de.core.min.js"></script>
     <script src="<?php echo $url->js; ?>/users/users.functions.min.js"></script>
     <script src="<?php echo $url->js; ?>/users/users.get.min.js"></script>
-    <script src="<?php echo $url->js; ?>/quotes/quotes.get.min.js"></script>
+    <script src="<?php echo $url->js; ?>/quotes/quotes.get.js"></script>
     <script src="<?php echo $url->js; ?>/quotes/quotes.functions.min.js"></script>
 
     <!--- js > steps --->

@@ -547,8 +547,7 @@
 // ---------------
 create-grid {
   .grid {
-    --gap: 1em;
-    --columns: 3;
+    --columns: var(--intern-max-columns);
   }
 }
 

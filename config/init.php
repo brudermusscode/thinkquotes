@@ -55,6 +55,7 @@ $sroot = ROOT;
 
 # define things
 define("LOGGED", $sign->isAuthed());
+define("IMAGES", $url->img);
 
 # create dynamic return for xhr requests to manage
 # output responsively

@@ -13,7 +13,7 @@ include_once TEMPLATES . "/global/header.php";
 ?>
 
 
-<div id="main" class="wpx--main">
+<div id="main" class="wpx--intern">
 
     <div class="intern--outer">
 
@@ -30,7 +30,6 @@ include_once TEMPLATES . "/global/header.php";
                 <div class="icon right clickable">➜</div>
             </div>
         </div>
-
         <?php
 
         $getInternSections = $pdo->prepare("SELECT * FROM intern_main_sections ORDER BY id");
@@ -45,61 +44,59 @@ include_once TEMPLATES . "/global/header.php";
 
         ?>
 
-            <div class="section-label">
-                <p><?php echo $section->title; ?></p>
-            </div>
 
-            <?php
 
-            $getInternSectionsCards = $pdo->prepare("SELECT *, url AS iurl FROM intern_main_cards WHERE sid = ?");
-            $getInternSectionsCards->execute([$section->id]);
+            <div class="mb42">
 
-            foreach ($getInternSectionsCards as $card) {
+                <label for="quotes" class="posrel mb24">
+                    <div class="label-inr">
+                        <p class="ttup"><?php echo $section->title; ?></p>
+                        <p class="ttup mr18">
+                            <i class="ri-arrow-down-s-line std"></i>
+                        </p>
+                    </div>
+                </label>
 
-            ?>
+                <?php
 
-                <a href="<?php echo $url->intern; ?>/<?php echo $card->iurl; ?>">
-                    <div class="element <?php if ($card->disabled) echo "disabled"; ?>">
-                        <div class="render" style="background:url(<?php echo $url->img; ?>/<?php echo $card->image; ?>) top right / cover no-repeat;">
-                            <img onload="fadeInVisOpaBg($(this).parents().eq(1))" src="<?php echo $url->img; ?>/<?php echo $card->image; ?>">
-                        </div>
+                $getInternSectionsCards = $pdo->prepare("SELECT *, url AS iurl FROM intern_main_cards WHERE sid = ?");
+                $getInternSectionsCards->execute([$section->id]);
 
-                        <div class="ud-inr">
-                            <div class="inr-outer">
-                                <div class="tar">
-                                    <p class="tac" style="background:<?php echo $card->icon_color; ?>;position:absolute;top:-1px;right:-1px;height:52px;width:52px;border-radius: 0 0 0 12px;">
-                                        <i class="material-icons std align-mid-vert"><?php echo $card->icon; ?></i>
-                                    </p>
+                foreach ($getInternSectionsCards as $card) {
 
-                                    <div class="cl"></div>
+                ?>
 
-                                    <div class="rt rd6" style="background:rgba(255,255,255,.64);padding:24px;">
-                                        <p class="fw4 trimt" style="color:var(--colour-dark-500);text-shadow:0 0 4px white;"><?php echo $card->slogan; ?></p>
-                                        <p class="fw6 trimt" style="color:var(--colour-dark);font-size:2em;text-shadow:0 0 4px white;line-height:1.1em;"><?php echo $card->title; ?></p>
+                    <a href="<?php echo $url->intern; ?>/<?php echo $card->iurl; ?>">
+                        <div class="element <?php if ($card->disabled) echo "disabled"; ?>">
+                            <div class="render" style="background:url(<?php echo $url->img; ?>/<?php echo $card->image; ?>) top right / cover no-repeat;">
+                                <img onload="fadeInVisOpaBg($(this).parents().eq(1))" src="<?php echo $url->img; ?>/<?php echo $card->image; ?>">
+                            </div>
+
+                            <div class="ud-inr">
+                                <div class="inr-outer">
+                                    <div class="tar">
+                                        <p class="tac" style="background:<?php echo $card->icon_color; ?>;position:absolute;top:-1px;right:-1px;height:52px;width:52px;border-radius: 0 0 0 12px;">
+                                            <i class="material-icons std align-mid-vert"><?php echo $card->icon; ?></i>
+                                        </p>
+
+                                        <div class="cl"></div>
+
+                                        <div class="rt rd6" style="background:rgba(255,255,255,.64);padding:24px;">
+                                            <p class="fw4 trimt" style="color:var(--colour-dark-500);text-shadow:0 0 4px white;"><?php echo $card->slogan; ?></p>
+                                            <p class="fw6 trimt" style="color:var(--colour-dark);font-size:2em;text-shadow:0 0 4px white;line-height:1.1em;"><?php echo $card->title; ?></p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </a>
+                    </a>
 
-            <?php } ?>
+                <?php } ?>
 
-            <div class="cl"></div>
+                <div class="cl"></div>
 
-            <?php if ($counter <= ($countSections - 1)) { ?>
-
-                <div style="width:2.6em;margin:42px auto;">
-                    <i style="color:white;text-shadow: 0 1px 2px rgba(0 0 0 / 24%);" class="material-icons large">keyboard_arrow_down</i>
-                </div>
-
-        <?php
-
-            }
-        }
-
-        ?>
-
+            </div>
+        <?php } ?>
     </div>
 
 </div>

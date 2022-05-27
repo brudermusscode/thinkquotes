@@ -7,12 +7,14 @@
     $(document)
 
     // >> quotes > report
-	.on('click', '[data-action="popup:quotes,report"]', function(e) {
+    .on('click', '[data-action="popup:quotes,report"]', function () {
 
         let $t = $(this);
         let getData = $t.closest('quote').data("json");
         let qid = getData[0].qid;
         let url = dynamicHost + "/template/quotes/_report";
+
+        console.log('Requested report quote: quote_id is', parseInt(qid));
 
         // add new overlay
         overlay = Overlay.add(body, $(this), false);
@@ -21,28 +23,19 @@
             type: "POST",
             url: url,
             dataType: 'HTML',
-            data: { qid: qid },
-            success: function(data){
+            data: { quote_id: qid },
+            success: (data) => {
 
-                let ro = $('body').find('response-overlay');
-                let form = $('[data-form="quotes,add"]');
+                if(data) {
 
-                if(parseInt(data) === 0){
-
-                    showErrorModule("You need to have atleast one Quote with 20 upvotes!");
-                    closeOverlay();
-
+                    overlay.overlay.prepend(data);
                 } else {
 
-                    setTimeout(() => {
-                        overlay.overlay.append(data);
-                        fitPopupModule();
-                    }, 400)
-
+                    showErrorModule(stdErrorOutput);
                 }
 
             },
-            error: function(data){
+            error: () => {
                 showErrorModule("Some randomness just happened, try again!");
             }
         });
@@ -50,7 +43,7 @@
 	})
 
     // >> quotes > edit
-    .on('click', '[data-action="popup:quotes,edit"]', function(e) {
+    .on('click', '[data-action="popup:quotes,edit"]', function() {
 
         categoryArray = [];
         let $ro;
@@ -153,7 +146,7 @@
                     showErrorModule(stdErrorOutput);
                 }
             },
-            error: (data) => {
+            error: () => {
                 showErrorModule(stdErrorOutput);
             }
 

@@ -140,6 +140,7 @@ popup-module {
   transform: translate(-50%, -50%);
   top: 50%;
   left: 50%;
+  max-height: 100%;
   max-width: $main-popup-width;
   width: $main-width-with-padding;
 
@@ -165,18 +166,19 @@ popup-module {
     }
   }
 
+  .inr {
+    opacity: 0;
+    padding-top: 3.2em;
+
+    @extend .posrel, .tran-all-cubic, .mb124;
+
+    transition-duration: 1s;
+  }
+
   &.active {
     .inr {
       opacity: 1;
     }
-  }
-
-  .inr {
-    opacity: 0;
-
-    @extend .posrel, .tran-all-cubic;
-
-    transition-duration: 1s;
   }
 
   .input {
@@ -221,8 +223,8 @@ popup-module {
     outline: none;
     background: white;
     box-shadow: 0 3px 1px 0 rgba(0, 0, 0, 0.12);
-    font-size: 1.2em;
-    font-weight: 500;
+    font-size: 1em;
+    font-weight: 300;
 
     @extend .rd12, .tran-all;
 
@@ -236,12 +238,12 @@ popup-module {
   }
 
   textarea {
-    padding: 18px 24px;
+    padding: 1.6em 2em;
     min-height: 6em;
   }
 
   input {
-    padding: 0 24px;
+    padding: 0 2em;
     line-height: 4.2em;
 
     @extend .tac;
@@ -395,10 +397,6 @@ steps {
     line-height: 3em;
     cursor: pointer;
 
-    .active {
-      color: var(--colour-light) !important;
-    }
-
     p:first-of-type {
       color: rgba(255, 255, 255, 0.24);
     }
@@ -409,13 +407,21 @@ steps {
       transform: translateY(-50%);
       top: 50%;
     }
+
+    .active {
+      color: var(--colour-light);
+    }
   }
 
   &.dark {
-    border-bottom: 1px solid var(--colour-dark);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.24);
 
     .show-actual {
       p {
+        color: rgba(0, 0, 0, 0.38);
+      }
+
+      .active {
         color: var(--colour-dark);
       }
     }
@@ -532,6 +538,32 @@ label {
 
     @extend .tac, .posrel;
   }
+
+  &[for="intern"] {
+    .label-inr {
+      line-height: 1.6em;
+
+      @extend .disfl, .fldirrow;
+
+      p {
+        color: rgba(255, 255, 255, 1);
+
+        &:first-of-type {
+          @extend .mr12;
+        }
+      }
+    }
+
+    &.dark {
+      p {
+        color: var(--colour-dark);
+      }
+    }
+  }
+
+  .label-inr {
+    padding: 0 1.2em;
+  }
 }
 
 // radio models
@@ -608,6 +640,18 @@ box-model {
     display: block;
     width: 100%;
     background: white;
+
+    .bm-inr {
+      padding: 1.2em 2em;
+    }
+  }
+
+  &.rounded {
+    @extend .rd12;
+  }
+
+  &.shadowed {
+    @extend .mshd-1;
   }
 
   .nb-inr {
@@ -721,7 +765,8 @@ page-overlay {
     border-radius: 0px;
     height: 100%;
     width: 100%;
-    overflow: visible;
+    overflow-x: hidden;
+    overflow-y: auto;
   }
 
   close-overlay {
@@ -734,6 +779,10 @@ page-overlay {
     cursor: pointer;
 
     @extend .tran-all-cubic;
+
+    i {
+      font-size: 2em;
+    }
 
     &:hover {
       opacity: 1;

@@ -14,7 +14,7 @@ include_once TEMPLATES . "/global/header.php";
 
 ?>
 
-<div id="main" class="wpx--main">
+<div id="main" class="wpx--intern">
 
     <?php include_once TEMPLATES . "/intern/_head_tools.php"; ?>
 

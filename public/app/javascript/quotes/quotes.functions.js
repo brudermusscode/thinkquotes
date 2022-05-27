@@ -145,49 +145,47 @@ $(function(){
     // >> quotes, report
     .on("click", "[data-action='function:quotes,report']", function(){
 
-        var $t = $(this);
-        var formSerialized = $t.closest('form[data-form="quotes,report"]').serialize();
-        var getData = $t.closest('form[data-form="quotes,report"]').data("json");
-        var qid = getData[0].qid;
+        let $t = $(this);
+        let $popup_module = body.find('popup-module');
+        let form = $popup_module.find('form[data-form="quotes,report"]')
+        let formData = form.serialize();
         let url = dynamicHost + "/do/quotes/report";
 
-        var serializedData = formSerialized + "&qid=" + qid;
-
         $.ajax({
-
             url: url,
-            dataType: "text",
-            data: serializedData,
-            method: "POST",
-            success: function(data){
+            data: formData,
+            dataType: "JSON",
+            method: form.attr('method'),
+            success: (data) => {
 
-                console.log(data);
+                if(data.status) {
 
-                var dataInt = parseInt(data),
-                    error;
+                    // add new overlay
+                    overlay = Overlay.add(body, $t, false, "1001", "var(--colour-lila-200)");
 
-                switch(dataInt) {
-                    case 1:
-                        error = "Your report has been sent!";
-                        closeOverlay();
-                        break;
-                    case 2:
-                        error = "Select a report reason!";
-                        break;
-                    default:
-                        error = randomStringArray(randomErrorTexts);
+                    // set a timeout to make everything smooth looking
+                    setTimeout(() => {
 
+                        // add confirmation text to overlay
+                        // TODO: maybe add own file with some script action to let it look even cooler
+                        overlay.overlay.append('<popup-module class="active"><div class="confirmation-text centered"><p>'+data.message+'</p></div></popup-module>');
+
+                        // set another timeout to close the overlay
+                        setTimeout(() => {
+                            closeOverlay(body);
+                        }, 1200);
+                    }, 600);
+                } else {
+
+                    showErrorModule(stdErrorOutput);
                 }
 
-                showErrorModule(error);
-
             },
-            error: function(data){
+            error: () => {
                 showErrorModule('Something weird happened, please try again!');
             }
 
         });
-
     })
 
     // >> quotes, archive

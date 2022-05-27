@@ -17,7 +17,7 @@ class Overlay {
             element : null,
             loader  : null
         };
-    
+
         // set body's overflow to hidden
         $('body').addClass('ovhid');
 
@@ -50,17 +50,17 @@ class Overlay {
         // add overlay to array
         array.overlay = $overlay;
         array.element = element;
-    
+
         // set timeout function to get full fade in transition
         setTimeout(function(){
-    
+
             // if it's not a card overlay
             setTimeout(function() {
 
                 if(!card) {
 
                     // append closing area to the overlay
-                    $overlay.append('<close-overlay><i class="ri-close-circle-line" style="font-size:3em;"></i></close-overlay');
+                    $overlay.append('<close-overlay><i class="ri-close-fill"></i></close-overlay');
                 }
             }, 700);
 
@@ -81,12 +81,12 @@ class Overlay {
     }
 
     static close(append) {
-        
+
         let $overlay = append.find("page-overlay");
 
         // let overlay fade out
         $overlay.css('opacity', '0');
-    
+
         // set timeout for smooth fade out
         setTimeout(function(){
 

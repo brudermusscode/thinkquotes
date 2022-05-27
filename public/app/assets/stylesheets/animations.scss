@@ -521,12 +521,11 @@
 
 .roundedPulse {
   &.small {
-    animation: roundedPulseSmall 12s cubic-bezier(0.1, 0.01, 0.11, 0.98)
-      infinite;
+    animation: roundedPulseSmall 1s cubic-bezier(0.1, 0.01, 0.11, 0.98) infinite;
   }
 
   &.large {
-    animation: roundedPulseSmall 2s cubic-bezier(0.1, 0.01, 0.11, 0.98) infinite;
+    animation: roundedPulseSmall 1s cubic-bezier(0.1, 0.01, 0.11, 0.98) infinite;
   }
 }
 
