@@ -48,7 +48,7 @@ $get_friend_requests = $THQ->select($pdo, $q, [$my->uid], true);
       foreach ($get_friend_requests->fetch as $fr) {
         $when = $timeAgoObject->timeago($fr->timestamp); ?>
 
-        <div class="friendrequests-outer rd14 mshd-1 p12 mb12" style="background:var(--colour-dark);">
+        <div class="friendrequests-outer rd14 mshd-1 p12 mb12" style="background:var(--colour-dark);" data-id=<?php echo $fr->id; ?>>
 
 
           <div class="fr-inr" data-append="overlay">
@@ -74,7 +74,7 @@ $get_friend_requests = $THQ->select($pdo, $q, [$my->uid], true);
             <div class="options">
               <div class="disfl fldirrow">
 
-                <hellofresh data-action='function:friends,request,accept/decline' data-json='[{"frid":"<?php echo $fr->id; ?>","usid":"<?php echo $fr->sent; ?>","action":"acceptRequest"}]' class="hellofresh green rd6 icon-only mr12 circled small">
+                <hellofresh data-action='function:friends,request,answer' data-json='[{"id":"<?php echo $fr->id; ?>","user_sent_id":"<?php echo $fr->sent; ?>","action":"accept_request"}]' class="hellofresh green rd6 icon-only mr12 circled small">
                   <div class="c-ripple js-ripple">
                     <span class="c-ripple__circle"></span>
                   </div>
@@ -84,7 +84,7 @@ $get_friend_requests = $THQ->select($pdo, $q, [$my->uid], true);
                   <div class="cl"></div>
                 </hellofresh>
 
-                <hellofresh data-action='function:friends,request,accept/decline' data-json='[{"frid":"<?php echo $fr->id; ?>","usid":"<?php echo $fr->sent; ?>","action":"declineRequest"}]' class="hellofresh darkred dark rd6 icon-only circled small">
+                <hellofresh data-action='function:friends,request,answer' data-json='[{"id":"<?php echo $fr->id; ?>","user_sent_id":"<?php echo $fr->sent; ?>","action":"decline_request"}]' class="hellofresh darkred dark rd6 icon-only circled small">
                   <div class="c-ripple js-ripple">
                     <span class="c-ripple__circle"></span>
                   </div>

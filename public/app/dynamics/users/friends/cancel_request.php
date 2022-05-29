@@ -47,7 +47,7 @@ if (!$get_user->status || !$get_user->stmt->rowCount() > 0) {
 $pdo->beginTransaction();
 
 # ----------------------------------------------------------------
-# insert new request
+# delete request
 $q = "DELETE FROM users_friends_requests WHERE (sent = ? AND got = ?) OR (sent = ? AND got = ?)";
 $delete_friend_request = $THQ->insert($q, [$my->uid, $user_id, $user_id, $my->uid], true);
 
@@ -59,6 +59,8 @@ if (!$delete_friend_request->status) {
 $return->status = true;
 $return->action = 'cancel_request';
 $return->message = get_return_message_with(6);
+
+# TODO: #26 Users | Friends | Different behavior on friendrequest denial
 
 exit(json_encode($return));
 

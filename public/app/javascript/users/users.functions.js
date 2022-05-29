@@ -238,7 +238,7 @@ $(function(){
             method: "POST",
             data: dataObject,
             dataType: "JSON",
-            success: function (data) {
+            success: (data) => {
 
                 if (data.status) {
 
@@ -270,221 +270,88 @@ $(function(){
 
                 console.log('Request could not been sent: user_id:', uid);
 
-                // switch(parseInt(data)) {
-                //     case 1:
-                //         error = "You are already friends!";
-                //         break;
-                //     case 2:
-                //         error = "You can't be friends with that user!";
-                //         break;
-                //     case 3:
-                //         error = "Friendrequest canceled!";
-                //         $t.addClass("addFriend");
-                //         break;
-                //     case 4:
-                //         error = "Friendrequest sent!";
-                //         $t.addClass("cancelRequest");
-                //         break;
-                //     case 5:
-                //         error = "You are no longer friends! Too bad!";
-                //         $t.addClass("removeFriend");
-                //         closeOverlay();
-                //         togglebody();
-                //         break;
-                //     default:
-                //         error = "A wild error appeared! Fight it!";
-                // }
-
                 showErrorModule(data.message);
             },
-            error: function(data) {
-                showErrorModule("A wild error appeared! Fight it!");
+            error: (data) => {
+                console.error(data);
             }
         });
     })
 
-    .on("click", "[data-action='function:friends,request,send/cancel/remove']", function() {
-
-        let $t = $(this);
-        let getData = $t.data("json");
-        let uid = getData[0].uid;
-        let action = getData[0].action;
-        let error;
-        let serializedData = { uid: uid, action: action };
-        let $nt = $('.u-hdr').find("[data-action='function:friends,request,send/cancel/remove']");
-
-        let url = dynamicHost + "/dyn/users/friends-add.php";
-
-        switch(action) {
-            case "addFriend":
-            case "cancelFriend":
-            case "removeFriend":
-                $.ajax({
-                    url: url,
-                    method: "POST",
-                    data: serializedData,
-                    dataType: "TEXT",
-                    success: function(data) {
-
-                        $t.removeClass('addFriend, removeFriend, cancelRequest');
-
-                        let $icon = $nt.find(".material-icons-round");
-                        let $text = $nt.find(".text");
-
-                        switch(parseInt(data)) {
-                            case 1:
-                                error = "You are already friends!";
-                                break;
-                            case 2:
-                                error = "You can't be friends with that user!";
-                                break;
-                            case 3:
-                                error = "Friendrequest canceled!";
-                                $t.addClass("addFriend");
-                                break;
-                            case 4:
-                                error = "Friendrequest sent!";
-                                $t.addClass("cancelRequest");
-                                break;
-                            case 5:
-                                error = "You are no longer friends! Too bad!";
-                                $t.addClass("removeFriend");
-                                closeOverlay();
-                                togglebody();
-                                break;
-                            default:
-                                error = "A wild error appeared! Fight it!";
-                        }
-
-                        showErrorModule(error);
-
-                    },
-                    error: function(data) {
-
-                        showErrorModule("A wild error appeared! Fight it!");
-
-                    }
-
-                });
-                break;
-            case "removeFriendRequest":
-
-                let label = "Remove friend";
-                let dataIcon = "sentiment_very_dissatisfied";
-                let dataText = "Do you really want to give up this friendship?";
-                let dataAction = $t.data("action");
-                let confirmationText = "Yes, please!";
-
-                action = 'removeFriend';
-                let dataJSON = JSON.stringify([{uid: uid, action: action}]);
-
-                url = dynamicHost + "/dyn/popups/confirmation";
-
-                $.ajax({
-                    type: "POST",
-                    url: url,
-                    data: {
-                        a: label,
-                        b: dataIcon,
-                        c: dataText,
-                        d: dataAction,
-                        e: confirmationText,
-                        f: dataJSON
-                    },
-                    dataType: 'HTML',
-                    success: function (response) {
-
-                        if (parseInt(response) === 0) {
-                            showErrorModule("A wild error appeared! Fight it!");
-                        } else {
-
-                            addOverlay();
-                            togglebody();
-                            var ro = $(document).find('response-overlay');
-                            ro.empty();
-                            ro.append(response);
-                            fitPopupModule();
-
-                        }
-
-                    },
-                    error: function (response) {
-                        showErrorModule("Some random error happened, try again!");
-                    }
-                });
-
-                break;
-            default:
-                showErrorModule("A wild error appeared! Fight it!");
-        }
-    })
-
     // friendrequests >> accept/decline/ignore
-    .on("click", "[data-action='function:friends,request,accept/decline']", function() {
+    .on("click", "[data-action='function:friends,request,answer']", function() {
 
-        let url = dynamicHost + "/dyn/users/friends-requests-actions.php";
         let $t = $(this);
-        let $fr = $t.closest('.fr-inr');
-        let $frOuter = $fr.closest(".friendrequests-outer");
-        let frHeight = $fr.outerHeight();
-        let getData = $t.data("json");
-        let frid = getData[0].frid;
-        let usid = getData[0].usid;
-        let action = getData[0].action;
-        let dataA = { frid: frid, usid: usid, action: action };
-        let error;
+        let $request_outer = $t.closest('.friendrequests-outer');
+        let get_data = $t.data('json');
+        let action = get_data[0].action;
+        let id = get_data[0].id;
+        let user_sent_id = get_data[0].user_sent_id;
+        let dataString = { id: id, uid: user_sent_id };
+
+        let url;
+
+        switch (action) {
+            case 'accept_request':
+                url = dynamicHost + '/do/users/friends/accept_request';
+                break;
+            case 'decline_request':
+                url = dynamicHost + '/do/users/friends/cancel_request'
+                break;
+        }
+
+        console.log('Init answering friend request. Requesting user_id:', user_sent_id);
+        console.log('URL is:', url);
 
         $.ajax({
 
-        url: url,
-        method: "POST",
-        data: dataA,
-        dataType: "TEXT",
-        beforeSend: function() {
-            showErrorModule("Verifying...");
-            $fr.css({"height":frHeight + "px"});
-        },
-        success: function(data) {
+            url: url,
+            data: dataString,
+            method: "POST",
+            dataType: "JSON",
+            success: (data) => {
 
-            switch(data){
-                case "1":
-                    error = "You are now friends!";
-                    $fr.addClass('hidden').css({"height":"0px"});
-                    setTimeout(function(){
-                        $fr.remove();
-                    }, 400);
-                    break;
-                case "2":
-                    $fr.addClass('hidden').css({"height":"0px"});
-                    setTimeout(function(){
-                        $fr.remove();
-                    }, 400);
-                    error = "Friendrequest declined!";
-                    // ask for ignore friendrequests from this user
-                    break;
-                case "3":
-                    error = "You won't get any friendrequests from this user!";
-                    break;
-                default:
-                    error = "A wild error appeared! Fight it!";
-            }
+                console.log('Ajax done');
 
-            showErrorModule(error);
+                if (data.status) {
 
-        },
+                console.log('Status is true');
 
-        // kinda stinks with timeout
-        complete: function() {
-            setTimeout(function(){
-                if($frOuter.children().length < 1) {
-                    url = dynamicHost + "/dyn/content/friends-requests-empty.php";
-                    $frOuter.load(url);
+                    // delete container with request
+                    $request_outer.remove();
+
+                    // switch through action cases for different behavior
+                    switch (data.action) {
+                        case 'accept_request':
+
+                            console.log('Friendrequest has been accepted!');
+                            break;
+                        case 'cancel_request':
+
+
+
+                            console.log('Friendrequest has been canceled!');
+                            break;
+                    }
+                    return;
                 }
-            }, 400);
-        },
-        error: function(data) {
-            showErrorModule("A wild error appeared! Fight it!");
-        }
+
+                console.log('Status is false. Something went wrong');
+            },
+
+            // kinda stinks with timeout
+            // complete: () => {
+            //     setTimeout(function(){
+            //         if($frOuter.children().length < 1) {
+            //             url = dynamicHost + "/dyn/content/friends-requests-empty.php";
+            //             $frOuter.load(url);
+            //         }
+            //     }, 400);
+            // },
+
+            error: (data) => {
+                console.error(data);
+            }
 
         });
     })

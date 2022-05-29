@@ -32,10 +32,10 @@ if (!$get_friend_request->status || !$get_friend_request->stmt->rowCount() < 1) 
 $q =
   "SELECT id
   FROM users_friends uf
-  WHERE uf.uid1 = CASE
-    WHEN uf.uid1 = ?
-      THEN ? AND uf.uid2 = ?
-      ELSE ? AND uf.uid2 = ?
+  WHERE uf.user_1_id = CASE
+    WHEN uf.user_1_id = ?
+      THEN ? AND uf.user_2_id = ?
+      ELSE ? AND uf.user_2_id = ?
     END
   LIMIT 1";
 $get_friends = $THQ->select($pdo, $q, [$my->uid, $user_id, $my->uid, $my->uid, $user_id], false);

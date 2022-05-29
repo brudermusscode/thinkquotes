@@ -22,7 +22,7 @@ class Friends extends Thinkquotes
         global $pdo;
         $friends = [];
 
-        $getAllFriends = $pdo->prepare("SELECT CASE WHEN uid1 = ? THEN uid2 ELSE uid1 END AS uid FROM users_friends WHERE uid1 = ? OR uid2 = ?");
+        $getAllFriends = $pdo->prepare("SELECT CASE WHEN user_1_id = ? THEN user_2_id ELSE user_1_id END AS uid FROM users_friends WHERE user_1_id = ? OR user_2_id = ?");
         $getAllFriends->execute([$someid, $someid, $someid]);
 
         foreach ($getAllFriends->fetchAll() as $gfr) {
@@ -41,7 +41,7 @@ class Friends extends Thinkquotes
         global $pdo;
         $acfr = (array) [];
 
-        $getAllFriendsofFriends = $pdo->prepare("SELECT CASE WHEN uid1 = ? THEN uid2 ELSE uid1 END AS uid FROM users_friends WHERE uid1 = ? OR uid2 = ?");
+        $getAllFriendsofFriends = $pdo->prepare("SELECT CASE WHEN user_1_id = ? THEN user_2_id ELSE user_1_id END AS uid FROM users_friends WHERE user_1_id = ? OR user_2_id = ?");
         $getAllFriendsofFriends->execute([$someid, $someid, $someid]);
 
         foreach ($getAllFriendsofFriends->fetchAll() as $gfrofr) {
