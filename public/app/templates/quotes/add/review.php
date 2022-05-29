@@ -53,9 +53,7 @@ if (!$get_quote->stmt->rowCount() > 0) {
             foreach ($get_quote->fetch as $elementInclude) {
 
                 include_once TEMPLATES . '/quotes/_quote.php';
-            }
-
-            ?>
+            } ?>
         </div>
 
     </form>

@@ -212,7 +212,7 @@ $(function(){
     })
 
 
-    // friendsrequests >> send
+    // friendsrequests >> send, cancel
     .on("click", "[data-action='function:friends,request,actions']", function () {
         let $t = $(this);
         let getData = $t.data("json");
@@ -517,6 +517,30 @@ $(function(){
         if(!sendChanges) {
             usersSaveSettings(f);
         }
+
+    })
+
+    // check notifications >> main menu
+    .on("click", 'usermainmenu', function() {
+
+        let $t = $(this);
+        let $notify_dot = $t.find('[data-element="notify-dot"]');
+
+        url = dynamicHost + "/do/users/check_notifications/main_menu";
+
+        $.ajax({
+            url: url,
+            dataType: "JSON",
+            method: "POST",
+            success: (data) => {
+                if (data.status) {
+                    $notify_dot.remove();
+                }
+            },
+            error: () => {
+                showErrorModule("Oopsie");
+            }
+        });
 
     });
 

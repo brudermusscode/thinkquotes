@@ -4,195 +4,190 @@ $(function () {
 
     $(document)
 
-    // sign in
-    .on("click", "[data-action='popup:login']", function (e) {
+        // sign in
+        .on("click", "[data-action='popup:login']", function () {
 
-        // add new overlay
-        overlay = Overlay.add(body, $(this), false);
+            // add new overlay
+            overlay = Overlay.add(body, $(this), false);
 
-        // set url for xhr
-        url = dynamicHost + "/template/popups/_login";
+            // set url for xhr
+            url = dynamicHost + "/template/popups/_login";
 
-        $.ajax({
-            url: url,
-            type: "POST",
-            dataType: 'HTML',
-            success: function (data) {
+            $.ajax({
+                url: url,
+                type: "POST",
+                dataType: 'HTML',
+                success: function (data) {
 
-                setTimeout(function() {
+                    setTimeout(function () {
 
-                    overlay.overlay.append(data);
-                }, 700);
-            },
-            error: function (data) {
-                console.error(data);
-            }
-        });
-    })
+                        overlay.overlay.append(data);
+                    }, 700);
+                },
+                error: function (data) {
+                    console.error(data);
+                }
+            });
+        })
 
-    // sign up
-    .on("click", "[data-action='popup:signup']", function (e) {
+        // sign up
+        .on("click", "[data-action='popup:signup']", function () {
 
-        // add new overlay
-        overlay = Overlay.add(body, $(this), false);
+            // add new overlay
+            overlay = Overlay.add(body, $(this), false);
 
-        // set url for xhr
-        url = dynamicHost + "/template/popups/_signup";
+            // set url for xhr
+            url = dynamicHost + "/template/popups/_signup";
 
-        $.ajax({
-            url: url,
-            type: "POST",
-            dataType: 'HTML',
-            success: function (data) {
+            $.ajax({
+                url: url,
+                type: "POST",
+                dataType: 'HTML',
+                success: function (data) {
 
-                setTimeout(function() {
-                    overlay.overlay.append(data);
-                }, 700);
-            },
-            error: function (data) {
-                console.error(data);
-            }
-        });
-    })
+                    setTimeout(function () {
+                        overlay.overlay.append(data);
+                    }, 700);
+                },
+                error: function (data) {
+                    console.error(data);
+                }
+            });
+        })
 
-    // sign >> out
-    .on("click", "[data-action='popup:signout']", function (e) {
+        // sign >> out
+        .on("click", "[data-action='popup:signout']", function () {
 
-        let label = "Logout",
-            icon = "contact_support",
-            text = "You want to go already?",
-            dataAction = "function:sign,out",
-            confirmationText = "Yes, let me go!";
+            let label = "Logout",
+                icon = "contact_support",
+                text = "You want to go already?",
+                dataAction = "function:sign,out",
+                confirmationText = "Yes, let me go!";
 
-        let url = dynamicHost + "/dyn/popups/confirmation";
+            let url = dynamicHost + "/dyn/popups/confirmation";
 
-        $.ajax({
-            type: "POST",
-            url: url,
-            data: {
-                a: label,
-                b: icon,
-                c: text,
-                d: dataAction,
-                e: confirmationText
-            },
-            dataType: 'HTML',
-            success: function (response) {
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: {
+                    a: label,
+                    b: icon,
+                    c: text,
+                    d: dataAction,
+                    e: confirmationText
+                },
+                dataType: 'HTML',
+                success: function (response) {
 
-                var errorModuleOutput = randomStringArray(randomErrorTexts);
+                    var errorModuleOutput = randomStringArray(randomErrorTexts);
 
-                if (parseInt(response) === 0) {
+                    if (parseInt(response) === 0) {
 
-                    showErrorModule(errorModuleOutput);
-                    window.location.replace("./404");
+                        showErrorModule(errorModuleOutput);
+                        window.location.replace("./404");
 
-                } else {
+                    } else {
 
-                    addOverlay();
-                    togglebody();
-                    var ro = $(document).find('response-overlay');
-                    ro.empty();
-                    ro.append(response);
-                    fitPopupModule();
+                        addOverlay();
+                        togglebody();
+                        var ro = $(document).find('response-overlay');
+                        ro.empty();
+                        ro.append(response);
+                        fitPopupModule();
 
+                    }
+
+                },
+                error: function (response) {
+                    showErrorModule("Some random error happened, try again!");
+                }
+            });
+
+        })
+
+        // friends >> requests
+        .on("click", '[data-action="popup:users,friendrequests"]', function () {
+
+            let $t = $(this);
+
+            // add new overlay
+            overlay = Overlay.add(body, $t, false);
+
+            let url = dynamicHost + "/template/popups/_friend_requests";
+
+            $.ajax({
+
+                url: url,
+                method: "POST",
+                dataType: "HTML",
+                success: (data) => {
+
+                    setTimeout(function () {
+
+                        overlay.overlay.append(data);
+                    }, 700);
+
+                },
+                error: (data) => {
+                    console.error(data);
                 }
 
-            },
-            error: function (response) {
-                showErrorModule("Some random error happened, try again!");
-            }
-        });
+            });
 
-    })
+        })
 
-    // friends >> requests
-    .on("click", '[data-action="popup:users,friendrequests"]', function () {
+        // settings
+        .on("click", '[data-action="popup:users,settings"]', function () {
 
-        let url = dynamicHost + "/dyn/popups/users-friendsrequests";
-        let error;
-        let $t = $(this);
+            let url = dynamicHost + "/dyn/popups/users-settings";
+            let error;
+            let $t = $(this);
+            let $ro;
 
-        $.ajax({
+            $.ajax({
 
-            url: url,
-            method: "POST",
-            dataType: "TEXT",
-            success: function (data) {
+                url: url,
+                method: "POST",
+                dataType: "TEXT",
+                success: function (data) {
 
-                if (parseInt(data) !== 0) {
+                    if (parseInt(data) !== 0) {
 
-                    addOverlayAppendData(data);
-                    $t.removeClass('hasRequest');
+                        addOverlayAppendData(data);
+                        $ro = $(document).find('response-overlay');
+                        $ro.css({ "background": "var(--colour-dark)" });
 
-                } else {
+                        usersSettingsPage('privacy');
 
-                    togglebody();
-                    closeOverlay();
+
+                    } else {
+
+                        togglebody();
+                        closeOverlay();
+                        showErrorModule("A wild error appeared! Fight it!");
+
+                    }
+
+                },
+                error: function (data) {
                     showErrorModule("A wild error appeared! Fight it!");
-
                 }
 
-            },
-            error: function (data) {
-                showErrorModule("A wild error appeared! Fight it!");
+            });
+
+        })
+
+        // settings >> switch pages
+        .on("click", '[data-action="users:settings,page"]', function () {
+
+            let $t = $(this);
+            let page = $t.data('settings-page');
+
+            if (!$t.hasClass('isActive')) {
+                usersSettingsPage(page);
             }
 
         });
-
-    })
-
-    // settings
-    .on("click", '[data-action="popup:users,settings"]', function () {
-
-        let url = dynamicHost + "/dyn/popups/users-settings";
-        let error;
-        let $t = $(this);
-        let $ro;
-
-        $.ajax({
-
-            url: url,
-            method: "POST",
-            dataType: "TEXT",
-            success: function (data) {
-
-                if (parseInt(data) !== 0) {
-
-                    addOverlayAppendData(data);
-                    $ro = $(document).find('response-overlay');
-                    $ro.css({ "background":"var(--colour-dark)" });
-
-                    usersSettingsPage('privacy');
-
-
-                } else {
-
-                    togglebody();
-                    closeOverlay();
-                    showErrorModule("A wild error appeared! Fight it!");
-
-                }
-
-            },
-            error: function (data) {
-                showErrorModule("A wild error appeared! Fight it!");
-            }
-
-        });
-
-    })
-
-    // settings >> switch pages
-    .on("click", '[data-action="users:settings,page"]', function(){
-
-        let $t = $(this);
-        let page = $t.data('settings-page');
-
-        if(!$t.hasClass('isActive')) {
-            usersSettingsPage(page);
-        }
-
-    });
 
 });
 

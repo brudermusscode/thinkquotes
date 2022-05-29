@@ -110,6 +110,9 @@ if (!$update_users_settings->status) {
 }
 
 # ----------------------------------------------------------------
+
+# TODO: #25 "decline friendrequest" shown when declining and resending. Should be "Cancel friendrequest"
+
 $return->status = true;
 $return->action = 'request';
 $return->message = get_return_message_with(6);

@@ -126,26 +126,23 @@ class Sign extends Thinkquotes
 
         // get user data and compare to current session data
         $query =
-            "SELECT *, users.id AS id
+            "SELECT *, u.id uid, us.id us_id, us.uid us_uid
             FROM users u
             JOIN users_settings us ON u.id = us.uid
-            WHERE u.id = ?";
+            WHERE u.id = ? LIMIT 1";
         $stmt = $this->select($this->pdo, $query, [$this->session->id]);
 
         # return false if statement fails
         if (!$stmt->status) return false;
 
-        # objectify cookie-session data
-        $serial = (object) [
-            "serial" => $this->cookies->SER,
-            "token" => $this->cookies->TOK
-        ];
-
         // fetch user information
         $user = $stmt->fetch;
 
-        // return new createSession with user-object
-        return $this->createSession($user, $serial, true);
+        foreach ($user as $u => $k) {
+            $_SESSION[$u] = $k;
+        }
+
+        return true;
     }
 
     // logout

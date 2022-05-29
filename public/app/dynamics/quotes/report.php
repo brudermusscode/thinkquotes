@@ -6,8 +6,8 @@ require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/config/init.php';
 if (empty($_POST["quote_id"]) || empty($_POST["report_reason"]) || empty($_POST["report_comment"]) || !LOGGED) exit(json_encode($return));
 
 (int) $quote_id = $_POST["quote_id"];
-(string) $report_reason = $_POST["report_reason"];
-(string) $report_comment = $_POST["report_comment"];
+(string) $report_reason = htmlspecialchars($_POST["report_reason"]);
+(string) $report_comment = htmlspecialchars($_POST["report_comment"]);
 
 # get quote by qid
 $query = "SELECT COUNT(*) FROM quotes WHERE id = ?";

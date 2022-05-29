@@ -521,7 +521,7 @@
 
 .roundedPulse {
   &.small {
-    animation: roundedPulseSmall 1s cubic-bezier(0.1, 0.01, 0.11, 0.98) infinite;
+    animation: roundedPulseSmall 8s cubic-bezier(0.1, 0.01, 0.11, 0.98) infinite;
   }
 
   &.large {
@@ -531,16 +531,19 @@
 
 @keyframes roundedPulseSmall {
   0% {
-    opacity: 0;
+    opacity: 1;
     height: 100%;
+    border-radius: 12px;
+    background: var(--colour-red);
   }
 
-  50% {
-    opacity: 1;
-    height: calc(100% + 20px);
-    width: calc(100% + 20px);
-    top: -10px;
-    left: -10px;
+  10% {
+    opacity: 0;
+    height: calc(100% + 24px);
+    width: calc(100% + 24px);
+    top: -12px;
+    left: -12px;
+    border-radius: 18px;
   }
 
   100% {
@@ -549,6 +552,7 @@
     width: 100%;
     top: 0;
     left: 0;
+    border-radius: 12px;
   }
 }
 

@@ -1,10 +1,4 @@
-<?php
-
-if (!$is_page) {
-  header("location: /");
-}
-
-?>
+<?php if (!$is_page) header(NOT_FOUND); ?>
 
 <usermainmenu>
   <div class="disfl fldirrow">
@@ -12,7 +6,7 @@ if (!$is_page) {
     <div data-react="check:friends,request" class="posrel" style="z-index:2;" travelhereboy>
 
       <?php if (!$my->checked_friend_requests) { ?>
-        <div class="notify-dot absolute right">
+        <div data-element="notify-dot" class="notify-dot absolute right">
           <?php echo $get_friend_requests->stmt->rowCount(); ?>
         </div>
       <?php } ?>
@@ -23,7 +17,7 @@ if (!$is_page) {
         </div>
 
         <p class="lt posabs alignmiddle">
-          <i class="material-icons std">more_vert</i>
+          <i style=font-size:1.6em; class="ri-user-smile-fill"></i>
         </p>
 
         <div class="cl"></div>
@@ -75,7 +69,7 @@ if (!$is_page) {
 
               <li class="trimt" onclick="window.location.replace('/d/<?php echo $my->username; ?>');">
                 <p>
-                  <i class="ri-eye-off-fill small"></i>
+                  <i class="ri-scissors-fill small"></i>
                 </p>
                 <p>Drafts</p>
               </li>

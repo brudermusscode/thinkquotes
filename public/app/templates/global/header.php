@@ -10,13 +10,12 @@ if (LOGGED) {
     $has_friend_requests = false;
     $get_friend_requests = $Friends->getFriendRequests($my->uid);
 
-    if ($get_friend_requests->status) $has_friend_requests = true;
+    if ($get_friend_requests->stmt->rowCount() > 0) $has_friend_requests = true;
 }
 
 ?>
 
 <header id="main-hdr" class="posrel">
-
     <script>
         $(document).ready(function() {
 
@@ -34,7 +33,6 @@ if (LOGGED) {
     </script>
 
     <div class="inr wpx--main posrel">
-
         <div class="middle-logo--outer posabs alignmiddle" style="z-index:100;">
 
             <?php if (LOGGED) { ?>
@@ -61,12 +59,10 @@ if (LOGGED) {
                 </div>
 
             <?php } ?>
-
         </div>
 
         <div class="lt-content">
             <div data-structure="header:base-menu" class="base-menu disfl fldirrow">
-
                 <div class="bm single rounded <?php if ($page === "index") {
                                                     echo "active";
                                                 } ?>" onclick="window.location.replace('<?php echo $url->main; ?>');">
@@ -88,12 +84,10 @@ if (LOGGED) {
                         <i class="ri-github-fill std"></i>
                     </p>
                 </div>
-
             </div>
         </div>
 
         <div class="rt-content">
-
             <div class="disfl fldirrow rt">
 
                 <?php
@@ -118,8 +112,6 @@ if (LOGGED) {
                     </hellofresh>
 
                 <?php } ?>
-
-
             </div>
 
             <div class="cl"></div>
@@ -131,11 +123,10 @@ if (LOGGED) {
 </header>
 
 <?php if ($page === "intern") { ?>
-    <div style="height:190px;"></div>
-<?php } else { ?>
-    <div style="height:150px;"></div>
-<?php } ?>
 
-<?php if ($page === "intern") { ?>
+    <div style="height:190px;"></div>
     <header id="intern-hdr"></header>
+<?php } else { ?>
+
+    <div style="height:132px;"></div>
 <?php } ?>

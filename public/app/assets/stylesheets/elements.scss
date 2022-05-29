@@ -116,6 +116,7 @@ pulse {
   line-height: $sizing;
   width: $sizing;
   color: var(--colour-light);
+  z-index: 1;
 
   @extend .tac;
 
@@ -128,6 +129,12 @@ pulse {
 
     &.left {
       left: 0;
+    }
+
+    &.centered {
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
     }
   }
 }

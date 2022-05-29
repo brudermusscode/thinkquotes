@@ -28,8 +28,6 @@ $stmt->execute();
 $systemInformation = $stmt->fetch();
 
 $main = (object) [
-
-  # main settings
   "name" => $systemInformation->name,
   "year" => $systemInformation->year,
   "maintenance" => $systemInformation->maintenance,
@@ -59,14 +57,21 @@ define("IMAGES", $url->img);
 
 # create dynamic return for xhr requests to manage
 # output responsively
-$return = (object) [
-  "status" => false,
-  "message" => "A wild error appeared, fight it!",
-  "init" => [
-    "request" => $_REQUEST,
-    "session" => $_SESSION
-  ]
-];
+if ($dev_env) {
+  $return = (object) [
+    "status" => false,
+    "message" => "A wild error appeared, fight it!",
+    "init" => [
+      "request" => $_REQUEST,
+      "session" => $_SESSION
+    ]
+  ];
+} else {
+  $return = (object) [
+    "status" => false,
+    "message" => "A wild error appeared, fight it!"
+  ];
+}
 
 # handle page behavior if maintenance is turned on
 # TODO: outsource into class and just call a function
@@ -112,9 +117,5 @@ if (LOGGED) {
   # objectifcy $_SESSION and put into $my for shoter use
   $my = (object) $_SESSION;
 
-  # define UID for short use
-  # define("UID", $my->uid);
   define("ADMIN", $my->admin);
-  # define("0", false);
-  # define("1", true);
 }
