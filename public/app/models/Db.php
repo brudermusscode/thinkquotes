@@ -1,6 +1,6 @@
 <?php
 
-include_once dirname($_SERVER['DOCUMENT_ROOT']) . "/config/definitions.php";
+include_once $_SERVER['DOCUMENT_ROOT'] . "/config/definitions.php";
 
 class Db
 {
@@ -8,7 +8,7 @@ class Db
     public function getEnvironment()
     {
 
-        $env_path = PREROOT . '/config/db/environment';
+        $env_path = ROOT . '/config/db/environment';
 
         # check if environment-file exists
         if (!file_exists($env_path))
@@ -32,7 +32,7 @@ class Db
         $environment = $this->getEnvironment();
 
         # check current environment and get correct connection.json
-        $connection_path = PREROOT . "/config/db/connection." . $environment . ".json";
+        $connection_path = ROOT . "/config/db/connection." . $environment . ".json";
 
         # validate file existence
         if (!file_exists($connection_path))

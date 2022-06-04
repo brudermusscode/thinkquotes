@@ -1,13 +1,15 @@
 <div class="quote-placeholder">
-  <div data-element="quote:grid" class="inr quote-grid opacityPulse">
-    <quote class="rd6" style="height:4em;background:var(--colour-red);"></quote>
-    <quote class="rd6 mt12" style="height:9em;background:var(--colour-red);"></quote>
-    <quote class="rd6 mt12" style="height:6em;background:var(--colour-red);"></quote>
-    <quote class="rd6 mt12" style="height:6em;background:var(--colour-red);"></quote>
-    <quote class="rd6 mt12" style="height:12em;background:var(--colour-red);"></quote>
-    <quote class="rd6 mt12" style="height:3em;background:var(--colour-red);"></quote>
-    <quote class="rd6 mt12" style="height:7em;background:var(--colour-red);"></quote>
-    <quote class="rd6 mt12" style="height:9em;background:var(--colour-red);"></quote>
-    <quote class="rd6 mt12" style="height:2em;background:var(--colour-red);"></quote>
-  </div>
+  <create-grid class="mb32">
+    <div data-element="quote:grid" class="inr grid">
+      <quote class="rd6 opacityPulse" style="height:6em;background:white;opacity:.4;"></quote>
+      <quote class="rd6 mt12 opacityPulse" style="height:9em;background:white;opacity:.4;"></quote>
+      <quote class="rd6 mt12 opacityPulse" style="height:6em;background:white;opacity:.4;"></quote>
+      <quote class="rd6 mt12 opacityPulse" style="height:7em;background:white;opacity:.4;"></quote>
+      <quote class="rd6 mt12 opacityPulse" style="height:12em;background:white;opacity:.4;"></quote>
+      <quote class="rd6 mt12 opacityPulse" style="height:6em;background:white;opacity:.4;"></quote>
+      <quote class="rd6 mt12 opacityPulse" style="height:7em;background:white;opacity:.4;"></quote>
+      <quote class="rd6 mt12 opacityPulse" style="height:9em;background:white;opacity:.4;"></quote>
+      <quote class="rd6 mt12 opacityPulse" style="height:8em;background:white;opacity:.4;"></quote>
+    </div>
+  </create-grid>
 </div>

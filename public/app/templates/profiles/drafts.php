@@ -2,9 +2,10 @@
 
 $is_page = true;
 $page = "profiles:drafts";
+$has_quotes = true;
 
 # require database connection
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/config/init.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/config/init.php';
 
 # include logic processing
 include_once TEMPLATES . "/profiles/_logic.php";
@@ -34,7 +35,8 @@ include_once TEMPLATES . "/profiles/_menu.php";
     </div>
   </label>
 
-  <create-grid class="mb32" data-load="content:quotes" data-json='[{"page":"profiles:drafts","limit":"20","uid":"<?php echo $user->uid; ?>"}]'>
+  <create-grid class="mb32" data-load="content:quotes"
+    data-json='[{"page":"profiles:drafts","limit":"20","uid":"<?php echo $user->uid; ?>"}]'>
     <div class="actual"></div>
     <?php include_once TEMPLATES . "/quotes/_loading.php"; ?>
   </create-grid>

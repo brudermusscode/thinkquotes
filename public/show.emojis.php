@@ -3,7 +3,7 @@ $is_page = true;
 $page = "index";
 
 # require database connection
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/config/init.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/config/init.php';
 
 // Head section
 include_once TEMPLATES . "/global/head.php";

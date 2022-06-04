@@ -14,8 +14,6 @@
         let qid = getData[0].qid;
         let url = dynamicHost + "/template/quotes/_report";
 
-        console.log('Requested report quote: quote_id is', parseInt(qid));
-
         // add new overlay
         overlay = Overlay.add(body, $(this), false);
 

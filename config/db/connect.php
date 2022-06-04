@@ -1,8 +1,8 @@
 <?php
 
 # get database connection class
-include_once dirname($_SERVER['DOCUMENT_ROOT']) . "/config/definitions.php";
-include_once ROOT . "/app/models/Db.php";
+include_once $_SERVER['DOCUMENT_ROOT'] . "/config/definitions.php";
+include_once ROOT . "/public/app/models/Db.php";
 
 # create new dataabase connection
 $db = new Db;

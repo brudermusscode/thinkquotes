@@ -22,8 +22,15 @@ quote {
     z-index: 1;
     cursor: pointer;
 
+    .author {
+      color: var(--colour-dark);
+      font-weight: 600;
+      font-size: 1em;
+    }
+
     .q-text {
       color: var(--colour-dark);
+      line-height: 1.4em;
     }
   }
 

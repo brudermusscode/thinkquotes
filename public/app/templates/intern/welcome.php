@@ -4,7 +4,7 @@ $is_page = true;
 $page = "intern";
 
 // mysql database
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/config/init.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/config/init.php";
 
 // Head section
 include_once TEMPLATES . "/global/head.php";
@@ -68,8 +68,8 @@ include_once TEMPLATES . "/global/header.php";
 
                     <a href="<?php echo $url->intern; ?>/<?php echo $card->iurl; ?>">
                         <div class="element <?php if ($card->disabled) echo "disabled"; ?>">
-                            <div class="render" style="background:url(<?php echo $url->img; ?>/<?php echo $card->image; ?>) top right / cover no-repeat;">
-                                <img onload="fadeInVisOpaBg($(this).parents().eq(1))" src="<?php echo $url->img; ?>/<?php echo $card->image; ?>">
+                            <div class="render" style="background:url(<?php echo IMAGE; ?>/<?php echo $card->image; ?>) top right / cover no-repeat;">
+                                <img onload="fadeInVisOpaBg($(this).parents().eq(1))" src="<?php echo IMAGE; ?>/<?php echo $card->image; ?>">
                             </div>
 
                             <div class="ud-inr">

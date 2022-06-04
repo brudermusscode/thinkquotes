@@ -1,7 +1,7 @@
 <?php
 
 # require database connection
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/config/init.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/config/init.php";
 
 if (!isset($_POST["page"], $_POST["limit"]))
   exit('0');
@@ -38,7 +38,7 @@ $select_quotes = $THQ->select($pdo, $query, [$query_limit], true);
   # no quotes content
   if ($select_quotes->stmt->rowCount() < 1) {
 
-    include ROOT . "/app/templates/quotes/_empty.php";
+    include ROOT . "/public/app/templates/quotes/_empty.php";
   } else {
 
     # querry all quotes
@@ -47,7 +47,7 @@ $select_quotes = $THQ->select($pdo, $query, [$query_limit], true);
       $pure = false;
 
       # include quote card
-      include ROOT . "/app/templates/quotes/_quote.php";
+      include ROOT . "/public/app/templates/quotes/_quote.php";
     }
   }
 

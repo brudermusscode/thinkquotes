@@ -1,7 +1,7 @@
 <?php
 
 # require database connection
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/config/init.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/config/init.php';
 
 if (empty($_POST["quote_id"]) || empty($_POST["report_reason"]) || empty($_POST["report_comment"]) || !LOGGED) exit(json_encode($return));
 

@@ -10,9 +10,11 @@ volumes:
 
 services:
   app:
+    container_name: thinkquotes_app
     build:
       context: .
       dockerfile: Dockerfile.dev
+    image: ramastin/thinkquotes:latest
     volumes:
       - .:/var/www/thinkquotes.de
     environment:
@@ -26,6 +28,7 @@ services:
       - mysql
 
   mysql:
+    container_name: mysql
     image: mariadb:latest
     restart: always
     environment:
@@ -41,6 +44,7 @@ services:
       - dev
 
   pma:
+    container_name: pma
     image: phpmyadmin:latest
     environment:
       PMA_HOST: mysql

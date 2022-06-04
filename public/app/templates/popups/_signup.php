@@ -1,11 +1,11 @@
 <?php
 
-include_once dirname($_SERVER['DOCUMENT_ROOT']) . "/config/init.php";
+include_once $_SERVER['DOCUMENT_ROOT'] . "/config/init.php";
 
 ?>
 
 <div class="signup-container">
-  <div class="cover-image" style="background:url(<?php echo $url->img; ?>/flat/meditating-girl.jpg) center no-repeat;background-size:cover;">
+  <div class="cover-image" style="background:url(<?php echo IMAGE; ?>/flat/meditating-girl.jpg) center no-repeat;background-size:cover;">
     <div class="cover-pulse"></div>
 
     <?php if (!$dev_env) { ?>

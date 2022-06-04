@@ -1,13 +1,13 @@
 <?php
 
 # require database connection
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/config/init.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/config/init.php';
 
 ?>
 
 <div class="signup-container">
 
-  <div class="cover-image" style="background:url(<?php echo $url->img; ?>/flat/5184247.jpg) center no-repeat;background-size:cover;">
+  <div class="cover-image" style="background:url(<?php echo IMAGE; ?>/flat/5184247.jpg) center no-repeat;background-size:cover;">
     <div class="cover-pulse"></div>
 
     <content-card class="signup">

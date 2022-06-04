@@ -1,7 +1,7 @@
 <?php
 
 # require database connection
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/config/init.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/config/init.php';
 
 // exit script by executing the validation function
 exit(validate_sign_in_code($pdo, $return, $sign, $THQ));

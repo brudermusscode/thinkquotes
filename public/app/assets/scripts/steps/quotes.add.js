@@ -102,14 +102,10 @@ $(() => {
     // ! add quote has been clicked!
     .on("click", '[data-action="popup:quotes,add"]', function() {
 
-        console.log('Adding quote initialized: quote_id is', draftObject.quote_id);
-
         url = dynamicHost + "/template/quotes/add/author";
 
         // add new overlay
         overlay = Overlay.add(body, $(this), false);
-
-        console.log('Loading start template...');
 
         $.ajax({
             url: url,
@@ -122,8 +118,6 @@ $(() => {
                     // append the data which came from the xhr request
                     // to the overlay
                     overlay.overlay.append(data);
-
-                    console.log('Done!');
 
                     // assign popup module and steps layer
                     $popupModule = overlay.overlay.find("popup-module");
@@ -157,8 +151,6 @@ $(() => {
     // ? step 1: add the author
     .on("submit", "[data-form='quotes:add,author']", function () {
 
-        console.log('Step', 1, 'initilized: quote_id is', draftObject.quote_id);
-
         url = dynamicHost + "/do/quotes/add/author";
         formData = new FormData(this);
 
@@ -177,14 +169,10 @@ $(() => {
             processData: false,
             success: (data) => {
 
-                console.log('Step', 1, 'ajax done: quote_id is', data.quote_id);
-
                 if (data.status) {
 
                     // reset draftObject
                     draftObject = {};
-
-                    console.log('Step', 1, 'draftObject:', draftObject);
 
                     // toggle off steps and hide
                     toggleActive([
@@ -196,8 +184,6 @@ $(() => {
 
                         // add the quote id to the draft object
                         draftObject.quote_id = data.quote_id;
-
-                        console.log('Step', 1, 'quote_id updated: is', draftObject.quote_id);
 
                         // prepare url for getting new template
                         url = dynamicHost + '/template/quotes/add/quote';
@@ -232,8 +218,6 @@ $(() => {
     // ? step 2: add the quote
     .on("submit", "[data-form='quotes:add,quote']", function() {
 
-        console.log('Step', 2, 'initilized: quote_id is', draftObject.quote_id);
-
         // prepare ajax url
         url = dynamicHost + "/do/quotes/add/quote";
 
@@ -258,14 +242,10 @@ $(() => {
             processData: false,
             success: (data) => {
 
-                console.log('Step', 2, 'ajax done: quote_id is', draftObject.quote_id);
-
                 if (data.status) {
 
                     // reset draft object
                     draftObject = {};
-
-                    console.log('Step', 2, 'draftObject:', draftObject);
 
                     // make popup module hide
                     toggleActive([
@@ -278,8 +258,6 @@ $(() => {
 
                         // add the quote id to the draft object
                         draftObject.quote_id = data.quote_id;
-
-                        console.log('Step', 2, 'quote_id updated: is', draftObject.quote_id);
 
                         // prepare url for getting new template
                         url = dynamicHost + '/template/quotes/add/source';
@@ -315,8 +293,6 @@ $(() => {
     // ? step 3: add the source
     .on("submit", "[data-form='quotes:add,source']", function() {
 
-        console.log('Step', 3, 'initilized: quote_id is', draftObject.quote_id);
-
         url = dynamicHost + "/do/quotes/add/source";
         formData = new FormData(this);
         formData.append("quote_id", draftObject.quote_id);
@@ -338,14 +314,10 @@ $(() => {
             processData: false,
             success: (data) => {
 
-                console.log('Step', 3, 'ajax done: quote_id is', draftObject.quote_id);
-
                 if (data.status) {
 
                     // reset draft object
                     draftObject = {};
-
-                    console.log('Step', 3, 'draftObject:', draftObject);
 
                     // make popup module hide
                     toggleActive([
@@ -357,8 +329,6 @@ $(() => {
 
                         // add the quote id to the draft object
                         draftObject.quote_id = data.quote_id;
-
-                        console.log('Step', 3, 'quote_id updated: is', draftObject.quote_id);
 
                         // prepare url for getting new template
                         url = dynamicHost + '/template/quotes/add/categories';
@@ -393,8 +363,6 @@ $(() => {
     // ? step 4: add the category
     .on("submit", "[data-form='quotes:add,category']", function() {
 
-        console.log('Step', 4, 'initilized: quote_id is', draftObject.quote_id);
-
         url = dynamicHost + "/do/quotes/add/categories";
         formData = new FormData(this);
         formData.append("quote_id", draftObject.quote_id);
@@ -417,16 +385,10 @@ $(() => {
             processData: false,
             success: (data) => {
 
-                console.log('data:', data);
-
-                console.log('Step', 4, 'ajax done: quote_id is', draftObject.quote_id);
-
                 if (data.status) {
 
                     // reset draft object
                     draftObject = {};
-
-                    console.log('Step', 4, 'draftObject:', draftObject);
 
                     // make popup module hide
                     toggleActive([
@@ -438,8 +400,6 @@ $(() => {
 
                         // add the quote id to the draft object
                         draftObject.quote_id = data.quote_id;
-
-                        console.log('Step', 4, 'quote_id updated: is', draftObject.quote_id);
 
                         // prepare url for getting new template
                         url = dynamicHost + '/template/quotes/add/review';
@@ -477,12 +437,8 @@ $(() => {
     // ? step 5: submit everything
     .on("click", "[data-action='quotes:add,all,submit']", function() {
 
-        console.log('Step', 5, 'initilized: quote_id is', draftObject.quote_id);
-
         // reassign url for xhr request
         url = dynamicHost + "/do/quotes/add/publish";
-
-        console.log('Submission started...');
 
         $.ajax({
 
@@ -492,12 +448,7 @@ $(() => {
             dataType: "JSON",
             success: (data) => {
 
-                console.log('Step', 5, 'submission successful...');
-                console.log('Data:', data);
-
                 if (data.status) {
-
-                    console.log('Step', 5, 'quote', draftObject.quote_id, 'published successfully!');
 
                     // add new overlay
                     overlay = Overlay.add(body, $(this), false, "1001", "var(--colour-lila-200)");
@@ -564,8 +515,6 @@ $(() => {
 
     let getTemplate = (url, fillModule, dataObject = {}) => {
 
-        console.log('Getting template...');
-
         let u = url;
         let m = fillModule;
         let d = dataObject;
@@ -581,8 +530,6 @@ $(() => {
             success: (data) => {
 
                 m.empty().prepend(data);
-
-                console.log('New template loaded!');
 
                 return true;
             },

@@ -1,7 +1,7 @@
 <?php
 
 # require database connection
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/config/init.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/config/init.php';
 
 # set header to json response
 header(JSON_RESPONSE_FORMAT);
@@ -66,7 +66,7 @@ if (!$insert_auth_code->status) {
 }
 
 # prepare mail body
-$mailbody = file_get_contents(ROOT . '/app/templates/mails/signup.html');
+$mailbody = file_get_contents(ROOT . '/public/app/templates/mails/signup.html');
 $mailbody = str_replace('%code%', $auth_code, $mailbody);
 
 # send mail

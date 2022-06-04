@@ -197,8 +197,6 @@ let addOverlayAppendData = function (content, append = undefined) {
     let appendTo = append;
     let $overlay;
 
-    console.log(appendTo);
-
     togglebody();
     addOverlay(appendTo);
 
@@ -227,7 +225,6 @@ let checkUsersSettings = function(action) {
         dataType: "TEXT",
         method: "POST",
         success: function(data) {
-            console.log(data);
             return true;
         },
         error: function(data) {

@@ -6,7 +6,7 @@ $subPage = "intern:updates";
 $pageTitle = "Updates";
 
 // mysql database
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/config/init.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/config/init.php";
 
 // Head section
 include_once TEMPLATES . "/global/head.php";
@@ -68,8 +68,8 @@ include_once TEMPLATES . "/global/header.php";
 
                                     <div class="dev-icon">
                                         <div class="image-outer">
-                                            <div class="actual" style="background:url(<?php echo $url->img; ?>/team/2FA27933-D484-40D5-B12E-4A454A4EF86B.JPG) center top / cover no-repeat;">
-                                                <img onload="fadeInVisOpaBg($(this).parents().eq(1))" src="<?php echo $url->img; ?>/team/2FA27933-D484-40D5-B12E-4A454A4EF86B.JPG">
+                                            <div class="actual" style="background:url(<?php echo IMAGE; ?>/team/2FA27933-D484-40D5-B12E-4A454A4EF86B.JPG) center top / cover no-repeat;">
+                                                <img onload="fadeInVisOpaBg($(this).parents().eq(1))" src="<?php echo IMAGE; ?>/team/2FA27933-D484-40D5-B12E-4A454A4EF86B.JPG">
                                             </div>
                                         </div>
                                     </div>
@@ -110,8 +110,8 @@ include_once TEMPLATES . "/global/header.php";
 
                                     ?>
                                         <div class="image-outer">
-                                            <div class="image-inr" style="background:url(<?php echo $url->img; ?>/updates/<?php echo $uimg->image; ?>) center top / cover no-repeat;">
-                                                <img onload="fadeInVisOpaBg($(this).parents().eq(1))" src="<?php echo $url->img; ?>/updates/<?php echo $uimg->image; ?>">
+                                            <div class="image-inr" style="background:url(<?php echo IMAGE; ?>/updates/<?php echo $uimg->image; ?>) center top / cover no-repeat;">
+                                                <img onload="fadeInVisOpaBg($(this).parents().eq(1))" src="<?php echo IMAGE; ?>/updates/<?php echo $uimg->image; ?>">
                                             </div>
                                         </div>
 

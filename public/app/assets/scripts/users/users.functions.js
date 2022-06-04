@@ -57,9 +57,6 @@ $(function(){
                         }, 100);
                     } else {
 
-
-                        console.log(data);
-
                         $(document).find("close-overlay").click();
 
                         setTimeout(function() {
@@ -104,8 +101,6 @@ $(function(){
             contentType: false,
             processData: false,
             success: function(data) {
-
-                console.log(data);
 
                 if (data.status) {
 
@@ -220,8 +215,6 @@ $(function(){
         let action = $t.data().do;
         let dataObject = { uid: uid };
 
-        console.log('Requesting friendship: user_id:', uid);
-
         let url;
 
         switch (action) {
@@ -250,8 +243,6 @@ $(function(){
                             // set new action
                             $t.data('do', 'cancel_request');
 
-                            console.log('Friendrequest has been sent!');
-
                             break;
                         case 'cancel_request':
                             $t.removeClass('cancel_request');
@@ -260,15 +251,11 @@ $(function(){
                             // set new action
                             $t.data('do', 'request');
 
-                            console.log('Friendrequest has been canceled!');
-
                             break;
                     }
 
                     return;
                 }
-
-                console.log('Request could not been sent: user_id:', uid);
 
                 showErrorModule(data.message);
             },
@@ -300,9 +287,6 @@ $(function(){
                 break;
         }
 
-        console.log('Init answering friend request. Requesting user_id:', user_sent_id);
-        console.log('URL is:', url);
-
         $.ajax({
 
             url: url,
@@ -311,11 +295,7 @@ $(function(){
             dataType: "JSON",
             success: (data) => {
 
-                console.log('Ajax done');
-
                 if (data.status) {
-
-                console.log('Status is true');
 
                     // delete container with request
                     $request_outer.remove();
@@ -323,20 +303,12 @@ $(function(){
                     // switch through action cases for different behavior
                     switch (data.action) {
                         case 'accept_request':
-
-                            console.log('Friendrequest has been accepted!');
                             break;
                         case 'cancel_request':
-
-
-
-                            console.log('Friendrequest has been canceled!');
                             break;
                     }
                     return;
                 }
-
-                console.log('Status is false. Something went wrong');
             },
 
             // kinda stinks with timeout
@@ -427,8 +399,6 @@ let usersSaveSettings = function(form) {
         url: url,
         data: f,
         success: function(data) {
-
-            console.log(data);
 
         },
         error: function(data) {

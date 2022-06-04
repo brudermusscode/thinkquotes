@@ -6,7 +6,7 @@ $subPage = "intern:team";
 $pageTitle = "Team of Development";
 
 // mysql database
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/config/init.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/config/init.php";
 
 // Head section
 include_once TEMPLATES . "/global/head.php";
@@ -49,7 +49,7 @@ include_once TEMPLATES . "/global/header.php";
                                             <i class="material-icons"><?php echo $member->icon; ?></i>
                                         </div>
                                         <div class="image-outer">
-                                            <div class="actual" style="background-image:url(<?php echo $url->img; ?>/<?php echo $member->image; ?>);">
+                                            <div class="actual" style="background-image:url(<?php echo IMAGE; ?>/<?php echo $member->image; ?>);">
                                                 <img src="">
                                             </div>
                                         </div>

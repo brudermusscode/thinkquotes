@@ -1,7 +1,7 @@
 <?php
 
 # require database connection
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/config/init.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/config/init.php';
 
 # set the header response to format json
 header(JSON_RESPONSE_FORMAT);
@@ -22,11 +22,10 @@ $pdo->beginTransaction();
 $q =
   "SELECT *
   FROM users_friends_requests
-  WHERE ((sent = ? AND got = ?)
-  OR (sent = ? AND got = ?))
+  WHERE (sent = ? AND got = ?)
   AND id = ?
   LIMIT 1";
-$get_friend_request = $THQ->select($pdo, $q, [$my->uid, $user_id, $user_id, $my->uid, $id], false);
+$get_friend_request = $THQ->select($pdo, $q, [$user_id, $my->uid, $id], false);
 
 if (!$get_friend_request->status || !$get_friend_request->stmt->rowCount() > 0) {
   $return->message = get_return_message_with(1);

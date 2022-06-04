@@ -5,8 +5,8 @@
 use PHPMailer\PHPMailer\PHPMailer;
 
 # auto load composer libs
-include dirname($_SERVER['DOCUMENT_ROOT']) . "/vendor/autoload.php";
-include_once dirname($_SERVER['DOCUMENT_ROOT']) . "/config/definitions.php";
+include $_SERVER['DOCUMENT_ROOT'] . "/vendor/autoload.php";
+include_once $_SERVER['DOCUMENT_ROOT'] . "/config/definitions.php";
 
 
 $THQ = new Thinkquotes($pdo);
@@ -254,7 +254,7 @@ class Thinkquotes extends Db
         $environment = $this->getEnvironment();
 
         # check current environment and get correct connection.json
-        $smtp_connection_file = PREROOT . "/config/mail/smtp.connection." . $environment . ".json";
+        $smtp_connection_file = ROOT . "/config/mail/smtp.connection." . $environment . ".json";
 
         # validate file existence
         if (!file_exists($smtp_connection_file))
@@ -279,15 +279,6 @@ class Thinkquotes extends Db
         $mail->SMTPAuth = true;
         $mail->Username = $mail_config->smtp->username;
         $mail->Password = $mail_config->smtp->password;
-        // $mail->AuthType = 'XOAUTH2';
-
-        // Create and pass GoogleOauthClient to PHPMailer
-        // $oauthTokenProvider = new \GoogleOauthClient(
-        //     'someone@gmail.com',
-        //     'path/to/gmail-xoauth2-credentials.json',
-        //     'path/to/gmail-xoauth-token.json'
-        // );
-        // $mail->setOAuth($oauthTokenProvider);
 
         // Recipients
         $mail->setFrom('noreply@thinkquotes.de', $web_information->name);

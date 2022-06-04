@@ -1,7 +1,7 @@
 <?php
 
 # require database connection
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . '/config/init.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/config/init.php';
 
 exit(login($pdo, $sign, $return, $THQ, $main, $dev_env));
 
@@ -50,7 +50,7 @@ function login($pdo, $sign, $return, $THQ, $web_information, $dev_env)
   }
 
   # prepare mail body
-  $mailbody = file_get_contents(ROOT . '/app/templates/mails/signup.html');
+  $mailbody = file_get_contents(ROOT . '/public/app/templates/mails/signup.html');
   $mailbody = str_replace('%code%', $code, $mailbody);
 
   # send mail

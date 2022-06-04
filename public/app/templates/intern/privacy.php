@@ -6,7 +6,7 @@ $subPage = "intern:privacy";
 $pageTitle = "Privacy Policies";
 
 // mysql database
-require_once dirname($_SERVER['DOCUMENT_ROOT']) . "/config/init.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/config/init.php";
 
 // Head section
 include_once TEMPLATES . "/global/head.php";
@@ -47,7 +47,7 @@ include_once TEMPLATES . "/global/header.php";
                     <p class="trimt">Verantwortlicher</p>
 
                     <div class="nice-render-outer">
-                        <div class="nice-render" style="background:url(<?php echo $url->img; ?>/intern/400/28.png) top center / cover no-repeat;">
+                        <div class="nice-render" style="background:url(<?php echo IMAGE; ?>/intern/400/28.png) top center / cover no-repeat;">
                         </div>
                     </div>
                 </div>
@@ -58,23 +58,31 @@ include_once TEMPLATES . "/global/header.php";
                     <p>49377 Vechta</p>
                     <p>Deutschland</p>
 
-                    <div class="mt12">
-                        <p class="posrel lt mr12" style="color:white;background:var(--colour-red);border-radius:50%;height:32px;width:32px;">
-                            <i class="posabs alignmiddle material-icons std">alternate_email</i>
-                        </p>
-                        <p class="lt mt6">E-Mail Adresse: <a href="mailto:hou@thinkquotes.de">hou@thinkquotes.de</a></p>
+                    <a href="mailto:justinleonseidel@proton.me" target="_blank">
+                        <div class="rd12 p12 mt12 mb12" style="background:rgba(0,0,0,.04);">
+                            <div class="posrel lt mr12 rd12" style="color:white;background:var(--colour-orange);height:42px;width:42px;font-size:1.2em;">
+                                <i class="posabs alignmiddle ri-fingerprint-line"></i>
+                            </div>
+                            <div class="lt" style="line-height:1em;padding-top:.2em;">
+                                <div style="font-size:.8em;text-transform:uppercase;color:rgba(0,0,0,.32);">E-Mail</div>
+                                <div>justinleonseidel@proton.me</div>
+                            </div>
+                            <div class="cl"></div>
+                        </div>
+                    </a>
 
-                        <div class="cl"></div>
-                    </div>
-
-                    <div>
-                        <p class="posrel lt mr12" style="color:white;background:var(--colour-bluegrey);border-radius:50%;height:32px;width:32px;">
-                            <span class="posabs alignmiddle material-icons std">web</span>
-                        </p>
-                        <p class="lt mt6">Impressum: <a href="<?php echo $url->intern; ?>/imprint"><?php echo $url->intern; ?>/imprint</a></p>
-
-                        <div class="cl"></div>
-                    </div>
+                    <a href="<?php echo $url->intern; ?>/imprint" target="_blank">
+                        <div class="rd12 p12" style="background:rgba(0,0,0,.04);">
+                            <div class="posrel lt mr12 rd12" style="color:white;background:var(--colour-green);height:42px;width:42px;font-size:1.2em;">
+                                <i class="posabs alignmiddle ri-file-list-3-fill"></i>
+                            </div>
+                            <div class="lt" style="line-height:1em;padding-top:.2em;">
+                                <div style="font-size:.8em;text-transform:uppercase;color:rgba(0,0,0,.32);">Link-To</div>
+                                <div>Impressum</div>
+                            </div>
+                            <div class="cl"></div>
+                        </div>
+                    </a>
 
                 </div>
             </div>
@@ -84,7 +92,7 @@ include_once TEMPLATES . "/global/header.php";
                     <p class="trimt">Inhaltsübersicht</p>
 
                     <div class="nice-render-outer">
-                        <div class="nice-render" style="background:url(<?php echo $url->img; ?>/intern/400/16.png) top center / cover no-repeat;">
+                        <div class="nice-render" style="background:url(<?php echo IMAGE; ?>/intern/400/16.png) top center / cover no-repeat;">
                         </div>
                     </div>
                 </div>
@@ -116,7 +124,7 @@ include_once TEMPLATES . "/global/header.php";
                     <p class="trimt">Übersicht der Verarbeitung</p>
 
                     <div class="nice-render-outer">
-                        <div class="nice-render" style="background:url(<?php echo $url->img; ?>/intern/400/render_856.png) top center / cover no-repeat;">
+                        <div class="nice-render" style="background:url(<?php echo IMAGE; ?>/intern/400/render_856.png) top center / cover no-repeat;">
                         </div>
                     </div>
                 </div>
@@ -190,7 +198,7 @@ include_once TEMPLATES . "/global/header.php";
                     <p class="trimt">Sicherheitsmaßnahmen</p>
 
                     <div class="nice-render-outer">
-                        <div class="nice-render" style="width:400px;background:url(<?php echo $url->img; ?>/intern/400/24.png) top center / cover no-repeat;">
+                        <div class="nice-render" style="width:400px;background:url(<?php echo IMAGE; ?>/intern/400/24.png) top center / cover no-repeat;">
                         </div>
                     </div>
                 </div>
@@ -209,7 +217,7 @@ include_once TEMPLATES . "/global/header.php";
                     <p class="trimt">Datenverarbeitung in Drittländern</p>
 
                     <div class="nice-render-outer">
-                        <div class="nice-render" style="background:url(<?php echo $url->img; ?>/intern/400/06.png) top center / cover no-repeat;">
+                        <div class="nice-render" style="background:url(<?php echo IMAGE; ?>/intern/400/06.png) top center / cover no-repeat;">
                         </div>
                     </div>
                 </div>
@@ -226,7 +234,7 @@ include_once TEMPLATES . "/global/header.php";
                     <p class="trimt">Löschung von Daten</p>
 
                     <div class="nice-render-outer">
-                        <div class="nice-render" style="background:url(<?php echo $url->img; ?>/intern/400/05.png) top center / cover no-repeat;">
+                        <div class="nice-render" style="background:url(<?php echo IMAGE; ?>/intern/400/05.png) top center / cover no-repeat;">
                         </div>
                     </div>
                 </div>
@@ -244,7 +252,7 @@ include_once TEMPLATES . "/global/header.php";
                     <p class="trimt">Einsatz von Cookies</p>
 
                     <div class="nice-render-outer">
-                        <div class="nice-render" style="background:url(<?php echo $url->img; ?>/intern/400/render_819.png) top center / cover no-repeat;">
+                        <div class="nice-render" style="background:url(<?php echo IMAGE; ?>/intern/400/render_819.png) top center / cover no-repeat;">
                         </div>
                     </div>
                 </div>
@@ -279,7 +287,7 @@ include_once TEMPLATES . "/global/header.php";
                     <p class="trimt">Bereitstellung des Onlineangebots und Webhosting</p>
 
                     <div class="nice-render-outer">
-                        <div class="nice-render" style="background:url(<?php echo $url->img; ?>/intern/400/02.png) top center / cover no-repeat;">
+                        <div class="nice-render" style="background:url(<?php echo IMAGE; ?>/intern/400/02.png) top center / cover no-repeat;">
                         </div>
                     </div>
                 </div>
@@ -305,7 +313,7 @@ include_once TEMPLATES . "/global/header.php";
                     <p class="trimt">Registrierung, Anmeldung und Nutzerkonto</p>
 
                     <div class="nice-render-outer">
-                        <div class="nice-render" style="background:url(<?php echo $url->img; ?>/intern/400/01.png) top center / cover no-repeat;">
+                        <div class="nice-render" style="background:url(<?php echo IMAGE; ?>/intern/400/01.png) top center / cover no-repeat;">
                         </div>
                     </div>
                 </div>
@@ -334,7 +342,7 @@ include_once TEMPLATES . "/global/header.php";
                     <p class="trimt">Webanalyse, Monitoring und Optimierung</p>
 
                     <div class="nice-render-outer">
-                        <div class="nice-render" style="background:url(<?php echo $url->img; ?>/intern/400/04.png) top center / cover no-repeat;">
+                        <div class="nice-render" style="background:url(<?php echo IMAGE; ?>/intern/400/04.png) top center / cover no-repeat;">
                         </div>
                     </div>
                 </div>
@@ -367,7 +375,7 @@ include_once TEMPLATES . "/global/header.php";
                     <p class="trimt">Onlinemarketing</p>
 
                     <div class="nice-render-outer">
-                        <div class="nice-render" style="background:url(<?php echo $url->img; ?>/intern/400/15.png) top center / cover no-repeat;">
+                        <div class="nice-render" style="background:url(<?php echo IMAGE; ?>/intern/400/15.png) top center / cover no-repeat;">
                         </div>
                     </div>
                 </div>
@@ -426,7 +434,7 @@ include_once TEMPLATES . "/global/header.php";
                     <p class="trimt">Plugins und eingebettete Funktionen sowie Inhalte</p>
 
                     <div class="nice-render-outer">
-                        <div class="nice-render" style="background:url(<?php echo $url->img; ?>/intern/400/20.png) top center / cover no-repeat;">
+                        <div class="nice-render" style="background:url(<?php echo IMAGE; ?>/intern/400/20.png) top center / cover no-repeat;">
                         </div>
                     </div>
                 </div>
@@ -471,7 +479,7 @@ include_once TEMPLATES . "/global/header.php";
                     <p class="trimt">Änderung und Aktualisierung der Datenschutzerklärung</p>
 
                     <div class="nice-render-outer">
-                        <div class="nice-render" style="background:url(<?php echo $url->img; ?>/intern/400/08.png) top center / cover no-repeat;">
+                        <div class="nice-render" style="background:url(<?php echo IMAGE; ?>/intern/400/08.png) top center / cover no-repeat;">
                         </div>
                     </div>
                 </div>
@@ -489,7 +497,7 @@ include_once TEMPLATES . "/global/header.php";
                     <p class="trimt">Rechte der betroffenen Personen</p>
 
                     <div class="nice-render-outer">
-                        <div class="nice-render" style="background:url(<?php echo $url->img; ?>/intern/400/09.png) top center / cover no-repeat;">
+                        <div class="nice-render" style="background:url(<?php echo IMAGE; ?>/intern/400/09.png) top center / cover no-repeat;">
                         </div>
                     </div>
                 </div>
@@ -515,7 +523,7 @@ include_once TEMPLATES . "/global/header.php";
                     <p class="trimt">Begriffsdefinitionen</p>
 
                     <div class="nice-render-outer">
-                        <div class="nice-render" style="background:url(<?php echo $url->img; ?>/intern/400/12.png) top center / cover no-repeat;">
+                        <div class="nice-render" style="background:url(<?php echo IMAGE; ?>/intern/400/12.png) top center / cover no-repeat;">
                         </div>
                     </div>
                 </div>

@@ -5,8 +5,7 @@
 # configuration files
 /config/db/connection.prod.json
 /config/ftp
-/config/mail/*
-!/config/mail/
+/config/mail
 
 # libraries
 /vendor

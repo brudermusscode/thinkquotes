@@ -119,8 +119,6 @@ $(function(){
             dataType: "JSON",
             success: (data) => {
 
-                console.log(data);
-
                 // get current count container
                 newCount = $reactCount.html();
 

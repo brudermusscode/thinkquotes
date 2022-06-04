@@ -4,7 +4,7 @@
 session_start();
 
 # auto load composer libs
-include dirname($_SERVER['DOCUMENT_ROOT']) . "/vendor/autoload.php";
+include $_SERVER['DOCUMENT_ROOT'] . "/vendor/autoload.php";
 
 # require new database connection
 require_once "db/connect.php";
@@ -14,12 +14,12 @@ require_once "db/connect.php";
 if ($db->getEnvironment() == 'dev') $dev_env = true;
 
 # include all models
-include_once ROOT . "/app/models/Thinkquotes.php";
-include_once ROOT . "/app/models/Sign.php";
-include_once ROOT . "/app/models/Time.php";
-include_once ROOT . "/app/models/Collection.php";
-include_once ROOT . "/app/models/Friends.php";
-include_once ROOT . "/app/models/User.php";
+include_once ROOT . "/public/app/models/Thinkquotes.php";
+include_once ROOT . "/public/app/models/Sign.php";
+include_once ROOT . "/public/app/models/Time.php";
+include_once ROOT . "/public/app/models/Collection.php";
+include_once ROOT . "/public/app/models/Friends.php";
+include_once ROOT . "/public/app/models/User.php";
 
 # get system settings
 # TODO: outsource into class and just call a function
@@ -29,7 +29,6 @@ $systemInformation = $stmt->fetch();
 
 $main = (object) [
   "name" => $systemInformation->name,
-  "year" => $systemInformation->year,
   "maintenance" => $systemInformation->maintenance,
   "displayerrors" => $systemInformation->displayerrors,
   "fulldate" => date("Y-m-d H:i:s")
@@ -41,9 +40,9 @@ $url = (object) [
   "intern" => $systemInformation->intern,
   "mobile" => $systemInformation->mobile,
   "error" => $systemInformation->error,
-  "css" => $systemInformation->css,
-  "js" => $systemInformation->js,
-  "img" => $systemInformation->img,
+  "styles" => $systemInformation->styles,
+  "scripts" => $systemInformation->scripts,
+  "images" => $systemInformation->images,
   "icons" => $systemInformation->icons,
   "sounds" => $systemInformation->sounds,
 ];
@@ -53,23 +52,25 @@ $sroot = ROOT;
 
 # define things
 define("LOGGED", $sign->isAuthed());
-define("IMAGES", $url->img);
+define("IMAGE", $url->images);
+define("SCRIPT", $url->scripts);
+define("STYLE", $url->styles);
+define("SOUND", $url->sounds);
+define("ICON", $url->icons);
 
 # create dynamic return for xhr requests to manage
 # output responsively
+$return = (object) [
+  "status" => false,
+  "message" => "A wild error appeared, fight it!"
+];
+
+# add request & session data to return object for debugging
+# only when dev env is inititialized
 if ($dev_env) {
-  $return = (object) [
-    "status" => false,
-    "message" => "A wild error appeared, fight it!",
-    "init" => [
-      "request" => $_REQUEST,
-      "session" => $_SESSION
-    ]
-  ];
-} else {
-  $return = (object) [
-    "status" => false,
-    "message" => "A wild error appeared, fight it!"
+  $return->init = [
+    "request" => $_REQUEST,
+    "session" => $_SESSION
   ];
 }
 
