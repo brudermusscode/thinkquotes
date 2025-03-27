@@ -1,0 +1,58 @@
+networks:
+  default:
+    name: dev-bridge
+    external: true
+
+x-env: &x-env
+  environment:
+    MYSQL_DATABASE: ${MYSQL_DATABASE}
+    MYSQL_HOST: ${MYSQL_HOST}
+    MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+
+x-web: &x-web # <<: *x-env
+  build:
+    context: .
+    dockerfile: Dockerfile
+  restart: on-failure
+  tty: true
+
+services:
+  php:
+    build:
+      context: ./docker/dev/php
+      dockerfile: Dockerfile
+    volumes:
+      - .:/data
+    networks:
+      default:
+        aliases:
+          - thinkquotes-frontend-php
+
+  web:
+    <<: *x-web
+    volumes_from:
+      - php
+    command: ["nginx"]
+    ports:
+      - 80:80
+    depends_on:
+      - php
+    networks:
+      default:
+        aliases:
+          - thinkquotes-frontend-web
+
+  node:
+    image: node:latest
+    working_dir: /data
+    volumes_from:
+      - php
+    command: npm run dev
+    environment:
+      - NODE_ENV=development
+      - WATCHPACK_POLLING=true
+    depends_on:
+      - php
+    restart: always
+    ports:
+      - "8080:8080"

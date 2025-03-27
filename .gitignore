@@ -1,0 +1,11 @@
+bin
+vendor
+node_modules
+*-lock.json
+*.lock
+.env
+
+/config/security/tokens.secret
+
+/storage/logs/*
+!/storage/logs/.gitkeep

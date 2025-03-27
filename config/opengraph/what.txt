@@ -1,0 +1,2 @@
+OpenGraph creates the option to show links as a nice card in
+social media apps like Discord or Twitter.

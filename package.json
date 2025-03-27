@@ -1,0 +1,50 @@
+{
+  "name": "brudermusscode_thinkquotes",
+  "version": "1.0.0",
+  "description": "Fill your mind with quotes.",
+  "main": "index.js",
+  "author": "brudermusscode",
+  "license": "UNLICENSED",
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "dev": "rspack serve --config xbundler.dev.js",
+    "prod": "rspack --config xbundler.prod.js",
+    "discord-vote-reminder": "node discord-vote-reminder.js"
+  },
+  "dependencies": {
+    "axios": "^1.7.2",
+    "copyfiles": "^2.4.1",
+    "discord.js": "^14.15.3",
+    "expose-loader": "^4.1.0",
+    "js-cookie": "^3.0.5",
+    "material-symbols": "^0.14.7",
+    "node": "^20.15.0",
+    "node-cron": "^3.0.3",
+    "npm-run-all": "^1.8.0",
+    "onchange": "^7.1.0",
+    "postcss-cli": "^9.1.0",
+    "siimple-icons": "^4.3.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.24.7",
+    "@babel/preset-env": "^7.24.7",
+    "@prettier/plugin-php": "^0.22.2",
+    "@rspack/cli": "^0.7.5",
+    "@rspack/core": "^0.7.5",
+    "autoprefixer": "^10.4.19",
+    "babel-loader": "^8.3.0",
+    "css-loader": "^6.11.0",
+    "cssnano": "^6.1.2",
+    "node-sass": "^9.0.0",
+    "parallelshell": "^3.0.2",
+    "postcss": "^8.4.39",
+    "postcss-loader": "^7.3.4",
+    "postcss-nested": "^6.0.1",
+    "prettier": "^3.3.2",
+    "resolve-url-loader": "^5.0.0",
+    "sass": "^1.81.0",
+    "sass-embedded": "^1.77.5",
+    "sass-loader": "^16.0.3",
+    "style-loader": "^3.3.4"
+  }
+}

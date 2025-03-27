@@ -1,0 +1,34 @@
+{
+  "name": "brudermusscode/thinkquotes",
+  "type": "project",
+  "authors": [
+    {
+      "name": "brudermusscode",
+      "email": "bruder@heia.kim"
+    }
+  ],
+  "minimum-stability": "dev",
+  "require": {
+    "predis/predis": "^3.0@alpha",
+    "ethanhann/redisearch-php": "dev-main",
+    "illuminate/database": "^12.0",
+    "foroco/php-browser-detection": "dev-master",
+    "paragonie/constant_time_encoding": "dev-master",
+    "laravel/serializable-closure": "^2.0@dev"
+  },
+  "autoload": {
+    "psr-4": {
+      "Bruder\\": "app/build/",
+      "Bruder\\Model\\": "app/models/",
+      "Bruder\\Controller\\": "app/controllers/",
+      "Bruder\\Trait\\": "app/traits/",
+      "Bruder\\Enum\\": "app/enums/",
+      "Bruder\\Bin\\Classes\\": "bin/classes/"
+    }
+  },
+  "require-dev": {
+    "spekulatius/phpscraper": "dev-master",
+    "symfony/dom-crawler": "6.0.x-dev",
+    "guzzlehttp/guzzle": "8.0.x-dev"
+  }
+}

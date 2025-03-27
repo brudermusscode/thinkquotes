@@ -1,0 +1,128 @@
+@use "../abstract" as *;
+
+responder {
+  display: block;
+  bottom: -100px;
+  left: 50%;
+  translate: -50% 0;
+  position: fixed;
+  z-index: $endless-z-index + 2001;
+  transition: $trans-cubic;
+  max-width: 48em;
+  padding-inline: 18px 12px;
+  padding-block: 16px;
+
+  &[error] {
+    background: #641b16;
+    color: $light;
+
+    a {
+      color: $light;
+    }
+  }
+
+  &[feedback] {
+    background: #edc144;
+    color: $dark;
+
+    a {
+      color: $dark;
+    }
+  }
+
+  &[premium] {
+    background: #416754;
+    color: $light;
+
+    a {
+      color: $light;
+    }
+  }
+
+  &[success] {
+    @include themed() {
+      background: t(box-invert);
+      color: t(text-invert);
+
+      a {
+        color: t(text-invert);
+      }
+    }
+  }
+
+  [close-responder] {
+    cursor: pointer;
+    margin-left: 24px;
+
+    &:hover {
+      opacity: 0.6;
+    }
+  }
+
+  [message] {
+    a {
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 6px;
+      margin-inline: 2px;
+      text-wrap: nowrap;
+
+      &:not([disabled]) {
+        cursor: pointer;
+      }
+
+      @include themed() {
+        background: t(slight-hover-invert);
+      }
+
+      display: inline-flex;
+      align-items: center;
+
+      &:hover {
+        opacity: 0.6;
+      }
+    }
+
+    [tag] {
+      @include themed() {
+        background: t(slight-hover-invert);
+      }
+
+      mi {
+        display: inline-block;
+        padding-top: 0px;
+      }
+
+      border-radius: 6px;
+      padding-inline: 6px;
+      padding-block: 2px;
+      align-items: center;
+      color: inherit;
+      text-wrap: nowrap;
+    }
+  }
+
+  &[active] {
+    bottom: 16px;
+  }
+
+  &[deleted] {
+    bottom: -100px;
+  }
+
+  @media screen and (max-width: 800px) {
+    top: -100px;
+    bottom: initial !important;
+    left: 16px;
+    translate: 0 0;
+    width: calc(100% - 2 * 48px);
+
+    &[active] {
+      top: 16px;
+    }
+
+    &[deleted] {
+      top: -100px;
+    }
+  }
+}

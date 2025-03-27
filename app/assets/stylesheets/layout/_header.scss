@@ -1,0 +1,98 @@
+@use "../abstract" as *;
+
+header {
+  @include themed() {
+    &[author] {
+      position: fixed;
+      top: 0.62em;
+      left: 0.62em;
+      width: calc(100vw - 1.24em);
+      height: 18em;
+      border-radius: 12px;
+      padding-inline: 4.2em;
+      padding-block: 2.8em;
+      transition: $trans-cubic;
+      background: $yellow-dark;
+
+      &[scrolled="true"] {
+        scale: 0.98;
+        opacity: 0.08;
+      }
+    }
+
+    #logo {
+      position: absolute;
+      top: 1.4em;
+      left: 50%;
+      translate: -50% 0;
+
+      [logo-icon] {
+        cursor: pointer;
+        position: relative;
+
+        [logo-icon-actual] {
+          &:hover {
+            scale: 0.96;
+            transition: $trans-cubic;
+          }
+        }
+      }
+
+      &[loading] {
+        [logo-icon] {
+          [logo-icon-actual] {
+            scale: 0.82;
+          }
+
+          .path-loader {
+            visibility: visible;
+            opacity: 1;
+          }
+        }
+      }
+    }
+
+    &[main] {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      padding-block: 1.2em;
+      z-index: 10000;
+      transition: $trans-cubic;
+
+      &[inactive] {
+        top: -100px;
+        opacity: 0;
+      }
+
+      [inr] {
+        width: 100%;
+        padding-inline: 4.2em;
+
+        nav {
+          .n-option {
+            font-size: 1.2em;
+
+            &[active] {
+              background: t(active);
+              color: t(text-invert);
+              font-weight: bold;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+[divide="line"] {
+  height: 1px;
+  width: 100%;
+
+  &:not([background]) {
+    @include themed() {
+      background: t(slighter-hover);
+    }
+  }
+}

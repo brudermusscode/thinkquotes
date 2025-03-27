@@ -1,0 +1,114 @@
+@use "../abstract" as *;
+
+[color] {
+  @include themed() {
+    color: t(text);
+
+    &[color="invert"],
+    &[color="dynamic-invert"] {
+      color: t(text-invert);
+    }
+
+    &[color="active"] {
+      color: t(active);
+    }
+
+    &[color="active-text"] {
+      color: t(active-text);
+    }
+
+    &[color="verified"] {
+      color: t(text);
+    }
+  }
+
+  &[color="white"] {
+    color: white;
+  }
+
+  &[color="pink"] {
+    color: $pink;
+  }
+
+  &[color="green"] {
+    color: $green;
+  }
+
+  &[color="light-green"] {
+    color: #f3f6ea;
+  }
+
+  &[color="light-grey"] {
+    color: $grey-light;
+  }
+
+  &[color="grey"] {
+    color: $grey;
+  }
+
+  &[color="red"] {
+    color: $red;
+  }
+
+  &[color="purple"] {
+    color: $purple;
+  }
+
+  &[color="yellow"] {
+    color: $yellow;
+  }
+
+  &[color="orange"] {
+    color: $orange;
+  }
+
+  &[color="blue"] {
+    color: $blue;
+  }
+
+  &[color="blue"] {
+    color: $blue;
+  }
+
+  &[color="dark-green"] {
+    color: $green-dark;
+  }
+
+  &[color="dark-red"] {
+    color: $red-dark;
+  }
+
+  &[color="dark-orange"] {
+    color: $orange-dark;
+  }
+
+  &[color="dark-blue"] {
+    color: $blue-dark;
+  }
+
+  &[color="light"] {
+    color: $light;
+  }
+
+  &[color="dark"] {
+    color: $dark;
+  }
+
+  &[color="opacied"] {
+    &[dark] {
+      color: rgba(0, 0, 0, 0.12);
+    }
+
+    &[light] {
+      color: rgba(255, 255, 255, 0.12);
+    }
+  }
+
+  &[color="discord-blue"] {
+    color: $discord-blue;
+  }
+
+  &[color="google-blue"] {
+    color: #4285f4;
+  }
+}

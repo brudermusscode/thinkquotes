@@ -1,0 +1,146 @@
+@use "../abstract" as *;
+
+[background] {
+  &[background="transparent"] {
+    background: transparent;
+  }
+
+  @include themed() {
+    &[background="bg"] {
+      background: t(bg);
+    }
+
+    &[background="dynamic-invert"],
+    &[background="invert"] {
+      background: t(box-invert);
+    }
+
+    &[background="dynamic"] {
+      background: t(box);
+    }
+
+    &[background="hover"] {
+      background: t(hover);
+    }
+
+    &[background="hover-invert"] {
+      background: t(hover-invert);
+    }
+
+    &[background="slighter"] {
+      background: t(slighter-hover);
+    }
+
+    &[background="slight"] {
+      background: t(slight-hover);
+    }
+
+    &[background="slight-invert"] {
+      background: t(slight-hover-invert);
+    }
+  }
+
+  &[background="light"] {
+    background: $light;
+  }
+
+  &[background="dark"] {
+    background: $dark;
+  }
+
+  &[background="pink"] {
+    background: $pink;
+  }
+
+  &[background="light-pink"] {
+    background: $pink-light;
+  }
+
+  &[background="dark-pink"] {
+    background: $pink-dark;
+  }
+
+  &[background="dark-green"] {
+    background: $green-dark;
+  }
+
+  &[background="green"] {
+    background: $green;
+  }
+
+  &[background="light-green"] {
+    background: $green-light;
+  }
+
+  &[background="light-grey"] {
+    background: rgba(0, 0, 0, 0.04);
+  }
+
+  &[background="light-blue"] {
+    background: $blue-light;
+  }
+
+  &[background="dark-blue"] {
+    background: $blue-dark;
+  }
+
+  &[background="blue"] {
+    background: $blue;
+  }
+
+  &[background="discord-blue"] {
+    background: $discord-blue;
+  }
+
+  &[background="paypal-blue"] {
+    background: $paypal-blue;
+  }
+
+  &[background="youtube-red"] {
+    background: $youtube-red;
+  }
+
+  &[background="red"] {
+    background: $red;
+  }
+
+  &[background="light-red"] {
+    background: $red-light;
+  }
+
+  &[background="yellow"] {
+    background: $yellow;
+  }
+
+  &[background="orange"] {
+    background: $orange;
+  }
+
+  &[background="white"] {
+    background: white;
+  }
+
+  &[background="purple"] {
+    background: $purple;
+  }
+
+  &[background="lilac"] {
+    background: #351a5c;
+  }
+
+  &[background="slight-red"] {
+    background: $red-light;
+  }
+
+  &[background="slight-green"] {
+    background: $green-light;
+  }
+
+  &[background="slight-blue"] {
+    background: $blue-light;
+  }
+
+  &[background="slight-orange"] {
+    background: $orange-light;
+  }
+}

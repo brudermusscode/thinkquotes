@@ -1,0 +1,11 @@
+# robots.txt for https://www.thinkquot.es
+
+User-Agent: *
+Allow: /$
+Allow: /sitemap.xml
+Allow: /favicon.ico
+
+Disallow: /hurenoshn
+
+
+Sitemap: https://www.thinkquot.es/sitemap.xml

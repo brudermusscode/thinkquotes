@@ -1,0 +1,37 @@
+@charset "UTF-8";
+
+// * import abstracts index file
+@use "abstract";
+
+// * include themes index file
+@use "themes";
+
+// * import components
+@use "components/background";
+@use "components/color";
+@use "components/content";
+@use "components/button-model";
+@use "components/scrollbars";
+@use "components/animations";
+@use "components/elements";
+@use "components/responder";
+@use "components/input";
+@use "components/img";
+@use "components/box-model";
+@use "components/loader";
+@use "components/picture";
+@use "components/overlay";
+@use "components/tooltip";
+@use "components/select-model";
+@use "components/progress-bar";
+@use "components/toggle-switch";
+@use "components/app";
+
+// * import layout
+@use "layout/header";
+
+// * import pages
+@use "pages/home";
+
+// Responsiveness
+@use "layout/responsiveness.scss";

@@ -1,0 +1,15 @@
+CREATE TABLE votes (
+  id INT NOT NULL AUTO_INCREMENT,
+  user_id INT NOT NULL,
+  reference_id INT NOT NULL,
+  reference_type VARCHAR(24) NOT NULL,
+  vote_type TINYINT NOT NULL,
+
+  deleted_at TIMESTAMP NULL,
+  updated_at TIMESTAMP NULL,
+  created_at TIMESTAMP NULL default CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+-- ALTER TABLE votes
+--   ADD is_default TINYINT DEFAULT 0 AFTER product_id;

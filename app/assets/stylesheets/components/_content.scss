@@ -1,0 +1,80 @@
+@use "../abstract" as *;
+
+[content-width] {
+  max-width: var(--content-width);
+  margin-inline: auto;
+  width: 100%;
+
+  &[content-width="widester"] {
+    max-width: 1820px;
+    margin-inline: auto;
+  }
+
+  &[content-width="widest"] {
+    max-width: 1620px;
+    margin-inline: auto;
+  }
+
+  &[content-width="wider"] {
+    max-width: 1420px;
+    margin-inline: auto;
+  }
+
+  &[content-width="wide"] {
+    max-width: $content-width;
+    margin-inline: auto;
+  }
+
+  &[content-width="pre-wide"] {
+    max-width: 1200px;
+    margin-inline: auto;
+  }
+
+  &[content-width="mid"] {
+    max-width: 1100px;
+    margin-inline: auto;
+  }
+
+  &[content-width="pre-mid"] {
+    max-width: 1000px;
+    margin-inline: auto;
+  }
+
+  &[content-width="std"] {
+    max-width: 900px;
+    margin-inline: auto;
+  }
+
+  &[content-width="pre-std"] {
+    max-width: 760px;
+    margin-inline: auto;
+  }
+
+  &[content-width="smol"] {
+    max-width: 620px;
+    margin-inline: auto;
+  }
+
+  &[content-width="smoler"] {
+    max-width: 520px;
+    margin-inline: auto;
+  }
+
+  &[content-width="smolest"] {
+    max-width: 480px;
+    margin-inline: auto;
+  }
+
+  &[content-width="smolestest"] {
+    max-width: 350px;
+    margin-inline: auto;
+  }
+}
+
+[content-gap] {
+  gap: $gap-mid;
+
+  @media screen and (max-width: 800px) {
+    gap: $gap-std;
+  }
+}
